@@ -1,0 +1,181 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    kompose.cmd: C:\WINDOWS\system32\kompose.exe convert
+    kompose.version: 1.21.0 (992df58d8)
+  creationTimestamp: null
+  labels:
+    io.kompose.service: kubeweb
+  name: kubeweb
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      io.kompose.service: kubeweb
+  strategy: {}
+  template:
+    metadata:
+      annotations:
+        kompose.cmd: C:\WINDOWS\system32\kompose.exe convert
+        kompose.version: 1.21.0 (992df58d8)
+      creationTimestamp: null
+      labels:
+        io.kompose.service: kubeweb
+    spec:
+      containers:
+      - image: dfrazzitta/kubeweb
+        imagePullPolicy: ""
+        name: kubeweb
+        ports:
+        - containerPort: 80
+        resources: {}
+      restartPolicy: Always
+      serviceAccountName: ""
+      volumes: null
+status: {}
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    kompose.cmd: C:\WINDOWS\system32\kompose.exe convert
+    kompose.version: 1.21.0 (992df58d8)
+  creationTimestamp: null
+  labels:
+    io.kompose.service: kubeweb
+  name: kubeweb
+spec:
+  ports:
+  - name: "5000"
+    port: 80
+    targetPort: 80
+  selector:
+    io.kompose.service: kubeweb
+status:
+  loadBalancer: {}
+
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    kompose.cmd: C:\WINDOWS\system32\kompose.exe convert
+    kompose.version: 1.21.0 (992df58d8)
+  creationTimestamp: null
+  labels:
+    io.kompose.service: kubeapimongo
+  name: kubeapimongo
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      io.kompose.service: kubeapimongo
+  strategy: {}
+  template:
+    metadata:
+      annotations:
+        kompose.cmd: C:\WINDOWS\system32\kompose.exe convert
+        kompose.version: 1.21.0 (992df58d8)
+      creationTimestamp: null
+      labels:
+        io.kompose.service: kubeapimongo
+    spec:
+      containers:
+      - image: dfrazzitta/kubeapimongo
+        imagePullPolicy: ""
+        name: kubeapimongo
+        ports:
+        - containerPort: 80
+        resources: {}
+      restartPolicy: Always
+      serviceAccountName: ""
+      volumes: null
+status: {}
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    kompose.cmd: C:\WINDOWS\system32\kompose.exe convert
+    kompose.version: 1.21.0 (992df58d8)
+  creationTimestamp: null
+  labels:
+    io.kompose.service: kubeapimongo
+  name: kubeapimongo
+spec:
+  ports:
+  - name: "5001"
+    port: 80
+    targetPort: 80
+  selector:
+    io.kompose.service: kubeapimongo
+status:
+  loadBalancer: {}
+
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    kompose.cmd: C:\WINDOWS\system32\kompose.exe convert
+    kompose.version: 1.21.0 (992df58d8)
+  creationTimestamp: null
+  labels:
+    io.kompose.service: kubeapi
+  name: kubeapi
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      io.kompose.service: kubeapi
+  strategy: {}
+  template:
+    metadata:
+      annotations:
+        kompose.cmd: C:\WINDOWS\system32\kompose.exe convert
+        kompose.version: 1.21.0 (992df58d8)
+      creationTimestamp: null
+      labels:
+        io.kompose.service: kubeapi
+    spec:
+      containers:
+      - image: dfrazzitta/kubeapi
+        imagePullPolicy: ""
+        name: kubeapi
+        ports:
+        - containerPort: 80
+        resources: {}
+      restartPolicy: Always
+      serviceAccountName: ""
+      volumes: null
+status: {}
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    kompose.cmd: C:\WINDOWS\system32\kompose.exe convert
+    kompose.version: 1.21.0 (992df58d8)
+  creationTimestamp: null
+  labels:
+    io.kompose.service: kubeapi
+  name: kubeapi
+spec:
+  ports:
+  - name: "5002"
+    port: 5002
+    targetPort: 80
+  selector:
+    io.kompose.service: kubeapi
+status:
+  loadBalancer: {}
+

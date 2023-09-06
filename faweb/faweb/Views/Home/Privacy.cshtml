@@ -1,0 +1,159 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+    Layout = "";
+}
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - K8SVC</title>
+    <!--
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" />
+        -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="~/css/site.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.6.0/umd/popper.min.js" integrity="sha512-BmM0/BQlqh02wuK5Gz9yrbe7VyIVwOzD1o40yi1IsTjriX/NGF37NyXHfmFzIlMmoSIBXgqDiG1VNU6kB5dBbA==" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href=" https://stackpath.bootstrapcdn.com/bootswatch/4.5.2/sketchy/bootstrap.min.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/jsoneditor/5.5.5/jsoneditor.min.css" rel="stylesheet" type="text/css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jsoneditor/5.5.5/jsoneditor.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+            <div class="container">
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">K8Svc</a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                    <ul class="navbar-nav flex-grow-1">
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">About</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="test" asp-action="index">KubeSpecifics</a>
+                        </li>
+
+                    </ul>
+
+
+                </div>
+                <partial name="_LoginPartial" />
+            </div>
+        </nav>
+    </header>
+    <div class="container">
+        <main role="main" class="pb-3">
+
+            <section class="awSlider">
+                <div class="carousel slide" data-ride="carousel">
+                    <!-- Indicators -->
+                    <ol class="carousel-indicators">
+                        <li data-target=".carousel" data-slide-to="0" class="active"></li>
+                        <li data-target=".carousel" data-slide-to="1"></li>
+                        <li data-target=".carousel" data-slide-to="2"></li>
+                        <li data-target=".carousel" data-slide-to="3"></li>
+                    </ol>
+
+                    <!-- Wrapper for slides -->
+                    <div class="carousel-inner" role="listbox">
+                        <div class="item active" data-interval="1000" style="z-index:1;">
+                            <img src="~/img/m/m1.png" />
+
+                            ">
+                            <div class="carousel-caption">Kubernetes #1</div>
+                        </div>
+                        <div class="item" data-interval="1000" style="z-index:1;">
+                            <img src="~/img/m/m2.png" />
+
+                            <div class="carousel-caption">Kubernetes #2</div>
+                        </div>
+                        <div class="item" data-interval="1000" style="z-index:1;">
+                            <img src="~/img/m/m3.png" />
+
+                            <div class="carousel-caption">Kubernetes #3</div>
+                        </div>
+                        <div class="item" data-interval="1000" style="z-index:1;">
+                            <img src="~/img/m/m4.png" />
+
+                            <div class="carousel-caption">Kubernetes #4</div>
+                        </div>
+                    </div>
+
+                    <!-- Controls -->
+                    <a class="left carousel-control" href=".carousel" role="button" data-slide="prev">
+                        <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+                        <span class="sr-only">"<"</span>
+                    </a>
+                    <a class="right carousel-control" href=".carousel" role="button" data-slide="next">
+                        <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+                        <span class="sr-only">">"</span>
+                    </a>
+                </div>
+            </section>
+
+
+
+            <a href="http://192.168.0.105/">Prometheus</a>
+            <a href="http://192.168.0.106/">Grafana</a>
+            <a href="http://192.168.0.108/">Weave Scope</a>
+            <div class="text-sm-right ">
+
+                <br />
+                <h1 class="display-12">Welcome to K8s Demo</h1>
+                <p style="text-decoration:underline; margin-left:auto; margin-right:auto;">Learn about <a href="https://kubernetes.io/docs/home/">Kubernetes Documentation</a>.</p>
+                <p style="text-decoration:underline; margin-left:auto; margin-right:auto;">Begin with  <a href="/overview/index">Resources-Main Menu-Overview</a>.</p>
+            </div>
+        </main>
+    </div>
+
+    <footer class="border-top footer text-muted">
+        <div class="container">
+            &copy; 2021 - K8SVC - <a asp-area="" asp-controller="Home" asp-action="index">K8svc Home</a>
+        </div>
+    </footer>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <!--
+    <script src="https://code.jquery.com/jquery-3.6.0.js"
+            integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
+            crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"
+            integrity="sha256-T0Vest3yCU7pafRw9r+settMBX6JkKN06dqBnpQ8d30="
+            crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
+        -->
+    <script src="~/js/site.js" asp-append-version="true"></script>
+
+</body>
+</html>
+
+
+
+
+
+
+
+ 
+
+
+
+@section scripts{
+
+
+}
+
+ 

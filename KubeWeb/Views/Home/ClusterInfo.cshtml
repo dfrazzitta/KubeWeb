@@ -1,0 +1,59 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+<div class="text-center">
+    <h1 class="display-4">Cluster Info</h1>
+    <p>Learn about <a href="https://kind.sigs.k8s.io/">Kubernetes Kind</a>.</p>
+</div>
+
+<div id="jsoneditor"></div>
+
+<div class="card text-center">
+    <div class="card-header">
+        About this Demo
+    </div>
+    <div class="card-body">
+        <h5 class="card-title">Kind v1.26</h5>
+        <p class="card-text">Includes Ingress/Metallb/</p>
+        <a href="https://kind.sigs.k8s.io/" class="btn btn-primary">Single Node yaml</a>
+        <a href="https://kind.sigs.k8s.io/docs/user/ingress//" class="btn btn-primary">Kind Ingress</a>
+        <a href="https://kind.sigs.k8s.io/docs/user/configuration/#networking/" class="btn btn-primary">Kind Networking</a>
+
+    </div>
+    <div class="card-footer text-muted">
+        <div id="jsoneditor"></div>
+        kind: Cluster
+        apiVersion: kind.x-k8s.io/v1alpha4
+        networking:
+
+        apiServerAddress: "127.0.0.1"
+
+        apiServerPort: 6443
+
+        nodes:
+
+        - role: control-plane
+
+        extraPortMappings:
+        - containerPort: 80
+        hostPort: 80
+
+        listenAddress: "127.0.0.1"
+
+        protocol: TCP
+    </div>
+</div>
+
+
+ 
+
+@section scripts {
+
+
+
+
+
+
+}

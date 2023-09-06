@@ -1,0 +1,91 @@
+﻿
+@{
+    ViewData["Title"] = "PostIt";
+}
+
+<h1>PostIt</h1>
+
+<button onclick="myFunction()">Click me</button>
+
+<button onclick="GetPodnameSpaceGet()">GetPodnamespace</button>
+
+
+<div id="jsoneditor"></div>
+
+@section scripts {
+
+    <script>
+
+        function GetPodnameSpaceGet() {
+
+            var student = [];
+            var obj = {
+                'first_name': 'krap',
+                'last_name': 'fraz',
+                'age': '45',
+            }
+            student.push(obj);
+            var obj1 = {
+                'first_name': 'bob',
+                'last_name': 'boo',
+                'age': '30',
+            }
+            student.push(obj1);
+
+            var plop = JSON.stringify(student);
+
+            $.ajax({
+                type: "GET",
+                url: '@Url.Action("GetPodnameSpaceGet")', // GetPodnameSpaceGet",
+                data: plop, //pets, //JSON.stringify(dataobject), //UserData, //{ name: hh, location: "Boston" },  //JSON.stringify(UserData), //JSON.stringify(obj), //{ id : 'test'}, //hh },
+                contentType: "application/json;charset=utf-8",
+                //contentType: "application/x-www-form-urlencoded; charset=utf-8",
+                dataType: "json",
+                success: function (response) {
+                    //alert(response);
+                    const container = document.getElementById('jsoneditor')
+
+                    const options = {
+                        mode: 'view'
+                    }
+                    editor = new JSONEditor(container, options, response)
+                },
+                error: function (response) {
+                    alert(response.responseText);
+                }
+            });
+        }
+
+
+
+        function myFunction() {
+            const container = document.getElementById('jsoneditor')
+
+            const options = {
+                mode: 'view'
+            }
+            /*
+            const json = {
+                'array': [1, 2, 3],
+                'boolean': true,
+                'null': null,
+                'number': 123,
+                'object': { 'a': 'b', 'c': 'd' },
+                'string': 'Hello World'
+            }
+            */
+
+
+            $.ajax({
+                type: "GET",
+                url: '@Url.Action("data")',
+                dataType: "json",
+            }).done(function (data) {
+                //alert(data);
+                editor = new JSONEditor(container, options, data)
+            });
+
+            //const   new JSONEditor(container, options, data)
+        }
+    </script>
+}

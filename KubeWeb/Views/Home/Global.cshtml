@@ -1,0 +1,473 @@
+﻿
+@{
+    ViewData["Title"] = "Global";
+   
+}
+
+<h1>Global</h1>
+ 
+
+@*
+<h1>@ViewData["data"]</h1>
+*@
+
+
+<button onclick="myFunction()">Click me</button>
+
+<button onclick="GetPodnameSpaceGet()">GetPodnamespace</button>
+
+
+<div id="jsoneditor"></div>
+
+@section Scripts {
+
+    <script>
+
+        function myFunction() {
+
+            alert('gggg');
+            bootbox.prompt({
+                title: 'This is a prompt with a set of checkbox inputs!',
+                value: ['1'],
+                inputType: 'checkbox',
+                inputOptions: [{
+                    text: 'Choice One',
+                    value: '1'
+                },
+                {
+                    text: 'Choice Two',
+                    value: '2'
+                },
+                {
+                    text: 'Choice Three',
+                    value: '3'
+                }],
+                callback: function (result) {
+                    console.log(result);
+                }
+            });
+        };
+
+
+
+        $(document).ready(function () {
+
+
+            $('.navbar-nav').on('click', 'a', function (e) {
+
+                // 'this' is the clicked anchor
+
+                var text = this.text;
+                var href = this.href;
+                //debugger;
+                //var lab = ["default", "krap2", "azoo3", "booster"];
+               //var val = ["default", "krap2", "azoo3", "booster"];
+                var data = [];
+               // for (var i = 0; i < 4; i++) {
+               //     data.push({ text: lab[i], value: val[i] });
+               // }
+
+
+                var pp = e.target.innerText;
+
+                //int ctr = 0;
+                if (pp == e.target.innerText) {
+
+                    e.preventDefault();
+                    jQuery.ajaxSetup({ async: false });
+                    $.ajax({
+                        type: "GET",
+                        url: '@Url.Action("GetNameSpaces")', // GetPodnameSpaceGet",
+                        data: '', //pets, //JSON.stringify(dataobject), //UserData, //{ name: hh, location: "Boston" },  //JSON.stringify(UserData), //JSON.stringify(obj), //{ id : 'test'}, //hh },
+                        contentType: "application/json;charset=utf-8",
+                        //contentType: "application/x-www-form-urlencoded; charset=utf-8",
+                        dataType: "json",
+                        success: function (response) {
+                             alert(response);
+                            //debugger;
+                            var listNames = response.items;
+                            //var data = [];
+
+                            $.each(listNames, function (key, value) {
+                                //alert(key + ": " + value);
+                               // alert(key);
+                                alert(value.metadata.name);
+                                data.push({ text: value.metadata.name, value: value.metadata.name });
+                                
+                            });
+                        },
+                        error: function (response) {
+                            alert(response.responseText);
+                        }
+                    });
+                    jQuery.ajaxSetup({ async: true });
+
+
+
+                    
+                    bootbox.prompt({
+                        title: 'This is a prompt with a set of checkbox inputs!',
+                        value: ['1'],
+                        inputType: 'checkbox',
+                        inputOptions: data,
+                        callback: function (result) {
+                            console.log(result);
+                            alert(result);
+                            $('#NameSpaceMenuXX').text(result);
+                            $('#NameSpaceMenuXX').css("color", "black")
+                            return;
+                        }
+                    });
+                    
+                    
+                   // e.preventDefault();
+
+                }
+ 
+
+                // here add to local storage;
+
+            });
+
+
+            function GetPodnameSpaceGet() {
+                var student = [];
+                var obj = {
+                    'first_name': 'krap',
+                    'last_name': 'fraz',
+                    'age': '45',
+                }
+                student.push(obj);
+                var obj1 = {
+                    'first_name': 'bob',
+                    'last_name': 'boo',
+                    'age': '30',
+                }
+                student.push(obj1);
+
+                var plop = JSON.stringify(student);
+
+                $.ajax({
+                    type: "GET",
+                    url: '@Url.Action("GetPodnameSpaceGet")', // GetPodnameSpaceGet",
+                    data: plop, //pets, //JSON.stringify(dataobject), //UserData, //{ name: hh, location: "Boston" },  //JSON.stringify(UserData), //JSON.stringify(obj), //{ id : 'test'}, //hh },
+                    contentType: "application/json;charset=utf-8",
+                    //contentType: "application/x-www-form-urlencoded; charset=utf-8",
+                    dataType: "json",
+                    success: function (response) {
+                        //alert(response);
+                        const container = document.getElementById('jsoneditor')
+
+                        const options = {
+                            mode: 'view'
+                        }
+                        editor = new JSONEditor(container, options, response)
+                    },
+                    error: function (response) {
+                        alert(response.responseText);
+                    }
+                });
+            }
+            // end of function
+
+            /*
+            function myFunction() {
+
+                alert('alert');
+               
+                const container = document.getElementById('jsoneditor')
+
+                const options = {
+                    mode: 'view'
+                }
+                 
+                const json = {
+                    'array': [1, 2, 3],
+                    'boolean': true,
+                    'null': null,
+                    'number': 123,
+                    'object': { 'a': 'b', 'c': 'd' },
+                    'string': 'Hello World'
+                }
+                 
+
+
+                $.ajax({
+                    type: "GET",
+                    url: '@Url.Action("data")',
+                    dataType: "json",
+                }).done(function (data) {
+                    //alert(data);
+                    editor = new JSONEditor(container, options, data)
+                });
+
+                //const   new JSONEditor(container, options, data)
+            }
+            // end of function
+
+            */
+        });
+
+
+
+    </script>
+
+}
+
+
+                 @*
+
+                   <script>
+
+            var myData = document.getElementById("my-data1").value;
+            console.log(myData);
+            myFunction(myData);
+
+            function myFunction(myData) {
+                const container = document.getElementById('jsoneditor')
+
+                const options = {
+                    mode: 'view'
+                }
+
+                var js = JSON.parse(myData);
+
+                const json = js;
+                /*
+                const json = {
+                    'array': [1, 2, 3],
+                    'boolean': true,
+                    'null': null,
+                    'number': 123,
+                    'object': { 'a': 'b', 'c': 'd' },
+                    'string': 'Hello World'
+                }*/
+
+                //const editor = new JSONEditor(container, options, json)
+
+                //jsonDialog(js, options);
+                var modes = { mode: 'tree', modes: ['form', 'text', 'tree'] }; // OPTIONAL
+                var okcallback = function (jsonobj) { alert(JSON.stringify(js)); }; // OPTIONAL
+                var cancelcallback = function () { }; // OPTIONAL
+                var errorcallback = function (e) { alert(e); }; // OPTIO
+                jsonDialog1(js, modes, 'GetAllResources', okcallback, cancelcallback, errorcallback);
+            }
+
+
+
+            function jsonDialog1(jsonobj, modes, titleDialog, okcallback, cancelcallback, errorcallback) {
+                if (jsonobj === undefined || jsonobj === null) {
+                    if (errorcallback !== undefined)
+                        errorcallback("JSON Object is not valid");
+                    return false;
+                }
+
+                var jsoncontent = document.createElement('div');
+                jsoncontent.id = 'divjson';
+                jsoncontent.style.display = "none";
+
+                $('#divjson').css('z-index', '100000');
+                document.body.appendChild(jsoncontent);
+
+                var jsoneditor = document.createElement('div');
+                jsoneditor.style.width = '598px';
+                jsoneditor.style.height = '484px';
+
+                jsoncontent.appendChild(jsoneditor);
+
+                if (modes === undefined || modes === null)
+                    modes = { mode: 'tree', modes: ['form', 'text', 'tree', 'view'] };
+
+                var editor = new JSONEditor(jsoneditor, modes);
+                editor.set(jsonobj);
+
+                var destroy = function () {
+                    editor.destroy();
+                    jsoneditor.remove();
+                    $(jsoncontent).dialog('close');
+                    jsoncontent.remove();
+                    $('.ui-dialog').remove();
+                };
+                //https://api.jqueryui.com/position/
+                //https://jqueryui.com/position/
+                $(jsoncontent).dialog({
+                    height: 610, //560,
+                    width: 600,
+                    resizable: true,
+                    modal: true,
+                    //visibility: inherit,
+                    // dialogClass: "alert101",
+                    draggable: true,
+                    closeOnEscape: false,
+
+                    title: "Resource: " + titleDialog,
+                    position: {
+                        my: "center",
+                        at: "top",
+                        of: window
+                    },
+                    buttons: [{
+                        text: "OK",
+                        style: "margin-right:40px; color:#3883fa;",
+                        click: function () {
+                            var result = editor.get();
+                            destroy();
+                            if (okcallback !== undefined)
+                                okcallback(result);
+                            // hideBusyIndicator();
+                        }
+                    }, {
+                        text: "Cancel",
+                        style: "color:#EE422E;",
+                        click: function () {
+                            destroy();
+                            if (cancelcallback !== undefined)
+                                cancelcallback();
+                            // hideBusyIndicator();
+                        }
+                    }]
+                }).append('<img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRLqBq0ilAid0OE2A0Qx94ujF_M9DugbAGVyg&usqp=CAU" width = "100" height = "60"/>  ');
+                $(".ui-dialog-titlebar-close").css('visibility', 'hidden');
+                $("ui-dialog-titlebar").css('background', 'color: blue');
+                $(".ui-dialog").css('border-style', 'none');
+                $(".ui-dialog").css('z-index', '505');
+                $(".ui-dialog-titlebar").css('visibility', 'hidden');
+                $(".ui-dialog-titlebar").css('background', 'color: red');
+                $(".ui-dialog").css('modal', 'true');
+                $(".ui-dialog").css('text-align', 'center');
+                $(".ui-button").css('width', '100px');
+                $(".ui-button").css('margin-top', '10px');
+                $(".ui-button").css('margin-bottom', '10px');
+
+
+                return true;
+            }
+
+            function jsonDialog(jsonobj, modes, okcallback, cancelcallback, errorcallback, title, datatype, target_title, formdisplay) {
+                if (jsonobj === undefined || jsonobj === null) {
+                    if (errorcallback !== undefined)
+                        errorcallback("JSON Object is not valid");
+                    return false;
+                }
+
+                var jsoncontent = document.createElement('div');
+                // jsoncontent.setAttribute("id", "JsonDialog101");class="popup-overlay"
+                jsoncontent.setAttribute("id", "JsonDialog101");
+                jsoncontent.setAttribute('class', "ui-widget-content");
+                jsoncontent.style.display = "none";
+                document.body.appendChild(jsoncontent);
+
+
+
+                var jsoneditor = document.createElement('div');
+                jsoneditor.setAttribute("id", "JsonEditor");
+                //jsoneditor.style.width = '510px';
+                //jsoneditor.style.height = '450px';
+                jsoneditor.style.width = '510px';
+                jsoneditor.style.height = '450px';
+                jsoneditor.style.margin = '1px';
+
+                jsoneditor.resizable = true;
+                //jsoneditor.
+                jsoneditor.isContentEditable = false;
+                jsoncontent.appendChild(jsoneditor);
+
+                // if (datatype == 'text')
+                if (formdisplay == 'form')
+                    modes = { mode: 'form', modes: ['form', 'text'] };
+                else
+                    modes = { mode: 'text', modes: ['form', 'text', 'tree', 'view'] };
+                //  else
+                //    modes = { mode: 'tree', modes: ['form', 'text', 'tree', 'view'] };
+
+                var editor = new JSONEditor(jsoneditor, modes);
+
+                editor.set(jsonobj);
+
+                var dlg = $(jsoncontent).dialog({
+                    title: target_title,
+                    width: 505,
+                    height: 400,
+
+                   // height: 340,
+                   // width: 540,
+
+                   // do not use
+                   // jsoneditor.style.width = '510px';
+                   // jsoneditor.style.height = '450px';
+
+
+
+                    //zindex: 1,
+                    //overflow: auto,
+                    modal: true,
+                    //visibility: inherit,
+                    resizable: true,
+                    modal: true,
+                    // dialogClass: "alert101",
+                    draggable: true,
+                    closeOnEscape: false,
+                    //_allowInteraction: function (event) {
+                    //    return !!$(event.target).is(".select2-input") || this._super(event);
+                    //},
+
+                    // show: { effect: "blind", duration: 800 },
+                    position: {
+                        my: "center",
+                        at: "center",
+                        of: window
+                    },
+                    buttons: [
+
+                        {
+                            text: "Raw View",
+                            style: "margin-right:60px; color:#3883fa;",
+                            click: function () {
+                                var result = editor.get();
+                                destroy();
+                                if (okcallback !== undefined)
+                                    okcallback(result);
+                               // globalVisible = false;
+                            }
+                        },
+
+                        {
+                            text: "Cancel",
+                            style: "color:#EE422E;",
+                            style: "margin-left:90px; color:#3883fa;",
+                            click: function () {
+                                destroy();
+                                if (cancelcallback !== undefined)
+                                    cancelcallback();
+                               // globalVisible = false;
+                            }
+                        }]
+                }).append('<img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRLqBq0ilAid0OE2A0Qx94ujF_M9DugbAGVyg&usqp=CAU" width="200" height="100" /> <br />');
+                $(".ui-dialog").css('index', '50000');
+                $("ui-dialog-titlebar").css('background', 'color: blue');
+                $(".ui-dialog").css('background', 'white');
+                $(".ui-dialog").css('background', 'visible');
+                $(".ui-dialog-titlebar-close").css('visibility', 'visible');
+                $(".ui-dialog-titlebar").css('visibility', 'visible');
+                $(".ui-dialog").css('border-style', '3px red');
+                $(".ui-dialog").css('text-align', 'center');
+                $(".ui-button").css('width', '150px');
+                $(".ui-button").css('margin-top', '75px');
+                $(".ui-button").css('margin-bottom', '10px');
+                // $(".alert101").dialog("option", "modal", true);
+
+                var destroy = function () {
+                    editor.destroy();
+                    jsoneditor.remove();
+                    $(jsoncontent).dialog('close');
+                    jsoncontent.remove();
+                    $('.ui-dialog').remove();
+                   // location.href = 'http://localhost:52451';
+                };
+                return true;
+            }
+
+
+
+     </script>
+                 *@

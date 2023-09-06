@@ -1,0 +1,48 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    kompose.cmd: C:\WINDOWS\system32\kompose.exe convert
+    kompose.version: 1.21.0 (992df58d8)
+  creationTimestamp: null
+  labels:
+    io.kompose.service: postgress
+  name: postgress
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      io.kompose.service: postgress
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      annotations:
+        kompose.cmd: C:\WINDOWS\system32\kompose.exe convert
+        kompose.version: 1.21.0 (992df58d8)
+      creationTimestamp: null
+      labels:
+        io.kompose.service: postgress
+    spec:
+      containers:
+      - env:
+        - name: POSTGRES_PASSWORD
+          value: postgres
+        - name: POSTGRES_USER
+          value: postgres
+        image: postgres:14.1-alpine
+        imagePullPolicy: ""
+        name: postgress
+        ports:
+        - containerPort: 5432
+        resources: {}
+        volumeMounts:
+        - mountPath: /var/lib/postgresql/data
+          name: postgress
+      restartPolicy: Always
+      serviceAccountName: ""
+      volumes:
+      - name: postgress
+        persistentVolumeClaim:
+          claimName: postgress
+status: {}

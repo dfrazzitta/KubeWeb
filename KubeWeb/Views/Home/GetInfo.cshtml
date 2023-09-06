@@ -1,0 +1,245 @@
+﻿
+@{
+    ViewData["Title"] = "GetInfo";
+    ViewBag.MyData = "Ziggy, Rafiq Blog Post";
+    ViewBag.json = @ViewData["data"];
+
+}
+
+<h1>ListNamespace</h1>
+
+@*
+
+<h1>@ViewData["data"]</h1>
+ 
+
+
+<button onclick="myFunction()">Click me</button
+*@
+
+
+
+<div id="jsoneditor"></div>
+
+
+<input type="hidden" id="my-data" value="@ViewBag.MyData" />
+
+<input type="hidden" id="my-data1" value="@ViewBag.json" />
+
+@section scripts {
+    <script>
+
+
+
+        $(document).ready(function () {
+
+            $('.navbar-nav').on('click', 'a', function (e) {
+
+                var namespace = $('#NameSpaceMenuXX').text();
+
+                if (namespace === 'No NameSpace' && e.target.innerText === 'Namespaces') {
+
+                    e.preventDefault();
+                    bootbox.alert({
+                        message: 'Please choose Menu Item Namespace and choose a Namespace.  Your choice will appear in th upper right hand Menu',
+                        callback: function () {
+                            console.log('This was logged in the callback!');
+                        }
+                    });
+                    return;
+                }
+
+            });
+
+        });
+
+
+    </script>
+ }
+
+@*
+
+@section scripts {
+
+    <script>
+
+        var myData = document.getElementById("my-data1").value;
+        console.log(myData);
+        myFunction(myData);
+         
+        function myFunction(myData) {
+            const container = document.getElementById('jsoneditor')
+
+            const options = {
+                mode: 'view'
+            }
+
+            var js = JSON.parse(myData);
+
+            const json = js;
+            /*
+            const json = {
+                'array': [1, 2, 3],
+                'boolean': true,
+                'null': null,
+                'number': 123,
+                'object': { 'a': 'b', 'c': 'd' },
+                'string': 'Hello World'
+            }*/
+
+            //const editor = new JSONEditor(container, options, json)
+
+            jsonDialog(js, options);
+        }
+
+
+        function jsonDialog(jsonobj, modes, okcallback, cancelcallback, errorcallback, title, datatype, target_title, formdisplay) {
+            if (jsonobj === undefined || jsonobj === null) {
+                if (errorcallback !== undefined)
+                    errorcallback("JSON Object is not valid");
+                return false;
+            }
+
+            var jsoncontent = document.createElement('div');
+            // jsoncontent.setAttribute("id", "JsonDialog101");class="popup-overlay"
+            jsoncontent.setAttribute("id", "JsonDialog101");
+            jsoncontent.setAttribute('class', "ui-widget-content");
+            jsoncontent.style.display = "none";
+            document.body.appendChild(jsoncontent);
+
+
+
+            var jsoneditor = document.createElement('div');
+            jsoneditor.setAttribute("id", "JsonEditor");
+            //jsoneditor.style.width = '510px';
+            //jsoneditor.style.height = '450px';
+            jsoneditor.style.width = '510px';
+            jsoneditor.style.height = '350px';
+            jsoneditor.style.margin = '1px';
+
+            jsoneditor.resizable = false;
+            //jsoneditor.
+            jsoneditor.isContentEditable = false;
+            jsoncontent.appendChild(jsoneditor);
+
+            // if (datatype == 'text')
+            if (formdisplay == 'form')
+                modes = { mode: 'form', modes: ['form', 'text'] };
+            else
+                modes = { mode: 'text', modes: ['form', 'text', 'tree', 'view'] };
+           //  else
+            //    modes = { mode: 'tree', modes: ['form', 'text', 'tree', 'view'] };
+
+            var editor = new JSONEditor(jsoneditor, modes);
+
+            editor.set(jsonobj);
+
+            var dlg = $(jsoncontent).dialog({
+                title: target_title,
+                //height: 520,
+                //width: 562,
+                height: 340,
+                width: 540,
+
+                //zindex: 1,
+                //overflow: auto,
+                modal: true,
+                //visibility: inherit,
+                resizable: false,
+                modal: true,
+                // dialogClass: "alert101",
+                draggable: true,
+                closeOnEscape: false,
+                //_allowInteraction: function (event) {
+                //    return !!$(event.target).is(".select2-input") || this._super(event);
+                //},
+
+                // show: { effect: "blind", duration: 800 },
+                position: {
+                    my: "center",
+                    at: "center",
+                    of: window
+                },
+                buttons: [
+                    {
+                        text: "Raw View",
+                        style: "margin-right:60px; color:#3883fa;",
+                        click: function () {
+                            var result = editor.get();
+                            destroy();
+                            if (okcallback !== undefined)
+                                okcallback(result);
+                            globalVisible = false;
+                        }
+                    },
+                    {
+                        text: "Cancel",
+                        style: "color:#EE422E;",
+                        style: "margin-left:90px; color:#3883fa;",
+                        click: function () {
+                            destroy();
+                            if (cancelcallback !== undefined)
+                                cancelcallback();
+                            globalVisible = false;
+                        }
+                    }]
+            }).append('<img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRLqBq0ilAid0OE2A0Qx94ujF_M9DugbAGVyg&usqp=CAU" width="200" height="100" /> <br />');
+            $(".ui-dialog").css('index', '50000');
+            $("ui-dialog-titlebar").css('background', 'color: blue');
+            $(".ui-dialog").css('background', 'white');
+            $(".ui-dialog").css('background', 'visible');
+            $(".ui-dialog-titlebar-close").css('visibility', 'hidden');
+            $(".ui-dialog-titlebar").css('visibility', 'visible');
+            $(".ui-dialog").css('border-style', '3px red');
+            $(".ui-dialog").css('text-align', 'center');
+            $(".ui-button").css('width', '150px');
+            $(".ui-button").css('margin-top', '75px');
+            $(".ui-button").css('margin-bottom', '10px');
+            // $(".alert101").dialog("option", "modal", true);
+
+            var destroy = function () {
+                editor.destroy();
+                jsoneditor.remove();
+                $(jsoncontent).dialog('close');
+                jsoncontent.remove();
+                $('.ui-dialog').remove();
+            };
+            return true;
+        }
+
+        
+
+        $(document).ready(function () {
+
+            $('.navbar-nav').on('click', 'a', function (e) {
+
+                var namespace = $('#NameSpaceMenuXX').text();
+
+                if (namespace === 'No NameSpace' && e.target.innerText === 'Namespaces') {
+                    debugger;
+                    e.preventDefault();
+                    bootbox.alert({
+                        message: 'Please choose Menu Item Namespace and choose a Namespace.  Your choice will appear in th upper right hand Menu',
+                        callback: function () {
+                            console.log('This was logged in the callback!');
+                        }
+                    });
+                    return;
+                }
+
+            });
+        });
+ 
+            //submenu dropdown-menu
+            //called when the document is ready
+           // var message = '@ViewData["data"]';
+           // alert(message);
+           // myFunction();
+        
+
+
+         
+    </script>
+}
+
+*@

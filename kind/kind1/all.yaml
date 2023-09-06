@@ -1,0 +1,157 @@
+# https://betterprogramming.pub/how-to-expose-your-services-with-kubernetes
+# -ingress-7f34eb6c9b5a
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: hellok8s-deployment
+  labels:
+    app: hellok8s
+spec:
+  selector:
+    matchLabels:
+      app: hellok8s
+  template:
+    metadata:
+      labels:
+        app: hellok8s
+    spec:
+      containers:
+      - name: hellok8s
+        image: dfrazzitta/emptytest
+        imagePullPolicy: "Always"
+        ports:
+        - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: hellok8s-service
+spec:
+  type: ClusterIP
+  selector:
+    app: hellok8s
+  ports:
+  - port: 80
+    targetPort: 80
+    
+   
+---    
+
+# https://betterprogramming.pub/how-to-expose-your-services-with-kubernetes
+# -ingress-7f34eb6c9b5a
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: hellok8s-deployment1
+  labels:
+    app: hellok8s1
+spec:
+  selector:
+    matchLabels:
+      app: hellok8s1
+  template:
+    metadata:
+      labels:
+        app: hellok8s1
+    spec:
+      containers:
+      - name: hellok8s1
+        image: dfrazzitta/testkind
+        imagePullPolicy: "Always"
+        ports:
+        - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: hellok8s-service1
+spec:
+  type: ClusterIP
+  selector:
+    app: hellok8s1
+  ports:
+  - port: 80
+    targetPort: 80
+    
+---    
+
+
+# https://betterprogramming.pub/how-to-expose-your-services-with-kubernetes
+# -ingress-7f34eb6c9b5a
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: hellok8s-deployment2
+  labels:
+    app: hellok8s2
+spec:
+  selector:
+    matchLabels:
+      app: hellok8s2
+  template:
+    metadata:
+      labels:
+        app: hellok8s2
+    spec:
+      containers:
+      - name: hellok8s2
+        image: dfrazzitta/testapp1
+        imagePullPolicy: "Always"
+        ports:
+        - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: hellok8s-service2
+spec:
+  type: ClusterIP
+  selector:
+    app: hellok8s2
+  ports:
+  - port: 80
+    targetPort: 80
+    
+---    
+
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: test-ingress
+  annotations:
+    #nginx.ingress.kubernetes.io/rewrite-target: /
+spec:
+  ingressClassName: nginx
+  rules:
+  - host: krap.com
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: hellok8s-service
+            port: 
+              number: 80
+  - host: krapazoo.com
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: hellok8s-service1
+            port: 
+              number: 80  
+  - host: testapp.com
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: hellok8s-service2
+            port: 
+              number: 80 
+            
+ 

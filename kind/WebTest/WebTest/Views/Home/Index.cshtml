@@ -1,0 +1,950 @@
+﻿@{
+    ViewData["Title"] = "AspNetCore.Unobtrusive.Ajax";
+}
+
+<link href="~/css/demos.css" rel="stylesheet" />
+<link href="~/css/jsgrid.css" rel="stylesheet" />
+<link href="~/css/theme.css" rel="stylesheet" />
+<link href="~/jsgrid-theme.css" rel="stylesheet" />
+
+ 
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+
+
+<script src="~/grid/jsgrid.core.js"></script>
+<script src="~/grid/jsgrid.field.js"></script>
+<script src="~/grid/jsgrid.load-indicator.js"></script>
+<script src="~/grid/jsgrid.load-strategies.js"></script>
+<script src="~/grid/jsgrid.sort-strategies.js"></script>
+<script src="~/grid/jsgrid.validation.js"></script>
+
+
+<script src="~/grid/fields/jsgrid.field.checkbox.js"></script>
+<script src="~/grid/fields/jsgrid.field.control.js"></script>
+<script src="~/grid/fields/jsgrid.field.number.js"></script>
+<script src="~/grid/fields/jsgrid.field.select.js"></script>
+<script src="~/grid/fields/jsgrid.field.text.js"></script>
+<script src="~/grid/fields/jsgrid.field.textarea.js"></script>
+
+<script src="~/grid/jsgrid.js"></script>
+
+
+
+<style>
+    .rating {
+        color: #F8CA03;
+    }
+</style>
+
+
+<div class="text-center">
+    <h1 class="display-4">Welcome</h1>
+    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+</div>
+<div class="container">
+    <div class="row">
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Kubernetes</h5>
+                    <p class="card-text">Some quick example text to build on the card title and make up the</p>
+                    @* <a class="btn btn-primary" asp-area="" asp-controller="Kubernetes" asp-action="GetPods">Kubernetes Calls</a>
+                    *@
+                    <a id="getns" class="btn btn-primary">Namespace</a>
+                    <a id="getpods" class="btn btn-primary">Pods</a>
+                    <a id="getlimitrange" class="btn btn-primary">LimitRange</a>
+                    <a id="logs" class="btn btn-primary">Logs</a>
+                    <a id="getpv" class="btn btn-primary">PVol</a>
+                    <a id="getpvc" class="btn btn-primary">PVC</a>
+                    
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Postgres 2</h5>
+                    <p class="card-text">Some quick example text to build on the card title and make up the</p>
+                    <a class="btn btn-primary" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">MongoDB 3</h5>
+                    <p class="card-text">Some quick example text to build on the card title and make up the</p>
+                    <a href="#" class="btn btn-primary">Read More</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br />
+    <div class="row">
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">SQLServer 1</h5>
+                    <p class="card-text">Some quick example text to build on the card title and make up the</p>
+                    <a href="#" class="btn btn-primary">Read More</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Card 2</h5>
+                    <p class="card-text">Some quick example text to build on the card title and make up the</p>
+                    <a class="btn btn-primary" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Card 3</h5>
+                    <p class="card-text">Some quick example text to build on the card title and make up the</p>
+                    <a href="#" class="btn btn-primary">Read More</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="accordion" id="accordionExample">
+    <div class="accordion-item">
+        <h2 class="accordion-header" id="headingOne">
+            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                Accordion Item #1
+            </button>
+        </h2>
+        <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+            <div class="accordion-body">
+                <button type="button" id="callJson" class="btn btn-primary">Primary</button>
+                <button type="button" class="btn btn-secondary">Secondary</button>
+                <button type="button" class="btn btn-success">Success</button>
+                <button type="button" class="btn btn-danger">Danger</button>
+                <button type="button" class="btn btn-warning">Warning</button>
+                <button type="button" class="btn btn-info">Info</button>
+                <button type="button" class="btn btn-light">Light</button>
+                <button type="button" class="btn btn-dark">Dark</button>
+
+                <button type="button" class="btn btn-link">Link</button>
+
+                <div>
+                    <button type="button" id="jsShowGrid" class="btn btn-dark">jsGrid</button>
+                    <button type="button" id="jsGridDestroy" class="btn btn-dark">jsGridDestroy</button>
+                    <div id="jsGrid"></div>
+                </div>
+ 
+
+                 
+                <p><strong>HttpPost</strong> Form</p>
+                @using (Html.AjaxBeginForm("AntiForgeryMethod", new AjaxOptions
+                 {
+                     HttpMethod = "post",
+                     OnComplete = "OnComplete"
+                 }))
+                {
+                    @Html.AntiForgeryToken()
+                    <div class="input-group">
+                        @Html.TextBox("name", null, new { placeholder = "Type your name", @class = "form-control mx-sm-2" })
+                        <button class="btn btn-primary">Submit</button>
+                    </div>
+                }
+                
+                <br />
+ 
+                <br />
+            </div>
+        </div>
+    </div>
+    <div class="accordion-item">
+        <h2 class="accordion-header" id="headingTwo">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                Accordion Item #2
+            </button>
+        </h2>
+        <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
+            <div class="accordion-body">
+                <button type="button" id="grid" class="btn btn-dark">Dark</button>
+                 
+            </div>
+        </div>
+    </div>
+    <div class="accordion-item">
+        <h2 class="accordion-header" id="headingThree">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                Accordion Item #3
+            </button>
+        </h2>
+        <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
+            <div class="accordion-body">
+                <strong>This is the third item's accordion body.</strong> It is hidden by default, until the collapse plugin adds the appropriate classes that we use to style each element. These classes control the overall appearance, as well as the showing and hiding via CSS transitions. You can modify any of this with custom CSS or overriding our default variables. It's also worth noting that just about any HTML can go within the <code>.accordion-body</code>, though the transition does limit overflow.
+            </div>
+        </div>
+    </div>
+</div>
+
+ 
+
+
+<script>
+    $(document).ajaxStop($.unblockUI);
+
+     function jsonDialogGrid(jsonobj, modes, titleDialog, okcallback, cancelcallback, errorcallback) {
+        //debugger;
+        if (jsonobj === undefined || jsonobj === null) {
+            if (errorcallback !== undefined)
+                errorcallback("JSON Object is not valid");
+            return false;
+        }
+
+        var jsoncontent = document.createElement('div');
+        jsoncontent.id = 'divjson';
+        jsoncontent.style.display = "none";
+
+        $('#divjson').css('z-index', '100000');
+        document.body.appendChild(jsoncontent);
+
+        var jsoneditor = document.createElement('div');
+        jsoneditor.style.width = '598px';
+        jsoneditor.style.height = '484px';
+
+        jsoncontent.appendChild(jsoneditor);
+
+        if (modes === undefined || modes === null)
+            modes = { mode: 'tree', modes: ['form', 'text', 'tree', 'view'] };
+
+        var editor = new JSONEditor(jsoneditor, modes);
+        editor.set(jsonobj);
+
+        var destroy = function () {
+            editor.destroy();
+            jsoneditor.remove();
+            $(jsoncontent).dialog('close');
+            jsoncontent.remove();
+            $('.ui-dialog').remove();
+        };
+        //https://api.jqueryui.com/position/
+        //https://jqueryui.com/position/
+        $(jsoncontent).dialog({
+            height: 610, //560,
+            width: 598,
+            modal: true,
+            // draggable: true,
+            resizable: true,
+            // hide: "slide",
+            //show: "slide",
+            title: "Resource: " + titleDialog,
+            position: {
+                my: "center",
+                at: "top",
+                of: window
+            },
+            buttons: [{
+                text: "OK",
+                style: "margin-right:40px; color:#3883fa;",
+                click: function () {
+                    var result = editor.get();
+                    destroy();
+                    if (okcallback !== undefined)
+                        okcallback(result);
+                    // hideBusyIndicator();
+                }
+            },
+            {
+                text: "Cancel",
+                style: "color:#EE422E;",
+                click: function () {
+                    destroy();
+                    if (cancelcallback !== undefined)
+                        cancelcallback();
+                    // hideBusyIndicator();
+                }
+            }]
+        }).append('<img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRLqBq0ilAid0OE2A0Qx94ujF_M9DugbAGVyg&usqp=CAU" width = "100" height = "60"/>  ');
+        $(".ui-dialog-titlebar-close").css('visibility', 'visible');
+        $("ui-dialog-titlebar").css('background', 'color: blue');
+        $(".ui-dialog").css('border-style', 'none');
+        $(".ui-dialog").css('z-index', '505');
+        $(".ui-dialog-titlebar").css('visibility', 'visible');
+        $(".ui-dialog-titlebar").css('color', 'red');
+        $(".ui-dialog-titlebar").css('background-color', 'green');
+        $(".ui-dialog").css('modal', 'true');
+        $(".ui-dialog").css('text-align', 'center');
+        $(".ui-button").css('width', '100px');
+        $(".ui-button").css('margin-top', '10px');
+        $(".ui-button").css('margin-bottom', '10px');
+        return true;
+    }
+
+
+
+    function jsonDialog(jsonobj, modes, titleDialog, okcallback, cancelcallback, errorcallback) {
+        //debugger;
+        if (jsonobj === undefined || jsonobj === null) {
+            if (errorcallback !== undefined)
+                errorcallback("JSON Object is not valid");
+            return false;
+        }
+
+        var jsoncontent = document.createElement('div');
+        jsoncontent.id = 'divjson';
+        jsoncontent.style.display = "none";
+
+        $('#divjson').css('z-index', '100000');
+        document.body.appendChild(jsoncontent);
+
+        var jsoneditor = document.createElement('div');
+        jsoneditor.style.width = '598px';
+        jsoneditor.style.height = '484px';
+
+        jsoncontent.appendChild(jsoneditor);
+
+        if (modes === undefined || modes === null)
+            modes = { mode: 'tree', modes: ['form', 'text', 'tree', 'view'] };
+
+        var editor = new JSONEditor(jsoneditor, modes);
+        editor.set(jsonobj);
+
+        var destroy = function () {
+            editor.destroy();
+            jsoneditor.remove();
+            $(jsoncontent).dialog('close');
+            jsoncontent.remove();
+            $('.ui-dialog').remove();
+        };
+        //https://api.jqueryui.com/position/
+        //https://jqueryui.com/position/
+        $(jsoncontent).dialog({
+            height: 610, //560,
+            width: 598,
+            modal: true,
+            // draggable: true,
+            resizable: true,
+            // hide: "slide",
+            //show: "slide",
+            title: "Resource: " + titleDialog,
+            position: {
+                my: "center",
+                at: "top",
+                of: window
+            },
+            buttons: [{
+                text: "OK",
+                style: "margin-right:40px; color:#3883fa;",
+                click: function () {
+                    var result = editor.get();
+                    destroy();
+                    if (okcallback !== undefined)
+                        okcallback(result);
+                    // hideBusyIndicator();
+                }
+            },
+            {
+                text: "Cancel",
+                style: "color:#EE422E;",
+                click: function () {
+                    destroy();
+                    if (cancelcallback !== undefined)
+                        cancelcallback();
+                    // hideBusyIndicator();
+                }
+            }]
+        }).append('<img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRLqBq0ilAid0OE2A0Qx94ujF_M9DugbAGVyg&usqp=CAU" width = "100" height = "60"/>  ');
+        $(".ui-dialog-titlebar-close").css('visibility', 'hidden');
+        $("ui-dialog-titlebar").css('background', 'color: blue');
+        $(".ui-dialog").css('border-style', 'none');
+        $(".ui-dialog").css('z-index', '505');
+        $(".ui-dialog-titlebar").css('visibility', 'visible');
+        $(".ui-dialog-titlebar").css('color', 'red');
+        $(".ui-dialog-titlebar").css('background-color', 'green');
+        $(".ui-dialog").css('modal', 'true');
+        $(".ui-dialog").css('text-align', 'center');
+        $(".ui-button").css('width', '100px');
+        $(".ui-button").css('margin-top', '10px');
+        $(".ui-button").css('margin-bottom', '10px');
+        return true;
+    }
+
+    var selectListValue;
+
+    function jsonDialogShow( response ) {
+       // debugger;
+ 
+        var jsoncontent1 = document.createElement('div');
+        jsoncontent1.id = 'divjson1';
+        jsoncontent1.style.display = "none";
+        
+        $('#divjson1').css('z-index', '100000');
+        document.body.appendChild(jsoncontent1);
+
+        var sel = document.createElement('select');
+        sel.id = 'comboItem';
+
+        //sel.style.width = '50px';
+        //sel.style.height = '40px';
+        sel.id = 'selectlist';
+        var opt = null;
+        var deptList = [10, 20, 30, 40, 50, 60, 70, 80, 100, 1000];
+
+
+        //var deptList = "Saab", "Volvo", "BMW";
+        for (i = 0; i < response.length; i++) {
+
+            opt = document.createElement('option');
+            opt.value = response[i];
+            opt.innerHTML = response[i];
+            sel.appendChild(opt);
+        }
+        jsoncontent1.append(sel);
+ 
+        var destroy = function () {
+            //editor.destroy();
+           // jsoneditor.remove();
+            $(jsoncontent1).dialog('close');
+            jsoncontent1.remove();
+            $('.ui-dialog').remove();
+        };
+        //https://api.jqueryui.com/position/
+        //https://jqueryui.com/position/
+        $(jsoncontent1).dialog({
+            height: 110, //560,
+            width: 98,
+            modal: true,
+            // draggable: true,
+            resizable: false,
+            // hide: "slide",
+            //show: "slide",
+            autoopen: true,
+            title: "Quantu: ",
+            position: {
+                my: "center",
+                at: "top",
+                of: window
+            },
+            buttons: [{
+                text: "OK",
+                style: "margin-right:40px; color:#3883fa;",
+                click: function () {
+                    selectListValue = $("#selectlist").val();
+                    debugger;
+                   // var result = editor.get();
+                    destroy();
+                   // if (okcallback !== undefined)
+                    //    okcallback(result);
+                    // hideBusyIndicator();
+                }
+            },
+            {
+                text: "Cancel",
+                style: "color:#EE422E;",
+                click: function () {
+                    destroy();
+                    //if (cancelcallback !== undefined)
+                    //    cancelcallback();
+                    // hideBusyIndicator();
+                }
+            }]
+        }).append('<img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRLqBq0ilAid0OE2A0Qx94ujF_M9DugbAGVyg&usqp=CAU" width = "100" height = "60"/>  ');
+        $(".ui-dialog-titlebar-close").css('visibility', 'hidden');
+        $("ui-dialog-titlebar").css('background', 'color: blue');
+        $(".ui-dialog").css('border-style', 'none');
+        $(".ui-dialog").css('z-index', '505');
+        $(".ui-dialog-titlebar").css('visibility', 'visible');
+        $(".ui-dialog-titlebar").css('color', 'red');
+        $(".ui-dialog-titlebar").css('background-color', 'green');
+        $(".ui-dialog").css('modal', 'true');
+        $(".ui-dialog").css('text-align', 'center');
+        $(".ui-button").css('width', '100px');
+        $(".ui-button").css('margin-top', '10px');
+        $(".ui-button").css('margin-bottom', '10px');
+        $("#jsoncontent1").style.visibility = true;
+        //return true; jsoncontent1.style.display
+    }
+/*
+    function objectsToArray(data, columns) {
+        var dataArray = [];
+        for (var i in data) {
+            var itemArray = [];
+            for (var j in columns) {
+                itemArray.push(data[i][columns[j]]);
+            }
+            dataArray.push(itemArray);
+        }
+        return dataArray;
+    }
+    */
+
+    function OnComplete(data)
+    {
+        alert("OnComplete");
+        alert("General Text: " + data.responseText);
+        alert("Parsed: " + JSON.parse(data.responseText));
+        alert("Just JSON: " + data.responseJSON);
+    }
+
+
+    function showlink(cellvalue, options, rowObject) {
+
+       debugger;
+       return cellvalue.replace("http://localhost/~aznanhjyusof/&quot;", "");
+    }
+
+
+    $(document).ready(function() {
+
+
+        $('#collapseOne').on('hidden.bs.collapse', function () {
+            alert("One Hide");
+            $("#jsGrid").jsGrid("destroy");
+        })
+        //shown.bs.collapse
+        $('#collapseOne').on('shown.bs.collapse', function () {
+            alert("One Show");
+        })
+
+        var isVisibleGrid = false;
+
+        $("#jsGridDestroy").click(function () {
+            // alert("hi");
+            if (!isVisibleGrid)
+                return;
+            $("#jsGrid").jsGrid("destroy");
+            isVisibleGrid = false;
+        });
+
+
+        $('#callJson').click(function () {
+            // debugger;
+            //var st = JSON.stringify({ sortOrder: "UP", currentFilter: "locale", searchString: "down", pageNumber: 1 });
+            //alert('Ajax callJson');
+            $.blockUI({ message: '<h1><img src="busy.gif"  /> Just a moment...</h1>' });
+            $.ajax({
+                type: "GET",
+                url: "/webapi/index/",
+                // url: @Url.Action("AjaxMethodTest")
+                data: "",
+                beforeSend: function () {
+
+                },
+                success: function (response) {
+                    //alert(response);
+                    var ty = JSON.parse(response);
+                    //alert(response);
+                    //debugger;
+                    var modes = { mode: 'tree', modes: ['form', 'text', 'tree', 'view'] }; // OPTIONAL
+                    var okcallback = function (jsonobj) { alert(JSON.stringify(jsonobj)); }; // OPTIONAL
+                    var cancelcallback = function () { }; // OPTIONAL
+                    var errorcallback = function (e) { alert(e); }; // OPTIONAL
+                    $.unblockUI();
+                    jsonDialog(ty, modes, "describe", okcallback, cancelcallback, errorcallback)
+                },
+                failure: function (response) {
+                    alert(response.responseText);
+                },
+                error: function (response) {
+                    alert(response.responseText);
+                }
+            });
+        });
+
+        ////////////////////////////////////////////////////////////
+        $('#getpv').click(function () {
+            // debugger;
+            //var st = JSON.stringify({ sortOrder: "UP", currentFilter: "locale", searchString: "down", pageNumber: 1 });
+            alert('Ajax callJson');
+            $.blockUI({ message: '<h1><img src="busy.gif"  /> Just a moment...</h1>' });
+            $.ajax({
+                type: "GET",
+                url: "/kubernetes/getpv/",
+                // url: @Url.Action("AjaxMethodTest")
+                data: "",
+                beforeSend: function () {
+
+                },
+                success: function (response) {
+                    //alert(response);
+                    var ty = JSON.parse(response);
+                    /*
+                    var ty = {
+                        "employees": [
+                            { "firstName": "John", "lastName": "Doe" },
+                            { "firstName": "Anna", "lastName": "Smith" },
+                            { "firstName": "Peter", "lastName": "Jones" }
+                        ]
+                    }  */
+
+                    //alert(response);
+                    //debugger;
+                    var modes = { mode: 'tree', modes: ['form', 'text', 'tree'] }; // OPTIONAL
+                    var okcallback = function (jsonobj) { alert(JSON.stringify(jsonobj)); }; // OPTIONAL
+                    var cancelcallback = function () { }; // OPTIONAL
+                    var errorcallback = function (e) { alert(e); }; // OPTIONAL
+                    $.unblockUI();
+                    jsonDialog(ty, modes, "Protected Volume", okcallback, cancelcallback, errorcallback)
+                },
+                failure: function (response) {
+                    alert(response.responseText);
+                },
+                error: function (response) {
+                    alert(response.responseText);
+                }
+            });
+        });
+        ////////////////////////////////////////////////////////////
+        ////////////////////////////////////////////////////////////
+        $('#logs').click(function () {
+            // debugger;
+            // debugger;
+            //var st = JSON.stringify({ sortOrder: "UP", currentFilter: "locale", searchString: "down", pageNumber: 1 });
+            alert('Ajax callJson');
+            $.blockUI({ message: '<h1><img src="busy.gif"  /> Just a moment...</h1>' });
+            $.ajax({
+                type: "GET",
+                url: "/kubernetes/Getlogs/",
+                // url: @Url.Action("AjaxMethodTest")
+                data: "",
+                beforeSend: function () {
+
+                },
+                success: function (response) {
+                    //alert(response);
+                    // jsonDialogCombo();
+                    // $.unblockUI();
+                    var ty = JSON.parse(response);
+                    /*
+                    var ty = {
+                        "employees": [
+                            { "firstName": "John", "lastName": "Doe" },
+                            { "firstName": "Anna", "lastName": "Smith" },
+                            { "firstName": "Peter", "lastName": "Jones" }
+                        ]
+                    }  */
+
+                    //alert(response);
+                    //debugger;
+
+                    var modes = { mode: 'tree', modes: ['text'] }; // OPTIONAL
+                    var okcallback = function (jsonobj) { alert(JSON.stringify(jsonobj)); }; // OPTIONAL
+                    var cancelcallback = function () { }; // OPTIONAL
+                    var errorcallback = function (e) { alert(e); }; // OPTIONAL
+                    //$.unblockUI();
+                    jsonDialog(response, modes, "Logs", okcallback, cancelcallback, errorcallback)
+
+                },
+                failure: function (response) {
+                    alert(response.responseText);
+                },
+                error: function (response) {
+                    alert(response.responseText);
+                }
+            });
+        });
+
+
+
+        ////////////////////////////////////////////////////////////
+        $('#getlimitrange').click(function () {
+            // debugger;
+            //var st = JSON.stringify({ sortOrder: "UP", currentFilter: "locale", searchString: "down", pageNumber: 1 });
+            alert('Ajax callJson');
+            $.blockUI({ message: '<h1><img src="busy.gif"  /> Just a moment...</h1>' });
+            $.ajax({
+                type: "GET",
+                url: "/kubernetes/getlimitrange/",
+                // url: @Url.Action("AjaxMethodTest")
+                data: "",
+                beforeSend: function () {
+
+                },
+                success: function (response) {
+                    //alert(response);
+                    var ty = JSON.parse(response);
+                    /*
+                    var ty = {
+                        "employees": [
+                            { "firstName": "John", "lastName": "Doe" },
+                            { "firstName": "Anna", "lastName": "Smith" },
+                            { "firstName": "Peter", "lastName": "Jones" }
+                        ]
+                    }  */
+
+                    //alert(response);
+                    //debugger;
+                    var modes = { mode: 'tree', modes: ['form', 'text', 'tree'] }; // OPTIONAL
+                    var okcallback = function (jsonobj) { alert(JSON.stringify(jsonobj)); }; // OPTIONAL
+                    var cancelcallback = function () { }; // OPTIONAL
+                    var errorcallback = function (e) { alert(e); }; // OPTIONAL
+                    $.unblockUI();
+                    jsonDialog(ty, modes, "LimitRange", okcallback, cancelcallback, errorcallback)
+                },
+                failure: function (response) {
+                    alert(response.responseText);
+                },
+                error: function (response) {
+                    alert(response.responseText);
+                }
+            });
+        });
+        ////////////////////////////////////////////////////////////  logs
+        $('#NodesMetrics').click(function () {
+            // debugger;
+            //var st = JSON.stringify({ sortOrder: "UP", currentFilter: "locale", searchString: "down", pageNumber: 1 });
+            alert('Ajax callJson');
+            $.blockUI({ message: '<h1><img src="busy.gif"  /> Just a moment...</h1>' });
+            $.ajax({
+                type: "GET",
+                url: "/kubernetes/GetNodesMetrics/",
+                // url: @Url.Action("AjaxMethodTest")
+                data: "",
+                beforeSend: function () {
+
+                },
+                success: function (response) {
+                    //alert(response);
+                    var ty = JSON.parse(response);
+                    /*
+                    var ty = {
+                        "employees": [
+                            { "firstName": "John", "lastName": "Doe" },
+                            { "firstName": "Anna", "lastName": "Smith" },
+                            { "firstName": "Peter", "lastName": "Jones" }
+                        ]
+                    }  */
+
+                    //alert(response);
+                    //debugger;
+                    var modes = { mode: 'tree', modes: ['form', 'text', 'tree'] }; // OPTIONAL
+                    var okcallback = function (jsonobj) { alert(JSON.stringify(jsonobj)); }; // OPTIONAL
+                    var cancelcallback = function () { }; // OPTIONAL
+                    var errorcallback = function (e) { alert(e); }; // OPTIONAL
+                    $.unblockUI();
+                    jsonDialog(ty, modes, "Protected Vol Claim", okcallback, cancelcallback, errorcallback)
+                },
+                failure: function (response) {
+                    alert(response.responseText);
+                },
+                error: function (response) {
+                    alert(response.responseText);
+                }
+            });
+        });
+        ////////////////////////////////////////////////////////////
+
+        ////////////////////////////////////////////////////////////
+        // NodesMetrics
+        $('#getpvc').click(function () {
+            // debugger;
+            //var st = JSON.stringify({ sortOrder: "UP", currentFilter: "locale", searchString: "down", pageNumber: 1 });
+            alert('Ajax callJson');
+            $.blockUI({ message: '<h1><img src="busy.gif"  /> Just a moment...</h1>' });
+            $.ajax({
+                type: "GET",
+                url: "/kubernetes/getpvc/",
+                // url: @Url.Action("AjaxMethodTest")
+                data: "",
+                beforeSend: function () {
+
+                },
+                success: function (response) {
+                    //alert(response);
+                    var ty = JSON.parse(response);
+                    /*
+                    var ty = {
+                        "employees": [
+                            { "firstName": "John", "lastName": "Doe" },
+                            { "firstName": "Anna", "lastName": "Smith" },
+                            { "firstName": "Peter", "lastName": "Jones" }
+                        ]
+                    }  */
+
+                    //alert(response);
+                    //debugger;
+                    var modes = { mode: 'tree', modes: ['form', 'text', 'tree'] }; // OPTIONAL
+                    var okcallback = function (jsonobj) { alert(JSON.stringify(jsonobj)); }; // OPTIONAL
+                    var cancelcallback = function () { }; // OPTIONAL
+                    var errorcallback = function (e) { alert(e); }; // OPTIONAL
+                    $.unblockUI();
+                    jsonDialog(ty, modes, "Protected Vol Claim", okcallback, cancelcallback, errorcallback)
+                },
+                failure: function (response) {
+                    alert(response.responseText);
+                },
+                error: function (response) {
+                    alert(response.responseText);
+                }
+            });
+        });
+        ////////////////////////////////////////////////////////////
+
+        ////////////////////////////////////////////////////////////
+        $('#getns').click(function () {
+            // debugger;
+            //var st = JSON.stringify({ sortOrder: "UP", currentFilter: "locale", searchString: "down", pageNumber: 1 });
+            // alert('Ajax callJson');
+            $.blockUI({ message: '<h1><img src="busy.gif"  /> Just a moment...</h1>' });
+            $.ajax({
+                type: "GET",
+                url: "/kubernetes/getns/",
+                // url: @Url.Action("AjaxMethodTest")
+                data: "",
+                beforeSend: function () {
+
+                },
+                success: function (response) {
+                    debugger;
+                    $.unblockUI();
+                    jsonDialogShow(response);
+                     
+
+                     /*
+                    var ty = JSON.parse(response);
+                     
+                    var ty = {
+                        "employees": [
+                            { "firstName": "John", "lastName": "Doe" },
+                            { "firstName": "Anna", "lastName": "Smith" },
+                            { "firstName": "Peter", "lastName": "Jones" }
+                        ]
+                    }   
+
+                    //alert(response);
+                    //debugger;
+                    var modes = { mode: 'tree', modes: ['form', 'text', 'tree'] }; // OPTIONAL
+                    var okcallback = function (jsonobj) { alert(JSON.stringify(jsonobj)); }; // OPTIONAL
+                    var cancelcallback = function () { }; // OPTIONAL
+                    var errorcallback = function (e) { alert(e); }; // OPTIONAL
+                   
+                    jsonDialog(ty, modes, "NameSpace", okcallback, cancelcallback, errorcallback)
+                    */
+                     
+                },
+                failure: function (response) {
+                    alert(response.responseText);
+                },
+                error: function (response) {
+                    alert(response.responseText);
+                }
+            });
+        });
+        ////////////////////////////////////////////////////////////
+        $('#getpods').click(function () {
+            // debugger;
+            //var st = JSON.stringify({ sortOrder: "UP", currentFilter: "locale", searchString: "down", pageNumber: 1 });
+            //alert('Ajax callJson');
+            $.blockUI({ message: '<h1><img src="busy.gif"  /> Just a moment...</h1>' });
+            $.ajax({
+                type: "GET",
+                url: "/kubernetes/getpods/",
+                // url: @Url.Action("AjaxMethodTest")
+                data: "",
+                beforeSend: function () {
+
+                },
+                success: function (response) {
+                    //alert(response);
+                    var ty = JSON.parse(response);
+                    /*
+                    var ty = {
+                        "employees": [
+                            { "firstName": "John", "lastName": "Doe" },
+                            { "firstName": "Anna", "lastName": "Smith" },
+                            { "firstName": "Peter", "lastName": "Jones" }
+                        ]
+                    }  */
+
+                    //alert(response);
+                    //debugger;
+                    var modes = { mode: 'tree', modes: ['form', 'text', 'tree'] }; // OPTIONAL
+                    var okcallback = function (jsonobj) { alert(JSON.stringify(jsonobj)); }; // OPTIONAL
+                    var cancelcallback = function () { }; // OPTIONAL
+                    var errorcallback = function (e) { alert(e); }; // OPTIONAL
+                    $.unblockUI();
+                    jsonDialog(ty, modes, "Pods", okcallback, cancelcallback, errorcallback)
+                },
+                failure: function (response) {
+                    alert(response.responseText);
+                },
+                error: function (response) {
+                    alert(response.responseText);
+                }
+            });
+        });
+
+        var dataC = "[{'url1':'page1','url2':'page2','url3':'page3'}]";
+       // $('#editAA').dialog({ autoOpen: false })
+        $('#editpage').click(function () {
+            $('#editAA').dialog('open');
+            $.each(jQuery.parseJSON(dataC), function (i, value) {
+                $('#pages').select.append('<option value="' + value.url + '">' + value.url + '</option>');
+            });
+        });
+
+        $("#jsShowGrid").click(function () {
+            isVisibleGrid = true;
+            $("#jsGrid").jsGrid({
+ 
+                height: "auto",
+                width: "100%",
+                sorting: true,
+                paging: false,
+                autoload: true,
+                controller: {
+                    loadData: function () {
+ 
+                        return $.ajax({
+                            url: "@Url.Action("GetMeSomeData")",
+                            dataType: "json"
+                        });
+                       
+                    }
+                },
+                fields: [
+                    { name: "Name", type: "text", width: 100 },
+                    { name: "Description", type: "textarea", width: 100 },
+                    { name: 'myname', type: 'text', width: 50 },
+                    {
+                        name: "Price", type: "number", width: 20,
+                        itemTemplate: function (value) {
+                            return value.toFixed(2) + "$";
+                        }
+                    },
+                    {
+                        name: 'myname1', width: 200, filtering: true,
+                        itemTemplate: function (value) {
+                           // var str = "<a>"+".attr(href, " + value + ">";
+                           // var str1 = str + "Link" +"</a>";
+                           // console.log(str1);
+                            var hjj = $("<a>").attr("href", value).text("link").html();
+                            debugger;
+                            return $("<a>").attr("href", value).text("link");
+                        },
+
+                    },
+                    //return $("<a>").attr("href", value).text(value);
+                    //{ name: 'myname1', edittype: 'select', formatter: 'showlink', formatoptions: { baseLinkUrl: 'someurl.php', addParam: '&action=edit' } },
+                    { type: "control" }
+                ]
+            });
+        });
+ 
+    });
+</script>
+ 
+
+
+@*
+                $.each(response, function(key, value) {
+                      if (typeof response[key] === 'object' && response[key] !== null &&  key == "customer") {
+                            $.each(value, function (i, l) {
+                                alert("Index #" + i + ": " + l.phone);
+                            });
+                      }
+
+                });
+*@

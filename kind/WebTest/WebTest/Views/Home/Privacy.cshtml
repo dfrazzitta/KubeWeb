@@ -1,0 +1,93 @@
+﻿@{
+    ViewData["Title"] = "Privacy Policy";
+}
+<h1>@ViewData["Title"]</h1>
+
+<p>Use this page to detail your site's privacy policy.</p>
+
+
+<div class="text-center pb-5 pt-5">
+    <h1>AspNetCore.Unobtrusive.Ajax</h1>
+    <p>Unobtrusive Ajax Helpers (like MVC5 <strong>Ajax.BeignForm</strong> and <strong>Ajax.ActionLink</strong>) for ASP.NET Core</p>
+</div>
+
+<div class="text-center" style="max-width: 700px; margin-left: auto; margin-right: auto;">
+    <p><strong>HttpPost</strong> Form</p>
+    @using (Html.AjaxBeginForm(new AjaxOptions
+     {
+         HttpMethod = "post"
+     }))
+    {
+
+
+        <div class="input-group">
+            @Html.TextBox("name", null, new { placeholder = "Type your name", @class = "form-control mx-sm-2" })
+            <button class="btn btn-primary">Submit</button>
+        </div>
+    }
+    <br />
+    <br />
+    <p><strong>AjaxOnly</strong> Form</p>
+    @using (Html.AjaxBeginForm("AjaxMethod", new AjaxOptions
+     {
+         HttpMethod = "post"
+     }))
+    {
+        <div class="input-group">
+            @Html.TextBox("name", null, new { placeholder = "Type your name", @class = "form-control mx-sm-2" })
+            <button class="btn btn-primary">Submit</button>
+        </div>
+    }
+
+    @*
+    private static readonly Regex _idRegex = new Regex(@"[.:[\]]");
+    private string _confirm;
+    private string _httpMethod;
+    private InsertionMode _insertionMode = InsertionMode.Replace;
+    private string _loadingElementId;
+    private string _onBegin;
+    private string _onComplete;
+    private string _onFailure;
+    private string _onSuccess;
+    private string _updateTargetId;
+    private string _url;
+    *@
+
+
+    <br />
+    <br />
+    <p><strong>AntiForgeryTokenValidation</strong> Form</p>
+    @using (Html.AjaxBeginForm("AntiForgeryMethod", new AjaxOptions
+     {
+         HttpMethod = "post",
+         OnSuccess = "OnSuccess",
+         OnComplete = "OnComplete"
+     }))
+    {
+        <div class="input-group">
+            @Html.TextBox("name", null, new { placeholder = "Type your name", @class = "form-control mx-sm-2" })
+            <button class="btn btn-primary">Submit</button>
+        </div>
+    }
+    <br />
+    <br />
+    <p><strong>Upload</strong> Form</p>
+    @using (Html.AjaxBeginForm("UploadFile", new AjaxOptions
+     {
+         HttpMethod = "post"
+     }, new { enctype = "multipart/form-data" }))
+    {
+        <div class="input-group">
+            <input type="file" name="file" class="form-control mx-sm-2" />
+            <button class="btn btn-primary">Submit</button>
+        </div>
+    }
+</div>
+<script type="text/javascript">
+    function OnSuccess(data) {
+        alert('HTTP Status Code: ');
+    }
+    function OnFailure(data) {
+        alert('HTTP Status Code: ');
+    }
+</script>

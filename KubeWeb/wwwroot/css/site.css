@@ -1,0 +1,30 @@
+html {
+  font-size: 14px;
+}
+
+@media (min-width: 768px) {
+  html {
+    font-size: 16px;
+  }
+}
+
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+body {
+  margin-bottom: 60px;
+}
+
+#jsoneditor {
+    width: 500px;
+}
+
+.color-namespace_notset {
+    color: yellow;
+}
+
+.color-namespace_set {
+    color: black
+}

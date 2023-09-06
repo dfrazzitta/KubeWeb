@@ -1,0 +1,15 @@
+version: '3.4'
+
+services:
+  faweb:
+    image: ${DOCKER_REGISTRY-}faweb
+    build:
+      context: .
+      dockerfile: faweb/Dockerfile
+
+  faapi:
+    image: ${DOCKER_REGISTRY-}faapi
+    build:
+      context: .
+      dockerfile: faApi/Dockerfile
+

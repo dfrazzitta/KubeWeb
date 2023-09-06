@@ -1,0 +1,218 @@
+﻿@{
+    ViewData["Title"] = "DoIt";
+}
+
+<h1>DoIt</h1>
+
+
+<div id="jstree">
+</div>
+
+
+<button id="cv" onclick="GetInfo()">Click for jstree</button>
+<textbox id="event_result"> textresult</textbox>
+<label id="krapazoo">JavaScript</label>
+ 
+
+
+<button id="cvpod" onclick="GetInfoPod()">Click for PodNameSpace</button>
+
+<form name="myform" id="myform" action="ajax-post.php">
+    User: <input type="text" value="Ravishanker" name="user" /> <br />
+    Password: <input type="password" name="password" value="abcdefgh" />
+    <input type="hidden" name="xyz" value="123" />
+    <input type="hidden" name="submit" value="true" />
+
+</form>
+
+
+@section scripts{
+    <script>
+
+        function GetInfoPod() {
+            var instance = $('#cv').jstree(true);
+            var hj =  $("#event_result").val();
+            var hh = document.getElementById("krapazoo").innerText;
+            alert(hh);
+            var formData = $("#myform").serializeArray();
+
+            alert(formData);
+            //   $('#cv')
+            //       .on("changed.jstree", function (e, data) {
+            //           if (data.selected.length) {
+            //               alert('The selected node is: ' + data.instance.get_node(data.selected[0]).text);
+            //           }
+            //       })
+
+
+            var UserData = {
+                "employees": [
+                    { "firstName": "John", "lastName": "Doe" },
+                    { "firstName": "Anna", "lastName": "Smith" },
+                    { "firstName": "Peter", "lastName": "Jones" }
+                ]
+            };
+    
+            var dataobject = {};
+            dataobject.name = "bull";
+            dataobject.age = "20";
+            var jj = JSON.stringify(  dataobject  );
+            alert(jj);
+
+
+            var student = [];
+            var obj = {
+                'first_name': 'krap',
+                'last_name': 'fraz',
+                'age': '45',
+            }
+            student.push(obj);
+            var obj1 = {
+                'first_name': 'bob',
+                'last_name': 'boo',
+                'age': '30',
+            }
+            student.push(obj1);
+
+            alert(student.length);
+            alert(JSON.stringify(student.obj));
+            alert(student.obj1);
+
+
+            var plop = JSON.stringify(student);
+            alert('this is the plop');
+            alert(plop);
+
+
+
+            var pets = '{"pets":[{"name":"jack"},{"name":"john"},{"name":"joe"}]}';
+            var arr = JSON.parse(pets);
+             
+            alert(arr);
+            /*
+            var ol = // JSON array
+               // JSON array containing objects
+                [
+                  { "name": "John", "age": 22 },
+                  { "name": "Peter", "age": 20 }.
+                  { "name": "Mark", "age": 23 }
+                ]
+            var ol1 = JSON.stringify(ol);
+            alert(ol1);
+            */
+            $.ajax({
+                type: "GET",
+                url: '@Url.Action("GetPodnameSpaceGet")', // GetPodnameSpaceGet",
+                data: plop, //pets, //JSON.stringify(dataobject), //UserData, //{ name: hh, location: "Boston" },  //JSON.stringify(UserData), //JSON.stringify(obj), //{ id : 'test'}, //hh },
+                contentType: "application/json;charset=utf-8",
+                //contentType: "application/x-www-form-urlencoded; charset=utf-8",
+                dataType: "json",
+                success: function (response) {
+                    alert(response);
+                },
+                error: function (response) {
+                    alert(response.responseText);
+                }
+            });
+/*
+            $.ajax({
+                type: "POST",
+                url: "/Home/GetPodnameSpace",
+                data: plop, //pets, //JSON.stringify(dataobject), //UserData, //{ name: hh, location: "Boston" },  //JSON.stringify(UserData), //JSON.stringify(obj), //{ id : 'test'}, //hh },
+                contentType: "application/json;charset=utf-8",
+                //contentType: "application/x-www-form-urlencoded; charset=utf-8",
+                dataType: "json",
+                success: function (response) {
+                      //debugger;
+                },
+                error: function (response) {
+                alert(response.responseText);
+                }
+            });   
+            */
+        }
+/////////////////////////////////////////////////////////////////////////////////
+        /////////////////////////////////////////////////////////////////////////
+        /////////////////////////////////////////////////////////////////////////
+        function GetInfo() {
+            var instance = $('#cv').jstree(true);
+
+
+            $('#jstree')
+                // listen for event
+                .on('changed.jstree', function (e, data) {
+                    
+                    var i, j, r = [];
+                    for (i = 0, j = data.selected.length; i < j; i++) {
+                        r.push(data.instance.get_node(data.selected[i]).text);
+                    }
+ 
+                     
+                    if (data.selected.length > 1) {
+                        alert("Please select only one");
+                        //GetInfo();
+                        $("#jstree").jstree().deselect_all(true);
+                        $('#event_result').html('');
+                    }
+                    else
+                    {
+                        $('#event_result').html(r[0]); //Selected: ' + r.join(', '));
+                        $('#krapazoo').html(r[0]);
+                    }
+                })
+
+            //   $('#cv')
+            //       .on("changed.jstree", function (e, data) {
+            //           if (data.selected.length) {
+            //               alert('The selected node is: ' + data.instance.get_node(data.selected[0]).text);
+            //           }
+            //       })
+            $.ajax({
+                type: "POST",
+                url: "/Home/GetInfo",
+                data: "",
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (response) {
+                    $("#jstree").jstree("destroy");
+                   // $("#jsTree").jstree().deselect_all(true);
+                    $('#jstree').jstree({
+
+                        'core': {
+                            'multiple': false,
+                            "animation": 0,
+                            "check_callback": true,
+                            "themes": { "stripes": true },
+                            'data': response
+
+                        },
+                        "types": {
+                            "#": {
+                                "max_children": 1,
+                                "max_depth": 4,
+                                "valid_children": ["root"]
+                            },
+                            "root": {
+                                "icon": "/static/3.3.15/assets/images/tree_icon.png",
+                                "valid_children": ["default"]
+                            },
+                            "default": {
+                                "valid_children": ["default", "file"]
+                            },
+                            "file": {
+                                "icon": "glyphicon glyphicon-file",
+                                "valid_children": []
+                            }
+                        },
+                        'checkbox': { "keep_selected_style": false },
+                        'plugins': ["types", "changed", "wholerow", "checkbox", "contextmenu", "dnd", "search"]
+                    });
+                    //$jstree.jstree().open_node({ "id": 1  });
+                },
+                error: function (response) {
+                    alert(response.responseText);
+                }
+            });
+        }
+    </script>
+}

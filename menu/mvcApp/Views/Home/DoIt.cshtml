@@ -1,0 +1,100 @@
+﻿
+@{
+    ViewData["Title"] = "DoIt";
+}
+
+<h1>DoIt</h1>
+
+
+<div id="jstree">
+</div>
+
+
+<button id="cv" onclick="GetInfo()">Click for jstree</button>
+<textarea id="event_result"> textresult</textarea>
+@section scripts{
+    <script>
+
+
+       // $(function () {
+            $("#plugins")
+                .on("changed.jstree", function (e, data) {
+                    console.log(data.changed.selected); // newly selected
+                    console.log(data.changed.deselected); // newly deselected
+                })
+                .jstree({
+                    "plugins": ["changed"]
+                });
+        //});
+
+
+
+
+        function GetInfo() {
+            var instance = $('#cv').jstree(true);
+
+
+            $('#jstree')
+                // listen for event
+                .on('changed.jstree', function (e, data) {
+                    var i, j, r = [];
+                    for (i = 0, j = data.selected.length; i < j; i++) {
+                        r.push(data.instance.get_node(data.selected[i]).text);
+                    }
+                    $('#event_result').html('Selected: ' + r.join(', '));
+                })
+                
+         //   $('#cv')
+         //       .on("changed.jstree", function (e, data) {
+         //           if (data.selected.length) {
+         //               alert('The selected node is: ' + data.instance.get_node(data.selected[0]).text);
+         //           }
+         //       })
+             $.ajax({
+                type: "POST",
+                url: "/Home/GetInfo",
+                data: "",
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (response) {
+                    $("#jstree").jstree("destroy");
+                   // $("#jsTree").jstree().deselect_all(true);
+                    $('#jstree').jstree({
+
+                        'core': {
+                            'multiple': false,
+                            "animation": 0,
+                            "check_callback": true,
+                            "themes": { "stripes": true },
+                            'data': response
+                                    
+                        },
+                        "types": {
+                            "#": {
+                                "max_children": 1,
+                                "max_depth": 4,
+                                "valid_children": ["root"]
+                            },
+                            "root": {
+                                "icon": "/static/3.3.15/assets/images/tree_icon.png",
+                                "valid_children": ["default"]
+                            },
+                            "default": {
+                                "valid_children": ["default", "file"]
+                            },
+                            "file": {
+                                "icon": "glyphicon glyphicon-file",
+                                "valid_children": []
+                            }
+                        },
+                        //'checkbox': { "keep_selected_style": false },
+                        'plugins': ["types", "changed", "wholerow", "checkbox", "contextmenu", "dnd", "search"]
+                    });
+                },
+                error: function (response) {
+                    alert(response.responseText);
+                }
+            });
+        }
+    </script>
+}

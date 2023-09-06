@@ -1,0 +1,43 @@
+kind: Pod
+apiVersion: v1
+metadata:
+  name: bar-app1
+  labels:
+    app: bar1
+spec:
+  containers:
+    - image: dfrazzitta/basemvc
+      name: bar-app1
+
+---
+
+kind: Service
+apiVersion: v1
+metadata:
+  name: bar-service1
+spec:
+  selector:
+    app: bar1
+  ports:
+  # Default port used by the image
+  - port: 80 
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: example-ingress1
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: / 
+spec:
+  rules:
+  - http:
+      paths:
+      - pathType: Prefix
+        path: /base 
+        backend:
+          service:
+            name: bar-service1
+            port:
+              number: 80 
+      
+---

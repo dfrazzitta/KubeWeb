@@ -1,0 +1,104 @@
+﻿
+@{
+    ViewData["Title"] = "Privacy1";
+}
+
+<h1>Privacy1</h1>
+<input type="text" id="txtType" />
+<div id="jstree">
+</div>
+
+
+<h1>Interaction and events demo</h1>
+<button id="evts_button">select node </button> 
+<div id="evts" class="demo"></div>
+
+<button id="b1">select node b1 </button>
+<button id="b11" onclick="foo()">select node b1 </button>
+
+
+
+
+@section scripts{
+
+    <script type="text/javascript">
+       // $(document).ready(function () {
+            $("#b1").on("click", function () {
+                alert('button');
+             
+            });
+      //  )};
+
+        function foo()
+        {
+            alert('fdfs');
+        }
+
+        $('#evts_button').on("click", function () {
+            alert('button');
+            var instance = $('#evts').jstree(true);
+            instance.deselect_all();
+            instance.select_node('1');
+        });
+        $('#evts')
+            .on("changed.jstree", function (e, data) {
+                if (data.selected.length) {
+                    alert('The selected node is: ' + data.instance.get_node(data.selected[0]).text);
+                }
+            })
+        $.ajax({
+            type: "POST",
+            url: "/Home/GetInfo",
+            data: "{vehicleType:'" + typeVehicle + "'}",
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (response) {
+                $("#jstree").jstree("destroy");
+                $('#jstree').jstree({
+                    "core": {
+                        'multiple': false,
+                        "animation": 0,
+                        "check_callback": true,
+                        "themes": { "stripes": true },
+
+                        'data': response
+                    }
+                },
+                    "plugins": [
+                    "contextmenu", "dnd", "search",
+                    "state", "types", "wholerow"
+                ]
+                        },
+            error: function (response) {
+                alert(response.responseText);
+            }
+        )};
+
+
+
+        $(function () {
+            BindJsTree('');
+            $('#txtType').on('change', function () {
+                BindJsTree($(this).val());
+            });
+        });
+
+
+        $(function () {
+            $("#plugins")
+                .on("changed.jstree", function (e, data) {
+                    console.log(data.changed.selected); // newly selected
+                    console.log(data.changed.deselected); // newly deselected
+                })
+                .jstree({
+                    "plugins": ["changed"]
+                });
+        });
+
+        
+
+        }
+  
+
+    </script>
+}

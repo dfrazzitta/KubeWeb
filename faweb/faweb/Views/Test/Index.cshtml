@@ -1,0 +1,1236 @@
+﻿
+@{
+    ViewData["Title"] = "K8SVC";
+    Layout = "";
+}
+
+
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+<link rel="stylesheet" href="~/css/site.css" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.6.0/umd/popper.min.js" integrity="sha512-BmM0/BQlqh02wuK5Gz9yrbe7VyIVwOzD1o40yi1IsTjriX/NGF37NyXHfmFzIlMmoSIBXgqDiG1VNU6kB5dBbA==" crossorigin="anonymous"></script>
+<link rel="stylesheet" href=" https://stackpath.bootstrapcdn.com/bootswatch/4.5.2/sketchy/bootstrap.min.css">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/jsoneditor/5.5.5/jsoneditor.min.css" rel="stylesheet" type="text/css" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jsoneditor/5.5.5/jsoneditor.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.0-rc.2/themes/smoothness/jquery-ui.min.css" rel="stylesheet" type="text/css" />
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+
+<script src="https://code.jquery.com/jquery-3.6.0.js"
+        integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
+        crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"
+        integrity="sha256-T0Vest3yCU7pafRw9r+settMBX6JkKN06dqBnpQ8d30="
+        crossorigin="anonymous"></script>
+
+
+
+ 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jsoneditor/5.5.5/jsoneditor.min.js"></script>
+
+
+
+
+<style>
+    body {
+        text-align: center;
+    }
+        /* Turn off scrollbar when body element has the loading class */
+    body.loading {
+        overflow: hidden;
+    }
+    /* Make spinner image visible when body element has the loading class */
+    body.loading .overlay {
+        display: block;
+    }
+
+    .overlay {
+        display: none;
+        position: fixed;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        z-index: 999;
+        background: rgba(255,255,255,0.8) url("https://media0.giphy.com/media/4ytUZzb1pRPBS/200w.webp?cid=ecf05e471to68vqkrhruo94h0k1yr5oevpr5hs5x3wc6p595&rid=200w.webp") center no-repeat;
+     
+        
+          
+        
+    }
+    /*https://imgur.com/gallery/XF2WEL3*/
+    /* Turn off scrollbar when body element has the loading class */
+    body.loading {
+        overflow: hidden;
+    }
+        /* Make spinner image visible when body element has the loading class */
+    body.loading .overlay {
+        display: block;
+    }
+
+    
+
+    body {
+        margin: 0;
+        background: lightgray;
+        text-align: center;
+        font-family: sans-serif;
+        color: #fefefe;
+    }
+
+    .dropdown-menu-arrow {
+        top: -25px;
+        left: 50%;
+        width: 0;
+        height: 0;
+        position: relative;
+    }
+
+        .dropdown-menu-arrow:before,
+        .dropdown-menu-arrow:after {
+            content: "";
+            position: absolute;
+            display: block;
+            width: 0;
+            height: 0;
+            border-width: 7px 8px;
+            border-style: solid;
+            border-color: transparent;
+            z-index: 1001;
+        }
+
+        .dropdown-menu-arrow:after {
+            bottom: -18px;
+            right: -8px;
+            border-bottom-color: #fff;
+        }
+
+        .dropdown-menu-arrow:before {
+            bottom: -17px;
+            right: -8px;
+            border-bottom-color: rgba(0,0,0,.15);
+        }
+
+    section.awSlider .carousel {
+        display: table;
+        z-index: 2;
+        -moz-box-shadow: 0 0 4px #444;
+        -webkit-box-shadow: 0 0 4px #444;
+        box-shadow: 0 0 15px rgba(1,1,1,.5);
+    }
+
+    section.awSlider {
+        margin: 30px auto;
+        padding: 30px;
+        position: relative;
+        display: table;
+        -webkit-touch-callout: none;
+        -webkit-user-select: none;
+        -khtml-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+    }
+
+        section.awSlider:hover > img {
+            -ms-transform: scale(1.2);
+            -webkit-transform: scale(1.2);
+            transform: scale(1.2);
+            opacity: 1;
+        }
+
+        section.awSlider img {
+            pointer-events: none;
+        }
+
+        section.awSlider > img {
+            position: absolute;
+            top: 30px;
+            z-index: 1;
+            transition: all .3s;
+            filter: blur(1.8vw);
+            -webkit-filter: blur(2vw);
+            -moz-filter: blur(2vw);
+            -o-filter: blur(2vw);
+            -ms-filter: blur(2vw);
+            -ms-transform: scale(1.1);
+            -webkit-transform: scale(1.1);
+            transform: scale(1.1);
+            opacity: .5;
+        }
+
+    #loading {
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        position: fixed;
+        display: block;
+        opacity: 0.7;
+        background-color: #fff;
+        z-index: 99;
+        text-align: center;
+    }
+
+    #loading-image {
+        position: absolute;
+        top: 100px;
+        left: 240px;
+        z-index: 100;
+    }
+
+    .btxn {
+        background-color: DodgerBlue; /* Blue background */
+        border: none; /* Remove borders */
+        color: white; /* White text */
+        padding: 12px 16px; /* Some padding */
+        font-size: 16px; /* Set a font size */
+        cursor: pointer; /* Mouse pointer on hover */
+    }
+
+        /* Darker background on mouse-over */
+        .btxn:hover {
+            background-color: RoyalBlue;
+        }
+</style>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+            <div class="container">
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">K8Svc</a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                    <ul class="navbar-nav flex-grow-1">
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" style="display: inline-block;" href="#" data-toggle="modal" data-target="#modal1">About <span class="sr-only">(current)</span></a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="test" asp-action="index">KubeSpecifics</a>
+                        </li>
+
+                    </ul>
+
+
+                </div>
+                <partial name="_LoginPartial" />
+            </div>
+        </nav>
+    </header>
+    <div class="container-fluid">
+      <!--<main role="main" class="pb-3">  -->
+            <div class="row">
+                <div class="col-sm-9">
+
+                    <p class="font-weight-bold">Kubernetes</p>
+
+                    <!--Accordion wrapper-->
+                    <div class="accordion md-accordion" id="accordionEx" role="tablist" aria-multiselectable="true">
+
+                        <!-- Accordion card -->
+                        <div class="card">
+ 
+                            <!-- Card header -->
+                            <div class="card-header" role="tab" id="headingOne1">
+                                <a data-toggle="collapse" data-parent="#accordionEx" href="#collapseOne1" aria-expanded="true"
+                                   aria-controls="collapseOne1">
+                                    <h5 class="mb-0">
+                                        <b> Kubernetes Cluster Config </b>  <i class="fas fa-angle-down rotate-icon"></i>
+                                    </h5>
+                                </a>
+                            </div>
+
+                            <!-- Card body -->
+                            <div id="collapseOne1" class="collapse show text-dark" role="tabpanel" aria-labelledby="headingOne1"
+                                 data-parent="#accordionEx">
+                                <div class="card-body">
+                                    The Kubernetes v1.2 control plane consists of One(1) master and Two(2) workers,
+                                    Ubuntu 20.04 Operating System. Metallb is used for LoadBalancing in L2 mode
+                                    (not BGP), not suitable for production however more than suitable for dev,
+                                    Cert Server is installed as well as Ingress Controller, certificates
+                                    issued by LetsEncrypt.  Istio is used to encrypt Pod to Pod communication.
+                                    Feel free to access for further detail <br />
+
+                                    <div class="row">
+                                        <div class="col-md-12 text-center">
+                                            <br />
+                                            <p>
+                                                <a href="http://192.168.0.105/">Prometheus or</a>
+                                            </p>
+                                            <br />
+                                            <p>
+                                                <a href="http://192.168.0.106/">Grafana or</a>
+                                            </p>
+                                            <br />
+                                            <p>
+                                                <a href="http://192.168.0.108/">Weave Scope</a>
+                                            </p>
+                                        </div>
+                                    </div>
+
+                                    <div class="row shadow-lg p-3 mb-5 bg-info rounded">
+                                        <div class="text-center  ">
+                                            <p>
+                                                The following "Choose Category" will retrieve all resource in the cluster without regard to NameSpace
+
+                                                All calls are made from container faweb (c# MVC) to faapi (c# webap) and subsequently calling
+                                                the apiserver for the information to be displayed in the displayed dialog. Redis cache is used for interm
+                                                data .
+                                            </p>
+                                            <p>
+                                                <img data-toggle="tooltip" title="Lets get all resources by designation !" src="~/img/sbfinger.png" />
+                                            </p>
+
+                                            <div>
+                                                <div class="dropdown btn-group">
+                                                    <a id="abc" class="dropdown dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                        BullaBase
+                                                    </a>
+
+                                                    <ul id="bdnc" class="dropdown-menu">
+                                                        <li><a>SystemInfo</a></li>
+                                                        <li><a>SystemInfo Dump</a></li>
+                                                        <li><a>Config</a></li>
+                                                        <li><a>NameSpaces</a></li>
+                                                        <li><a>Pods</a></li>
+                                                        <li><a>Services</a></li>
+                                                        <li><a>Daemons</a></li>
+                                                        <li><a>Metrics</a></li>
+
+                                                    </ul>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row shadow-lg p-3 mb-5 bg-info rounded">
+                                        <div class="text-center  ">
+                                            <div>
+
+                                                <div class="dropdown btn-group">
+
+                                                    <button id="bdn" class="btn btn-primary  " type="button" data-toggle="dropdown">
+                                                        Choose Category
+                                                        <span class="caret"></span>
+                                                    </button>
+
+                                                    <ul id="bdnccx" class="dropdown-menu">
+                                                        <li><a>SystemInfo</a></li>
+                                                        <li><a>SystemInfo Dump</a></li>
+                                                        <li><a>Config</a></li>
+                                                        <li><a>NameSpaces</a></li>
+                                                        <li><a>Pods</a></li>
+                                                        <li><a>Services</a></li>
+                                                        <li><a>Daemons</a></li>
+                                                        <li><a>Metrics</a></li>
+
+                                                    </ul>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <br />
+
+                                    <div class="row shadow-lg p-3 mb-5 bg-info rounded">
+                                        <div class="text-center">
+                                            <p>
+                                                Get all Namespaces
+                                                cluster, all calls are made from container faweb (c# MVC) to faapi (c# webap) and subsequently calling
+                                                the apiserver for the information to be displayed in the displayed dialog
+                                            </p>
+                                            <p>
+                                                <img data-toggle="tooltip" title="Now lets get all resources by NameSpace !" src="~/img/spbob.png" />
+                                            </p>
+                                        </div>
+                                     
+                                        <div class="text-center">
+                                            <div>
+                                                <button type="button" id="GetNameSpacesOnly" class="btn btn-primary enabled">GetNameSpacesOnly</button>
+
+                                                <button id="btnGroupDrop2" type="button" class="btn btn-primary enabled" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                    Get Information
+                                                </button>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                            <div>
+                                                <button id="GetNameSpaceButton" class="btn btn-primary  " type="button">
+                                                    Get All Namespacesc
+                                                    <span class="caret"></span>
+                                                </button>
+
+                                                <div class="dropdown">
+
+                                                    <button id="DropDownnameSpace" class="btn btn-primary" type="button" data-toggle="dropdown">
+                                                        NameSpaces
+                                                        <span class="caret"></span>
+                                                    </button>
+
+                                                    <ul id="bdxnd" class="dropdown-menu">
+                                                        <li><a>default</a></li>
+                                                        <li><a>Certificates Dump</a></li>
+                                                        <li><a>Ingress</a></li>
+                                                        <li><a>Metallb</a></li>
+                                                        <li><a>Pods</a></li>
+                                                        <li><a>Services</a></li>
+                                                        <li><a>Daemons</a></li>
+                                                        <li><a>Metrics</a></li>
+                                                    </ul>
+
+                                                </div>
+                                            </div>
+                                            <!-- <div class="btn-group" role="group">
+        <button id="btnGroupDrop2" type="button" class="btn btn-primary enabled" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Get Information
+        </button>
+        <!-- <div class="dropdown-menu enabled" id="DropDownNamespaces2" data-toggle="dropdown" aria-labelledby="btnGroupDrop2"> -->
+
+                                        </div>
+
+                                        <!--</div> -->
+                                        <!--
+    <div class="btn-group btn-toolbar">
+
+        <button id="GetNameSpaceButton" class="btn btn-primary  " type="button">
+            Get All Namespacesc
+            <span class="caret"></span>
+        </button>
+
+        <div class="dropdown">
+
+            <button id="DropDownnameSpace" class="btn btn-primary" type="button" data-toggle="dropdown">
+                NameSpaces
+                <span class="caret"></span>
+            </button>
+
+            <ul id="bdxnd" class="dropdown-menu">
+                <li><a>default</a></li>
+                <li><a>Certificates Dump</a></li>
+                <li><a>Ingress</a></li>
+                <li><a>Metallb</a></li>
+                <li><a>Pods</a></li>
+                <li><a>Services</a></li>
+                <li><a>Daemons</a></li>
+                <li><a>Metrics</a></li>
+            </ul>
+
+        </div>
+        <div class="dropdown ">
+
+            <button id="bdn" class="btn btn-primary" type="button" data-toggle="dropdown">
+                Choose Category
+                <span class="caret"></span>
+            </button>
+
+            <ul id="bdnc" class="dropdown-menu">
+                <li><a>SystemInfo</a></li>
+                <li><a>SystemInfo Dump</a></li>
+                <li><a>Config</a></li>
+                <li><a>NameSpaces</a></li>
+                <li><a>Pods</a></li>
+                <li><a>Services</a></li>
+                <li><a>Daemons</a></li>
+                <li><a>Metrics</a></li>
+
+            </ul>
+
+        </div>
+
+    </div>  -->
+
+                                    </div>
+                                </div>
+
+                                <br />
+                                <div id="loading" style="display: none;">
+                                    <img id="loading-image" src="https://media0.giphy.com/media/4ytUZzb1pRPBS/200w.webp?cid=ecf05e471to68vqkrhruo94h0k1yr5oevpr5hs5x3wc6p595&rid=200w.webp" alt="Loading..." />
+                                </div>
+
+                                <div class="btn-group">
+                                    <a class="dropdown dropdown-toggle" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        Menu item 3(dropdown menu 1)
+                                    </a>
+                                    <div class="dropdown-menu" aria-labelledby="dropdown">
+                                        <a class="dropdown-item" href="/">dropdown item 1</a>
+                                    </div>
+                                </div>
+
+                                <div class="btn-group">
+                                    <a class="dropdown dropdown-toggle" href="#" id="certdropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        Menu item 3 ( dropdown menu 2)
+                                    </a>
+                                    <div class="dropdown-menu" aria-labelledby="dropdown">
+                                        <a class="dropdown-item" href="/">dropdown item 1</a>
+                                    </div>
+                                </div>
+
+                                The above focus on in cluster calls regarding resources, under the Database Menu, there is a full rendition of
+                                Contoso University with presistant volumes/claims.
+
+                                The menu option to scale a set of pod instances either direction
+                                <br />
+                                <br />
+                                <br />
+                                <br />
+                                <br />
+                                <br />
+                                <br />
+                                <br />
+                                <br />
+                                <br />
+                                <br />
+                                <br />
+
+
+                                Issues open: no etcd backup
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                            </div>
+                        </div>
+
+                        </div>
+                        <div class="modal fade" id="modal1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel">K8svc Kubernetes Demo</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        K8svc Kubernetes Demo copywrite 2021
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Accordion card -->
+                        <!-- Accordion card -->
+                        <div class="card">
+
+                            <!-- Card header -->
+                            <div class="card-header" role="tab" id="headingTwo2">
+                                <a class="collapsed" data-toggle="collapse" data-parent="#accordionEx" href="#collapseTwo2"
+                                   aria-expanded="false" aria-controls="collapseTwo2">
+                                    <h5 class="mb-0">
+                                        <b> Kubernetes Database Example </b><i class="fas fa-angle-down rotate-icon"></i>
+                                    </h5>
+                                </a>
+                            </div>
+
+                            <!-- Card body -->
+                            <div id="collapseTwo2" class="collapse" role="tabpanel" aria-labelledby="headingTwo2"
+                                 data-parent="#accordionEx">
+                                <div class="card-body">
+                                    <div class="dropdown" style="width: 100px !important;">
+                                        <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+                                            Source
+                                        </button>
+                                        <div class="dropdown-menu" id="SelectMe">
+                                            <a class="dropdown-item" href="#">CLE</a>
+                                            <a class="dropdown-item" href="#">SQL</a>
+                                            <a class="dropdown-item" href="#">FFILE</a>
+                                            <a class="dropdown-item" href="#">SampleAPI</a>
+                                        </div>
+                                    </div>
+                                    Anim pariatur cliche reprehenderit, <br>enim eiusmod high life accusamus terry richardson ad squid. 3
+                                    wolf moon officia aute, non cupidatat <br />skateboard dolor brunch. Food truck quinoa nesciunt laborum
+                                    eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla
+                                    assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred
+                                    nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer
+                                    farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus
+                                    labore sustainable VHS.
+                                </div>
+                            </div>
+
+                        </div>
+                        <!-- Accordion card -->
+                        <!-- Accordion card -->
+                        <div class="card">
+
+                            <!-- Card header -->
+                            <div class="card-header" role="tab" id="headingThree3">
+                                <a class="collapsed" data-toggle="collapse" data-parent="#accordionEx" href="#collapseThree3"
+                                   aria-expanded="false" aria-controls="collapseThree3">
+                                    <h5 class="mb-0">
+                                        <b>Kubernetes Debugging</b> <i class="fas fa-angle-down rotate-icon"></i>
+                                    </h5>
+                                </a>
+                            </div>
+
+                            <!-- Card body -->
+                            <div id="collapseThree3" class="collapse" role="tabpanel" aria-labelledby="headingThree3"
+                                 data-parent="#accordionEx">
+                                <div class="card-body">
+                                    Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3
+                                    wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum
+                                    eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla
+                                    assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred
+                                    nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer
+                                    farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus
+                                    labore sustainable VHS.
+                                </div>
+                            </div>
+
+                        </div>
+                        <!-- Accordion card -->
+
+                    </div>
+                </div>
+
+                <!-- Accordion wrapper -->
+                <div class="col-sm-3">
+                    <section class="awSlider">
+                        <div class="carousel slide" data-ride="carousel">
+                            <!-- Indicators -->
+                            <ol class="carousel-indicators">
+                                <li data-target=".carousel" data-slide-to="0" class="active"></li>
+                                <li data-target=".carousel" data-slide-to="1"></li>
+                                <li data-target=".carousel" data-slide-to="2"></li>
+                                <li data-target=".carousel" data-slide-to="3"></li>
+                            </ol>
+
+                            <!-- Wrapper for slides -->
+                            <div class="carousel-inner" role="listbox">
+                                <div class="item active" style="z-index:1;">
+
+                                    <img src="~/img/arch.png" />
+                                    ">
+                                    <div class="carousel-caption">Kubernetes #1</div>
+                                </div>
+                                <div class="item" style="z-index:1;">
+
+                                    <img src="~/img/cluster.png" />
+                                    <div class="carousel-caption">Kubernetes #2</div>
+                                </div>
+                                <div class="item" style="z-index:1;">
+
+                                    <img src="~/img/info.png" />
+                                    <div class="carousel-caption">Kubernetes #3</div>
+                                </div>
+                                <div class="item" style="z-index:1;">
+
+                                    <img src="~/img/k.png" />
+                                    <div class="carousel-caption">Kubernetes #4</div>
+                                </div>
+                            </div>
+
+                            <!-- Controls -->
+                            <a class="left carousel-control" href=".carousel" role="button" data-slide="prev">
+                                <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+                                <span class="sr-only">Geri</span>
+                            </a>
+                            <a class="right carousel-control" href=".carousel" role="button" data-slide="next">
+                                <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+                                <span class="sr-only">İleri</span>
+                            </a>
+                        </div>
+                    </section>
+                    <div class="overlay"></div>
+                    <!--  this is the second on the stack -->
+                    <section class="awSlider">
+                        <div class="carousel slide" data-ride="carousel">
+                            <!-- Indicators -->
+                            <ol class="carousel-indicators">
+                                <li data-target=".carousel" data-slide-to="0" class="active"></li>
+                                <li data-target=".carousel" data-slide-to="1"></li>
+                                <li data-target=".carousel" data-slide-to="2"></li>
+                                <li data-target=".carousel" data-slide-to="3"></li>
+                            </ol>
+
+                            <!-- Wrapper for slides -->
+                            <div class="carousel-inner" role="listbox">
+                                <div class="item active" style="z-index:1;">
+                                    <img src="~/img/m/m1.png" />
+
+                                    ">
+                                    <div class="carousel-caption">Kubernetes #1</div>
+                                </div>
+                                <div class="item" style="z-index:1;">
+                                    <img src="~/img/m/m2.png" />
+
+                                    <div class="carousel-caption">Kubernetes #2</div>
+                                </div>
+                                <div class="item" style="z-index:1;">
+                                    <img src="~/img/m/m3.png" />
+
+                                    <div class="carousel-caption">Kubernetes #3</div>
+                                </div>
+                                <div class="item" style="z-index:1;">
+                                    <img src="~/img/m/m4.png" />
+
+                                    <div class="carousel-caption">Kubernetes #4</div>
+                                </div>
+                            </div>
+
+                            <!-- Controls -->
+                            <a class="left carousel-control" href=".carousel" role="button" data-slide="prev">
+                                <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+                                <span class="sr-only">Geri</span>
+                            </a>
+                            <a class="right carousel-control" href=".carousel" role="button" data-slide="next">
+                                <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+                                <span class="sr-only">İleri</span>
+                            </a>
+                        </div>
+                    </section>
+                    <!--
+                    <img id="topImage" class="img-fluid" src="https://d33wubrfki0l68.cloudfront.net/2475489eaf20163ec0f54ddc1d92aa8d4c87c96b/e7c81/images/docs/components-of-kubernetes.svg" width="100%" height="370" style="margin-left: 10px;" />
+                    <br>
+                    <img id="topImage" class="img-fluid" src="https://cdn.thenewstack.io/media/2020/08/60c64aaf-jani-kue-01.png" width="100%" height="370" style="margin-left: 10px ;" />
+                    <br>
+                    <br>
+                    <img id="lastImage" class="img-fluid" src="https://kubernetes.io/images/blog/2018-06-05-11-ways-not-to-get-hacked/kubernetes-control-plane.png" width="100%" height="369" style="margin-left: 10px ;" />
+                        -->
+                </div>
+
+                <!--
+            <div class="col-sm-3">
+
+
+                <h2>Ads</h2>
+
+                <img id="lastImage" src="https://mailbakery.s3.amazonaws.com/wp-content/uploads/2015/06/26160336/j_jill.gif" width="200" height="169" style="margin-left: 0 auto;" />
+
+                <br>
+                <br>
+
+                <img id="lastImage" src="https://www.campaignmonitor.com/wp-content/uploads/2016/01/NewBlankCanvasEmail_02.gif"
+                     width="200" height="169" style="margin-left: 0 auto;" />
+                <br>
+                <br>
+                <img id="lastImage" src="data:image/jpeg;base64,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" width="200" height="169" style="margin-left: 0 auto;" />
+
+
+                <br>
+                <br>
+
+                <img id="lastImage" src="https://socialreport.zendesk.com/hc/article_attachments/115017509006/tumblr_mucr5ouPLQ1s8jl6ro1_400.gif" width="200" height="169" style="margin-left: 0 auto;" />
+                <br>
+                <br>
+
+                <img id="lastImage" src="https://socialreport.zendesk.com/hc/article_attachments/115017509006/tumblr_mucr5ouPLQ1s8jl6ro1_400.gif" width="200" height="169" style="margin-left: 0 auto;" />
+                <br>
+                <br>
+                <img id="lastImage" src="https://i.gifer.com/PjQZ.gif" width="200" height="169" style="margin-left: 0 auto;" />
+                <br>
+                <br>
+            </div>
+
+                -->
+                <!-- <div class="modal"></div>
+            <div id="dialog" title="Information">
+                <div id="myDialogText"></div>
+            </div>  -->
+            </div>
+
+            <div>
+                <footer class="border-top footer text-muted">
+                    <div class="container">
+                        &copy; 2021 - K8SVC - <a asp-area="" asp-controller="Home" asp-action="index">K8svc Home</a>
+                    </div>
+                </footer>
+            </div>
+
+            <script>
+
+                /*
+                function displayBusyIndicator() {
+                    document.getElementById("loading").style.display = "block";
+                }
+
+                function hideBusyIndicator() {
+                    document.getElementById("loading").style.display = "none";
+                }
+                function sleep(ms) {
+                    return new Promise(resolve => setTimeout(resolve, ms));
+                }  */
+
+
+
+
+
+
+
+
+                function jsonDialog(jsonobj, modes, titleDialog, okcallback, cancelcallback, errorcallback) {
+                    if (jsonobj === undefined || jsonobj === null) {
+                        if (errorcallback !== undefined)
+                            errorcallback("JSON Object is not valid");
+                        return false;
+                    }
+
+                    var jsoncontent = document.createElement('div');
+                    jsoncontent.id = 'divjson';
+                    jsoncontent.style.display = "none";
+
+                    $('#divjson').css('z-index', '100000');
+                    document.body.appendChild(jsoncontent);
+
+                    var jsoneditor = document.createElement('div');
+                    jsoneditor.style.width = '398px';
+                    jsoneditor.style.height = '484px';
+                    
+                    jsoncontent.appendChild(jsoneditor);
+
+                    if (modes === undefined || modes === null)
+                        modes = { mode: 'tree', modes: ['form', 'text', 'tree', 'view'] };
+
+                    var editor = new JSONEditor(jsoneditor, modes);
+                    editor.set(jsonobj);
+
+                    var destroy = function () {
+                        editor.destroy();
+                        jsoneditor.remove();
+                        $(jsoncontent).dialog('close');
+                        jsoncontent.remove();
+                        $('.ui-dialog').remove();
+                    };
+                    //https://api.jqueryui.com/position/
+                    //https://jqueryui.com/position/
+                    $(jsoncontent).dialog({
+                        height: 610, //560,
+                        width: 400,
+                        modal: false,
+                         
+                        resizable: true,
+
+                        title: "Resource: " + titleDialog,
+                        position: {
+                            my: "center",
+                            at: "top",
+                            of: window
+                        },
+                        buttons: [{
+                            text: "OK",
+                            style: "margin-right:40px; color:#3883fa;",
+                            click: function () {
+                                var result = editor.get();
+                                destroy();
+                                if (okcallback !== undefined)
+                                    okcallback(result);
+                               // hideBusyIndicator();
+                            }
+                        }, {
+                            text: "Cancel",
+                            style: "color:#EE422E;",
+                            click: function () {
+                                destroy();
+                                if (cancelcallback !== undefined)
+                                    cancelcallback();
+                               // hideBusyIndicator();
+                            }
+                        }]
+                    }).append('<img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRLqBq0ilAid0OE2A0Qx94ujF_M9DugbAGVyg&usqp=CAU" width = "100" height = "60"/>  ');
+                    $(".ui-dialog-titlebar-close").css('visibility', 'hidden');
+                    $("ui-dialog-titlebar").css('background', 'color: blue');
+                    $(".ui-dialog").css('border-style', 'none');
+                    $(".ui-dialog-titlebar").css('visibility', 'visible');
+                    $(".ui-dialog").css('modal', 'true');
+                    $(".ui-dialog").css('text-align', 'center');
+                    $(".ui-button").css('width', '100px');
+                    $(".ui-button").css('margin-top', '10px');
+                    $(".ui-button").css('margin-bottom', '10px');
+
+
+                    return true;
+                }
+            </script>
+
+            <script>
+                $(document).ready(function () {
+
+                    $(".dropdown-menu lu").click(function () {
+                        var target = $(this).closest('.btn-group').find('.btn:first-child')
+                        target.text($(this).text());
+                        target.val($(this).text());
+                    });  
+
+
+                    $('#GetNameSpacesOnly').on('click', function (e) {
+                        //$('#GetJustNameSpaces').('click', function (e) {
+                        e.preventDefault();
+                       // alert('onclick');
+                        var target = document.getElementById("GetNameSpacesOnly");
+                        var controllerName = "/test/" + target.innerHTML;
+                        //var url = "/" + controllerName + "/" + target.innerHTML;
+                        //var data = target.innerHTML;
+                        $.ajax({
+                            type: "GET",
+                            crossDomain: true,
+                            // headers: { 'Access-Control-Allow-Origin': '*' },
+                            // data: data,
+                            cache: false,
+                            "headers": {
+                                "accept": "application/json",
+                                "Access-Control-Allow-Origin": "http://localhost:6514/"
+                            },
+                            url: controllerName,
+                            data: { "KubeType": target.innerHTML },
+                            //data: { datatype: 'default' },
+                            // data: JSON.stringify(Student),
+                            //dataType: "json"
+                            contentType: 'application/json; charset=utf-8',
+
+                            success: function (data) {
+                                
+                                $("#GetNameSpacesOnly").removeClass('enabled');
+                                $("#GetNameSpacesOnly").addClass('disabled');
+                                 /*
+                                $('#PickNameSpace').removeClass('disabled');
+                                $('#PickNameSpace').addClass('enabled');
+                                $('#PickNameSpace').clearQueue();  */
+
+                                var result = jQuery.parseJSON(data);
+                                for (index = 0; index < result.length; index++) {
+                                    console.log(result[index]);
+                                    
+                                }
+                                // <div class="dropdown-menu enabled" id="DropDownNamespaces2" data-toggle="dropdown" aria-labelledby="btnGroupDrop2">
+                                //id="bdxnd2" hidden="DropDownResources2"
+                                $.each(result, function (i, el) {
+                                   // $('#PickNameSpace').append(new Option(el, el)); //, el.value));
+                                   // $('#PickNameSpace').append('<li>Row ' + countRows + '</li>'); exampleFormControlSelect1
+                                    //var countRows = $('ul.dropdown-menu li').size();
+                                  //  $('#bdxnd2').append('<li><a>' + el + '</a></li>');
+                                  //  $('#bdncrr').append('<li><a>' + el + '</a></li>');
+                                    $('#exampleFormControlSelect1').append('<option>' + el + '</option>');
+                                   
+                                });
+
+                                
+                               // $('#bdxnd2').removeClass('disabled');
+                               // $('#bdxnd2').addClass('enabled');
+                                //$('#bdxnd2').collapse;
+                                //data-toggle="collapse"
+
+                                /*
+                                var jsonobj = JSON.parse(data); // MANDATORY
+                                var modes = { mode: 'tree', modes: ['form', 'text', 'tree'] }; // OPTIONAL
+                                var okcallback = function (jsonobj) { alert(JSON.stringify(jsonobj)); }; // OPTIONAL
+                                var cancelcallback = function () { }; // OPTIONAL
+                                var errorcallback = function (e) { alert(e); }; // OPTIONAL
+
+                                //hideBusyIndicator();
+                                jsonDialog(jsonobj, modes, target.innerHTML, okcallback, cancelcallback, errorcallback);
+                                */
+
+                            },
+                            error: function () {
+                                alert("Error occured!!")
+                            }
+                        });
+
+
+                    });
+
+                    //bdnc
+                    $("#bdnc").click(function (e) {
+                        e.preventDefault();
+                        var target = document.getElementById("abc").innerHTML;
+
+                        alert(target);
+                    });
+
+                    $("#btnGroupDrop2").click(function () {
+                        var target = document.getElementById("exampleFormControlSelect1");
+
+                        alert(target);
+                    });
+
+                    $(document).on({
+                        ajaxStart: function () {
+                            $("body").addClass("loading");
+                        },
+                        ajaxStop: function () {
+                            $("body").removeClass("loading");
+                        }
+                    });
+
+
+                    
+
+                    $("#metallb").click(function () {
+
+                        var jsonstr = '{"key": [1, 2, 3],"anotherkey": true,"somekey": null,"anykey": 123,"justakey": {"a": "b", "c": "d"},"otherkey": "Hello World"}';
+
+                        var jsonobj = JSON.parse(jsonstr); // MANDATORY
+                        var modes = { mode: 'tree', modes: ['form', 'text', 'tree'] }; // OPTIONAL
+                        var okcallback = function (jsonobj) { alert(JSON.stringify(jsonobj)); }; // OPTIONAL
+                        var cancelcallback = function () { }; // OPTIONAL
+                        var errorcallback = function (e) { alert(e); }; // OPTIONAL
+
+                        jsonDialog(jsonobj, modes, "Metallb", okcallback, cancelcallback, errorcallback);
+                    });
+
+                    $('.dropdown-menu li a').click(function (e) {
+                        e.preventDefault();
+                        var pp = $('button[data-toggle="dropdown"]').text($(this).text());
+                       // var jj = $(this);
+                        var target = document.getElementById("bdn");
+
+                        //daemons
+                        if (target.innerHTML === "Daemons") {
+                            var controllerName = "/test/" + target.innerHTML;
+                            //var url = "/" + controllerName + "/" + target.innerHTML;
+                            //var data = target.innerHTML;
+                            $.ajax({
+                                type: "GET",
+                                crossDomain: true,
+                                // headers: { 'Access-Control-Allow-Origin': '*' },
+                                // data: data,
+                                cache: false,
+                                "headers": {
+                                    "accept": "application/json",
+                                    "Access-Control-Allow-Origin": "http://localhost:6514/"
+                                },
+                                url: controllerName,
+                                data: { "KubeType": target.innerHTML },
+                                //data: { datatype: 'default' },
+                                // data: JSON.stringify(Student),
+                                //dataType: "json"
+                                contentType: 'application/json; charset=utf-8',
+
+                                success: function (data) {
+                                    var jsonstr = '{"key": [1, 2, 3],"anotherkey": true,"somekey": null,"anykey": 123,"justakey": {"a": "b", "c": "d"},"otherkey": "Hello World"}';
+
+                                    var jsonobj = JSON.parse(data); // MANDATORY
+                                    var modes = { mode: 'tree', modes: ['form', 'text', 'tree'] }; // OPTIONAL
+                                    var okcallback = function (jsonobj) { alert(JSON.stringify(jsonobj)); }; // OPTIONAL
+                                    var cancelcallback = function () { }; // OPTIONAL
+                                    var errorcallback = function (e) { alert(e); }; // OPTIONAL
+
+                                    //hideBusyIndicator();
+                                    jsonDialog(jsonobj, modes, target.innerHTML, okcallback, cancelcallback, errorcallback);
+                                },
+                                error: function () {
+                                    alert("Error occured!!")
+                                }
+                            });
+                        }
+
+                        //Services
+                        
+                        if (target.innerHTML === "Services") {
+                            var controllerName = "/test/" + target.innerHTML;
+                            //var url = "/" + controllerName + "/" + target.innerHTML;
+                            //var data = target.innerHTML;
+                            $.ajax({
+                                type: "GET",
+                                crossDomain: true,
+                                // headers: { 'Access-Control-Allow-Origin': '*' },
+                                // data: data,
+                                cache: false,
+                                "headers": {
+                                    "accept": "application/json",
+                                    "Access-Control-Allow-Origin": "http://localhost:6514/"
+                                },
+                                url: controllerName,
+                                data: { "KubeType": target.innerHTML },
+                                //data: { datatype: 'default' },
+                                // data: JSON.stringify(Student),
+                                //dataType: "json"
+                                contentType: 'application/json; charset=utf-8',
+
+                                success: function (data) {
+                                    var jsonstr = '{"key": [1, 2, 3],"anotherkey": true,"somekey": null,"anykey": 123,"justakey": {"a": "b", "c": "d"},"otherkey": "Hello World"}';
+
+                                    var jsonobj = JSON.parse(data); // MANDATORY
+                                    var modes = { mode: 'tree', modes: ['form', 'text', 'tree'] }; // OPTIONAL
+                                    var okcallback = function (jsonobj) { alert(JSON.stringify(jsonobj)); }; // OPTIONAL
+                                    var cancelcallback = function () { }; // OPTIONAL
+                                    var errorcallback = function (e) { alert(e); }; // OPTIONAL
+
+                                    //hideBusyIndicator();
+                                    jsonDialog(jsonobj, modes, target.innerHTML, okcallback, cancelcallback, errorcallback);
+                                },
+                                error: function () {
+                                    alert("Error occured!!")
+                                }
+                            });
+                        }
+                        //pods
+                        if (target.innerHTML === "Pods") {
+                            var controllerName = "/test/" + target.innerHTML;
+                            //var url = "/" + controllerName + "/" + target.innerHTML;
+                            //var data = target.innerHTML;
+                            $.ajax({
+                                type: "GET",
+                                crossDomain: true,
+                                // headers: { 'Access-Control-Allow-Origin': '*' },
+                                // data: data,
+                                cache: false,
+                                "headers": {
+                                    "accept": "application/json",
+                                    "Access-Control-Allow-Origin": "http://localhost:6514/"
+                                },
+                                url: controllerName,
+                                data: { "KubeType": target.innerHTML },
+                                //data: { datatype: 'default' },
+                                // data: JSON.stringify(Student),
+                                //dataType: "json"
+                                contentType: 'application/json; charset=utf-8',
+
+                                success: function (data) {
+                                    var jsonstr = '{"key": [1, 2, 3],"anotherkey": true,"somekey": null,"anykey": 123,"justakey": {"a": "b", "c": "d"},"otherkey": "Hello World"}';
+
+                                    var jsonobj = JSON.parse(data); // MANDATORY
+                                    var modes = { mode: 'tree', modes: ['form', 'text', 'tree'] }; // OPTIONAL
+                                    var okcallback = function (jsonobj) { alert(JSON.stringify(jsonobj)); }; // OPTIONAL
+                                    var cancelcallback = function () { }; // OPTIONAL
+                                    var errorcallback = function (e) { alert(e); }; // OPTIONAL
+
+                                    //hideBusyIndicator();
+                                    jsonDialog(jsonobj, modes, target.innerHTML, okcallback, cancelcallback, errorcallback);
+                                },
+                                error: function () {
+                                    alert("Error occured!!")
+                                }
+                            });
+                        }
+                        //namespaces
+                        //alert(target.innerHTML);
+                        if (target.innerHTML === "NameSpaces") {
+                            //displayBusyIndicator();
+                            var controllerName = "/test/" + target.innerHTML;
+                            //var url = "/" + controllerName + "/" + target.innerHTML;
+                            //var data = target.innerHTML;
+                            $.ajax({
+                                type: "GET",
+                                crossDomain: true,
+                                // headers: { 'Access-Control-Allow-Origin': '*' },
+                                // data: data,
+                                cache: false,
+                                "headers": {
+                                    "accept": "application/json",
+                                    "Access-Control-Allow-Origin": "http://localhost:6514/"
+                                },
+                                url: controllerName,
+                                data: { "KubeType": target.innerHTML },
+                                //data: { datatype: 'default' },
+                                // data: JSON.stringify(Student),
+                                //dataType: "json"
+                                contentType: 'application/json; charset=utf-8',
+
+                                success: function (data) {
+                                    var jsonstr = '{"key": [1, 2, 3],"anotherkey": true,"somekey": null,"anykey": 123,"justakey": {"a": "b", "c": "d"},"otherkey": "Hello World"}';
+
+                                    var jsonobj = JSON.parse(data); // MANDATORY
+                                    var modes = { mode: 'tree', modes: ['form', 'text', 'tree'] }; // OPTIONAL
+                                    var okcallback = function (jsonobj) { alert(JSON.stringify(jsonobj)); }; // OPTIONAL
+                                    var cancelcallback = function () { }; // OPTIONAL
+                                    var errorcallback = function (e) { alert(e); }; // OPTIONAL
+
+                                    //hideBusyIndicator();
+                                    jsonDialog(jsonobj, modes, target.innerHTML, okcallback, cancelcallback, errorcallback);
+                                },
+                                error: function () {
+                                    alert("Error occured!!")
+                                }
+                            });
+                        }
+
+                        //systeeminfo
+                        if (target.innerHTML === "SystemInfo") {
+                            var controllerName = "/test/" + target.innerHTML;
+                            //var url = "/" + controllerName + "/" + target.innerHTML;
+                            //var data = target.innerHTML;
+                            $.ajax({
+                                type: "GET",
+                                crossDomain: true,
+                                // headers: { 'Access-Control-Allow-Origin': '*' },
+                                // data: data,
+                                cache: false,
+                                "headers": {
+                                    "accept": "application/json",
+                                    "Access-Control-Allow-Origin": "http://localhost:6514/"
+                                },
+                                url: controllerName,
+                                data: { "KubeType": target.innerHTML },
+                                //data: { datatype: 'default' },
+                                // data: JSON.stringify(Student),
+                                //dataType: "json"
+                                contentType: 'application/json; charset=utf-8',
+
+                                success: function (data) {
+                                    var jsonstr = '{"key": [1, 2, 3],"anotherkey": true,"somekey": null,"anykey": 123,"justakey": {"a": "b", "c": "d"},"otherkey": "Hello World"}';
+
+                                    var jsonobj = JSON.parse(data); // MANDATORY
+                                    var modes = { mode: 'tree', modes: ['form', 'text', 'tree'] }; // OPTIONAL
+                                    var okcallback = function (jsonobj) { alert(JSON.stringify(jsonobj)); }; // OPTIONAL
+                                    var cancelcallback = function () { }; // OPTIONAL
+                                    var errorcallback = function (e) { alert(e); }; // OPTIONAL
+
+                                    //hideBusyIndicator();
+                                    jsonDialog(jsonobj, modes, target.innerHTML, okcallback, cancelcallback, errorcallback);
+                                },
+                                error: function () {
+                                    alert("Error occured!!")
+                                }
+                            });
+                        };
+                    });    
+
+                     
+
+                    $('section.awSlider .carousel').carousel({
+                        pause: "hover",
+                        interval: 2000
+                    });
+
+                    var startImage = $('section.awSlider .item.active > img').attr('src');
+                    $('section.awSlider').append('<img src="' + startImage + '">');
+
+                    $('section.awSlider .carousel').on('slid.bs.carousel', function () {
+                        var bscn = $(this).find('.item.active > img').attr('src');
+                        $('section.awSlider > img').attr('src', bscn);
+                    });
+
+
+                });
+            </script>
+        </main>
+    </div>
+</body>
+
+

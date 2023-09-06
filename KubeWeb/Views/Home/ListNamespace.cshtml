@@ -1,0 +1,57 @@
+﻿@{
+    ViewData["Title"] = "ListNameSpace";
+    ViewBag.MyData = "Ziggy, Rafiq Blog Post";
+    ViewBag.json = @ViewData["data"];
+
+}
+
+<script type="text/javascript" src="~/js/bootbox.all.js"></script>
+
+<h1>ListNamespace</h1>
+
+@*
+
+<h1>@ViewData["data"]</h1>
+
+
+
+<button onclick="myFunction()">Click me</button
+*@
+
+ 
+
+<div id="jsoneditor"></div>
+
+
+<input type="hidden" id="my-data" value="@ViewBag.MyData" />
+
+<input type="hidden" id="my-data1" value="@ViewBag.json" />
+
+@section scripts {
+    <script>
+
+        $(document).ready(function () {
+
+            $('.navbar-nav').on('click', 'a', function (e) {
+
+                var namespace = $('#NameSpaceMenuXX').text();
+
+                if (namespace === 'No NameSpace' && e.target.innerText === 'Namespaces') {
+
+                    e.preventDefault();
+                    bootbox.alert({
+                        message: 'Please choose Menu Item Namespace and choose a Namespace.  Your choice will appear in th upper right hand Menu',
+                        callback: function () {
+                            console.log('This was logged in the callback!');
+                        }
+                    });
+                    return;
+                }
+
+            });
+
+        });
+
+
+    </script>
+ }

@@ -1,0 +1,60 @@
+version: '3.4'
+
+services:
+  webtest:
+    image: ${DOCKER_REGISTRY-}webtest
+    build:
+      context: .
+      dockerfile: WebTest/Dockerfile
+    ports:
+      - "5000:80"
+ 
+  webapp10:
+    image: ${DOCKER_REGISTRY-}webapp10
+    build:
+      context: .
+      dockerfile: WebApp10/Dockerfile
+    ports:
+      - "5001:80"
+ 
+  sqldata:
+    image: mcr.microsoft.com/mssql/server:2019-latest
+    environment:
+      - SA_PASSWORD=tvxs721#3
+      - ACCEPT_EULA=Y
+    ports:
+      - "1433:1433"
+    volumes:
+       - db3-data:/var/lib/mysql/data
+
+  redis:
+    image: redis:latest
+    restart: always
+    environment:
+      - ALLOW_EMPTY_PASSWORD=yes
+    ports:
+      - "6379:6379"
+    command: redis-server --save 20 1 --loglevel warning 
+    volumes:
+      - redis-data:/data
+      - redis-conf:/usr/local/etc/redis/redis.conf
+  postgress:
+    image: postgres:14.1-alpine
+    restart: always
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+    ports:
+      - '5432:5432'
+    volumes: 
+      - postgress:/var/lib/postgresql/data
+  
+
+volumes:
+  db3-data:
+  redis-data:
+  redis-conf:
+  postgress:
+
+
+

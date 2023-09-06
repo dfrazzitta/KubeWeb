@@ -1,0 +1,353 @@
+﻿<!--Accordion wrapper-->
+                <div class="accordion md-accordion" id="accordionEx" role="tablist" aria-multiselectable="true">
+
+                    <!-- Accordion card -->
+                    <div class="card">
+
+                        <!-- Card header -->
+                        <div class="card-header" role="tab" id="headingOne1">
+                            <a data-toggle="collapse" data-parent="#accordionEx" href="#collapseOne1" aria-expanded="true"
+                               aria-controls="collapseOne1">
+                                <h5 class="mb-0">
+                                    <b> Kubernetes Cluster Config </b>  <i class="fas fa-angle-down rotate-icon"></i>
+                                </h5>
+                            </a>
+                        </div>
+
+                        <!-- Card body -->
+                        <div id="collapseOne1" class="collapse show" role="tabpanel" aria-labelledby="headingOne1"
+                             data-parent="#accordionEx">
+                            <div class="card-body">
+                                <h3>The Kubernetes v1.2 control plane consists of One(1) master and Two(2) workers,
+                                Ubuntu 20.04 Operating System. </h3>
+
+
+                                <div class="row">
+                                    <div class="col-md-12 school-options-dropdown text-center">
+                                        <div class="dropdown btn-group">
+
+                                            <button id="bdn" class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
+                                                Choose Category
+                                                <span class="caret"></span>
+                                            </button>
+
+                                            <ul id="bdnc" class="dropdown-menu">
+                                                <li><a>SystemInfo</a></li>
+                                                <li><a>SystemInfo Dump</a></li>
+                                                <li><a>Config</a></li>
+                                                <li><a>NameSpaces</a></li>
+                                                <li><a>Pods</a></li>
+                                                <li><a>Services</a></li>
+                                                <li><a>Daemons</a></li>
+                                                <li><a>Metrics</a></li>
+
+                                            </ul>
+
+                                        </div>
+                                    </div>
+                                </div>
+                                Web page is served from Pod <a href="javascript:spbob();">
+                                    <img src="~/img/kube.png"
+                                         alt="MDN logo" />
+                                </a> faWebApi
+                                <button class="btn">
+                                    <i data-toggle="tooltip" title="this will produce a dialog of yaml
+                                   that is never to be seen or heard of until the end of times!"
+                                       class="btn btn-primary fa fa-home"></i> Pods
+                                </button>
+
+
+                                <button class="btn">
+                                    <i data-toggle="tooltip" title="this will produce a dialog of yaml
+                                   that is never to be seen or heard of until the end of times!"
+                                       class="btn btn-primary image ~/img/kube.png" onclick="spbob()"></i> spbob
+                                </button>
+
+                                <a href="javascript:spbob();">
+
+                                    <img src="~/img/kube.png"
+                                         alt="MDN logo" /> Pods
+                                </a>
+
+                                <img data-toggle="tooltip" title="this will produce a dialog of yaml
+                                   that is never to be seen or heard of until the end of times!" src="~/img/spbob.png" />
+
+                                <!--
+                            <div class="dropdown show">
+                                <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    Installed Cluster
+                                </a>
+
+                                <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                                    <a class="dropdown-item" href="#">Version</a>
+                                    <a class="dropdown-item" href="#">Another action</a>
+                                    <a class="dropdown-item" href="#">Something else here</a>
+                                </div>
+                            </div>
+                                -->
+                                <!--
+                            <a href="https://www.w3schools.com/">Visit W3Schools.com!</a>
+                                -->
+                                Bare Metal Kube System
+                                <button id="bareMetalSystemInfo" class="button" type="button">System Info!</button><br />
+
+                                Loadbalancer MetalLb ConfigMap is configured as L2
+                                <button id="metallb" class="button" type="button">MetalLB!</button><br />
+
+                                The Nodes are as follows
+                                <button id="nodes" class="button" type="button">Nodes!</button><br />
+
+                                The Namespaces currently are
+                                <button id="listnamespaces" class="button" type="button">NameSpaces!</button><br />
+
+
+                                Kubernetes DashBoard
+                                <button id="kubernetesDashBoard" class="button" type="button">DashBoard!</button><br />
+
+                                wolf moon officia aute,
+                                <button id="bx" class="button" type="button">Click bx Me !</button><br />
+
+                                <!--
+                            <dialog id="favDialog">
+                                <form method="dialog">
+                                    <p id="pdialog">
+
+                                        <textarea wrap="hard" id="tdialog" style="height:300px; width:900px;"></textarea>
+                                        <br>
+                                        <label>
+                                            Favorite animal:
+                                            <select>
+                                                <option></option>
+                                                <option>Brine shrimp</option>
+                                                <option>Red panda</option>
+                                                <option>Spider monkey</option>
+                                            </select>
+                                        </label>
+                                    </p>
+                                    <menu>
+                                        <button value="cancel">Cancel</button>
+                                        <button id="confirmBtn" value="default">Confirm</button>
+                                    </menu>
+                                </form>
+                            </dialog>
+                                -->
+                                <menu>
+                                    <button id="btxPod">Show All Pod Detail</button>
+                                </menu>
+
+
+
+                                <output aria-live="polite"></output>non cupidatat  <button class="button" id="front" type="button">Click Me front!</button><br />skateboard dolor brunch. Food truck quinoa nesciunt laborum
+                                eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla
+                                assumenda shoreditch et. Nihil  <button class="button" id="btx" type="button">Click Me btx!</button><br />anim keffiyeh helvetica, craft beer labore wes anderson cred
+                                nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer
+                                farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus
+                                labore sustainable VHS.
+                            </div>
+                        </div>
+
+                    </div>
+                    <!-- Accordion card -->
+                    <!-- Accordion card -->
+                    <div class="card">
+
+                        <!-- Card header -->
+                        <div class="card-header" role="tab" id="headingTwo2">
+                            <a class="collapsed" data-toggle="collapse" data-parent="#accordionEx" href="#collapseTwo2"
+                               aria-expanded="false" aria-controls="collapseTwo2">
+                                <h5 class="mb-0">
+                                    Kubernetes System <i class="fas fa-angle-down rotate-icon"></i>
+                                </h5>
+                            </a>
+                        </div>
+
+                        <!-- Card body -->
+                        <div id="collapseTwo2" class="collapse" role="tabpanel" aria-labelledby="headingTwo2"
+                             data-parent="#accordionEx">
+                            <div class="card-body">
+                                Anim pariatur cliche reprehenderit, <br>enim eiusmod high life accusamus terry richardson ad squid. 3
+                                wolf moon officia aute, non cupidatat <br />skateboard dolor brunch. Food truck quinoa nesciunt laborum
+                                eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla
+                                assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred
+                                nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer
+                                farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus
+                                labore sustainable VHS.
+                            </div>
+                        </div>
+
+                    </div>
+                    <!-- Accordion card -->
+                    <!-- Accordion card -->
+                    <div class="card">
+
+                        <!-- Card header -->
+                        <div class="card-header" role="tab" id="headingThree3">
+                            <a class="collapsed" data-toggle="collapse" data-parent="#accordionEx" href="#collapseThree3"
+                               aria-expanded="false" aria-controls="collapseThree3">
+                                <h5 class="mb-0">
+                                    Kubernetes Utilities <i class="fas fa-angle-down rotate-icon"></i>
+                                </h5>
+                            </a>
+                        </div>
+
+                        <!-- Card body -->
+                        <div id="collapseThree3" class="collapse" role="tabpanel" aria-labelledby="headingThree3"
+                             data-parent="#accordionEx">
+                            <div class="card-body">
+                                Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3
+                                wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum
+                                eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla
+                                assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred
+                                nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer
+                                farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus
+                                labore sustainable VHS.
+                            </div>
+                        </div>
+
+                    </div>
+                    <!-- Accordion card -->
+                    </div>
+
+
+
+
+
+
+                    
+            function jsonDialog(jsonobj, modes, okcallback, cancelcallback, errorcallback) {
+            if (jsonobj === undefined || jsonobj === null) {
+            if (errorcallback !== undefined)
+            errorcallback("JSON Object is not valid");
+            return false;
+            }
+
+            var jsoncontent = document.createElement('div');
+            jsoncontent.style.display = "none";
+            document.body.appendChild(jsoncontent);
+
+            var jsoneditor = document.createElement('div');
+            jsoneditor.style.width = '398px';
+            jsoneditor.style.height = '500px';
+            jsoncontent.appendChild(jsoneditor);
+
+            if (modes === undefined || modes === null)
+            modes = { mode: 'tree', modes: ['form', 'text', 'tree', 'view'] };
+
+            var editor = new JSONEditor(jsoneditor, modes);
+            editor.set(jsonobj);
+
+            var destroy = function () {
+            editor.destroy();
+            jsoneditor.remove();
+            $(jsoncontent).dialog('close');
+            jsoncontent.remove();
+            $('.ui-dialog').remove();
+            };
+
+            var ty = $(jsoncontent).dialog({
+            height: 600,
+            width: 465,
+            modal: true,
+            resizable: true,
+            position: {
+            my: "center",
+            at: "center",
+            of: window
+            },
+            buttons: [{
+            text: "OK",
+            style: "margin-right:40px; color:#3883fa;",
+            click: function () {
+            var result = editor.get();
+            destroy();
+            if (okcallback !== undefined)
+            okcallback(result);
+            }
+            }, {
+            text: "Cancel",
+            style: "color:#EE422E;",
+            click: function () {
+            destroy();
+            if (cancelcallback !== undefined)
+            cancelcallback();
+            }
+            }]
+            });
+            $(".ui-dialog-titlebar-close").css('visibility', 'hidden');
+            $("ui-dialog-titlebar").css('background', 'color: blue');
+            $(".ui-dialog").css('border-style', 'none');
+            $(".ui-dialog").css('text-align', 'center');
+            $(".ui-button").css('width', '100px');
+            $(".ui-button").css('margin-top', '10px');
+            $(".ui-button").css('margin-bottom', '10px');
+            return true;
+            }
+
+
+
+
+
+
+
+
+
+
+
+
+             Bare Metal Kube System
+                                    <button id="bareMetalSystemInfo" class="button" type="button">System Info!</button><br />
+
+                                    Loadbalancer MetalLb ConfigMap is configured as L2
+                                    <button id="metallb" class="button" type="button">MetalLB!</button><br />
+
+                                    The Nodes are as follows
+                                    <button id="nodes" class="button" type="button">Nodes!</button><br />
+
+                                    The Namespaces currently are
+                                    <button id="listnamespaces" class="button" type="button">NameSpaces!</button><br />
+
+
+                                    Kubernetes DashBoard
+                                    <button id="kubernetesDashBoard" class="button" type="button">DashBoard!</button><br />
+
+                                    wolf moon officia aute,
+                                    <button id="bx" class="button" type="button">Click bx Me !</button><br />
+
+
+                                    
+                                    <!--
+                            <dialog id="favDialog">
+                                <form method="dialog">
+                                    <p id="pdialog">
+
+                                        <textarea wrap="hard" id="tdialog" style="height:300px; width:900px;"></textarea>
+                                        <br>
+                                        <label>
+                                            Favorite animal:
+                                            <select>
+                                                <option></option>
+                                                <option>Brine shrimp</option>
+                                                <option>Red panda</option>
+                                                <option>Spider monkey</option>
+                                            </select>
+                                        </label>
+                                    </p>
+                                    <menu>
+                                        <button value="cancel">Cancel</button>
+                                        <button id="confirmBtn" value="default">Confirm</button>
+                                    </menu>
+                                </form>
+                            </dialog>
+                                -->
+                                    <menu>
+                                        <button id="btxPod">Show All Pod Detail</button>
+                                    </menu>
+
+
+
+                                    <output aria-live="polite"></output>non cupidatat  <button class="button" id="front" type="button">Click Me front!</button><br />skateboard dolor brunch. Food truck quinoa nesciunt laborum
+                                    eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla
+                                    assumenda shoreditch et. Nihil  <button class="button" id="btx" type="button">Click Me btx!</button><br />anim keffiyeh helvetica, craft beer labore wes anderson cred
+                                    nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer
+                                    farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus
+                                    labore sustainable VHS.

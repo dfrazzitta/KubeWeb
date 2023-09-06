@@ -1,0 +1,98 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: my-service
+spec:
+type: LoadBalancer # NodePort # ClusterIP
+  selector:
+    app: MyApp
+  ports:
+    # for a NodePort define a port between 30000-32000
+    - protocol: TCP
+      port: 80
+      targetPort: 9376
+
+
+kubectl expose deployment hello-world --type=LoadBalancer --name=my-service
+
+
+//////////////////////////////////////////////////////////////////////////////
+
+Service without selector
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: my-service
+spec:
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 9376
+
+# then you must make a endpoint
+
+apiVersion: v1
+kind: Endpoints
+metadata:
+  name: my-service
+subsets:
+  - addresses:
+      - ip: 192.0.2.42
+    ports:
+      - port: 9376
+
+
+ExternalName map a Service to a DNS name
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: my-service
+  namespace: prod
+spec:
+  type: ExternalName
+  externalName: my.database.example.com
+
+
+# external IP
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: my-service
+spec:
+  selector:
+    app: MyApp
+  ports:
+    - name: http
+      protocol: TCP
+      port: 80
+      targetPort: 9376
+  externalIPs:
+    - 80.11.12.10
+
+
+EndpointSlices
+
+apiVersion: discovery.k8s.io/v1beta1
+kind: EndpointSlice
+metadata:
+  name: example-abc
+  labels:
+    kubernetes.io/service-name: example
+addressType: IPv4
+ports:
+  - name: http
+    protocol: TCP
+    port: 80
+endpoints:
+  - addresses:
+      - "10.1.2.3"
+    conditions:
+      ready: true
+    hostname: pod-1
+    topology:
+      kubernetes.io/hostname: node-1
+      topology.kubernetes.io/zone: us-west2-a
+

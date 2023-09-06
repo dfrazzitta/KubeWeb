@@ -1,0 +1,677 @@
+﻿
+
+ 
+@using Microsoft.AspNetCore.Identity
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
+
+
+
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="keywords" content="htmlcss bootstrap, multi level menu, submenu, treeview nav menu examples" />
+<meta name="description" content="Bootstrap 5 navbar multilevel treeview examples for any type of project, Bootstrap 5" />  
+
+<title>K8svc</title>
+<script> src="~js/site.js"</script>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.1/animate.min.css" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jsoneditor/9.10.2/jsoneditor.css" type="text/css">
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jsoneditor/9.10.2/jsoneditor.min.js"> </script>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.2.1/themes/default/style.min.css" />
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.2.1/themes/default/style.min.css" />
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js"crossorigin="anonymous"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.2.1/jstree.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.13.2/jquery-ui.min.js"></script>
+
+<script type="text/javascript" src="~/js/bootbox.all.js"></script>
+    
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
+
+    
+
+
+
+
+
+
+    <style type="text/css">
+        .dropdown-submenu {
+            position: relative;
+        }
+
+        .dropdown-submenu > .dropdown-menu {
+            top: 0;
+            left:auto;  /*   : 100 %;   */
+            margin - top: -6px;
+        }
+
+        /* rotate caret on hover */
+        .dropdown-menu > li > a:hover:after {
+            text - decoration: underline;
+            transform: rotate(-90deg);
+        }
+        /* ============ desktop view ============ */
+
+        @@media all and (min-width: 992px) {
+
+            .dropdown-menu li {
+                position: relative;
+            }
+
+            .dropdown-menu .submenu {
+                display: none;
+                position: absolute;
+                left: 100%;
+                top: -7px;
+            }
+
+            .dropdown-menu .submenu-left {
+                right: 100%;
+                left: auto;
+            }
+
+            .dropdown-menu > li:hover {
+                background-color: #f1f1f1
+            }
+
+                .dropdown-menu > li:hover > .submenu {
+                    display: block;
+                }
+        }
+        /* ============ desktop view .end// ============ */
+
+        /* ============ small devices ============ */
+        @@media (max-width: 991px) {
+
+            .dropdown-menu .dropdown-menu {
+                margin-left: 0.7rem;
+                margin-right: 0.7rem;
+                margin-bottom: .5rem;
+            }
+        }
+        /* ============ small devices .end// ============ */
+
+    </style>
+
+
+    <script type="text/javascript">
+        document.querySelectorAll('.dropdown-menu').forEach(function (element) {
+            element.addEventListener('click', function (e) {
+                e.stopPropagation();
+            });
+        });
+    </script>
+    <script type="text/javascript">
+        function codeAddress() {
+            var namespace = $('#NameSpaceMenuXX').text();
+            var path = window.location.pathname;
+            if (namespace === 'No NameSpace' && path !== '/home/Global') {
+                 
+               // alert(path);
+                bootbox.alert({
+                    message: 'Please choose Menu Item Namespace and choose a Namespace for Kubernetes. Your choice will appear in the upper right hand Menu',
+                    callback: function () {
+                        console.log('This was logged in the callback!');
+                    }
+                });
+                return;
+            }
+        }
+
+    </script>
+</head>
+<body>
+
+    <header class="section-header py-4">
+        @*
+        <div class="container">
+        <h2>Demo page </h2>
+        </div>
+        *@
+    </header> <!-- section-header.// -->
+
+
+
+<div class="container">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+            <a class="navbar-brand" href="#">K8Svc Demo</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                    </li>
+                    @*
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="PostIt">PostIt</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="GetInfo">GetInfo</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Grid">Grid</a>
+                    </li>
+                    *@
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Global">Choose NS</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link text-dark dropdown-toggle" href="#" data-bs-toggle="dropdown">  Kube  </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="#">  Nodes  </a></li>
+                            <li>
+                                <a class="dropdown-item" href="#"> Component Services &raquo; </a>
+                                <ul class="submenu dropdown-menu">
+                                    <li><a class="dropdown-item" href="#">Submenu item 1</a></li>
+                                    <li><a class="dropdown-item" href="#">Submenu item 2</a></li>
+                                    <li>
+                                        <a class="dropdown-item" href="#">Submenu item 3 &raquo; </a>
+                                        <ul class="submenu dropdown-menu">
+                                            <li><a class="dropdown-item" href="#">Multi level 1</a></li>
+                                            <li><a class="dropdown-item" href="#">Multi level 2</a></li>
+                                        </ul>
+                                    </li>
+                                    <li><a class="dropdown-item" href="#">Submenu item 4</a></li>
+                                    <li><a class="dropdown-item" href="#">Submenu item 5</a></li>
+                                </ul>
+                            </li>
+                            <li><a class="dropdown-item" href="#"> Deployments </a></li>
+                            <li><a class="dropdown-item" href="#"> Stateful Sets </a>
+                            <li><a class="dropdown-item" href="#"> Daemon Set </a></li>
+                            <li><a class="dropdown-item" href="#"> Pods </a></li>
+                            <li><a class="dropdown-item" href="#"> Logs </a></li>
+                            <li><a class="dropdown-item" href="#"> Events </a></li>
+                            <li><a class="dropdown-item" href="#"> Replica Set </a></li>
+                            <li><a class="dropdown-item" href="#"> Replication Controller </a>
+ 
+                            <li><a class="dropdown-item" href="#"> Ingress </a>
+                            <li><a class="dropdown-item" href="#"> Roles </a></li>
+                            <li><a class="dropdown-item" href="#"> Cluster Roles </a>
+                            <li><a class="dropdown-item" href="#"> Protected Volumes </a></li>
+                            <li><a class="dropdown-item" href="#"> Protcted Volume Claims </a></li>
+                            <li><a class="dropdown-item" href="#"> Metrics </a></li>
+                            <li><a class="dropdown-item" href="#"> Choose NameSpace </a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link text-dark dropdown-toggle" href="#" data-bs-toggle="dropdown">  Kubernetes  </a>
+                        <ul class="dropdown-menu">
+                            @*<li><a class="dropdown-item" href="#"> Cluster Info </a></li>*@
+                            <li>  <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="ClusterInfo">Cluster Info</a> </li>
+
+                            @*<li><a class="dropdown-item" href="#"> Namespaces </a></li>*@
+
+                            <li>  <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="ListNamespace">Namespaces</a> </li>
+                            
+                            <li>
+                                <a class="dropdown-item" href="#"> Pods &raquo; </a>
+                                <ul class="submenu dropdown-menu">
+                                    <li><a class="dropdown-item" href="#">Type-IP</a></li>
+                                    <li><a class="dropdown-item" href="#"># of Containers</a></li>
+                                    <li>
+                                        <a class="dropdown-item" href="#">Submenu item 3 &raquo; </a>
+                                        <ul class="submenu dropdown-menu">
+                                            <li class="nav-item">
+                                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                                            </li>
+                                            <li><a class="dropdown-item" href="#">Multi level 1</a></li>
+                                            <li><a class="dropdown-item" href="#">Multi level 2</a></li>
+                                        </ul>
+                                    </li>
+                                    <li><a class="dropdown-item" href="#">Submenu item 4</a></li>
+                                    <li><a class="dropdown-item" href="#">Submenu item 5</a></li>
+                                    <ul class="submenu dropdown-menu">
+                                         <li><a class="dropdown-item" href="#">Multi level 1</a></li>
+                                        <li><a class="dropdown-item" href="#">Multi level 2</a></li>
+                                    </ul>
+                                </ul>
+                            </li>
+                            <li><a class="dropdown-item" href="#">Services </a> 
+                                <ul class="submenu dropdown-menu">
+                                    <li><a class="dropdown-item" href="#">IP</a></li>
+                                    <li><a class="dropdown-item" href="#">Type</a></li>
+                                    <li><a class="dropdown-item" href="#">EP</a></li>
+                                    <li><a class="dropdown-item" href="#">EPS</a></li>
+                                    <li>
+                                        <a class="dropdown-item" href="#">Submenu item 3 &raquo; </a>
+                                        <ul class="submenu dropdown-menu">
+                                            <li class="nav-item">
+                                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                                            </li>
+                                            <li><a class="dropdown-item" href="#">Multi level 1</a></li>
+                                            <li><a class="dropdown-item" href="#">Multi level 2</a></li>
+                                        </ul>
+                                    </li>
+                                    <li><a class="dropdown-item" href="#">Submenu item 4</a></li>
+                                    <li><a class="dropdown-item" href="#">Submenu item 5</a></li>
+                                    <ul class="submenu dropdown-menu">
+                                        <li><a class="dropdown-item" href="#">Multi level 1</a></li>
+                                        <li><a class="dropdown-item" href="#">Multi level 2</a></li>
+                                    </ul>
+                                </ul>
+                            </li>
+                            <li><a class="dropdown-item" href="#">Ingress Classes </a>
+                                <ul class="submenu dropdown-menu">
+                                    <li><a class="dropdown-item" href="#">Ingress</a></li>
+                                    <li><a class="dropdown-item" href="#"># of Containers</a></li>
+                                    <li>
+                                        <a class="dropdown-item" href="#">Submenu item 3 &raquo; </a>
+                                        <ul class="submenu dropdown-menu">
+                                            <li class="nav-item">
+                                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                                            </li>
+                                            <li><a class="dropdown-item" href="#">Multi level 1</a></li>
+                                            <li><a class="dropdown-item" href="#">Multi level 2</a></li>
+                                        </ul>
+                                    </li>
+                                    <li><a class="dropdown-item" href="#">Submenu item 4</a></li>
+                                    <li><a class="dropdown-item" href="#">Submenu item 5</a></li>
+                                    <ul class="submenu dropdown-menu">
+                                        <li><a class="dropdown-item" href="#">Multi level 1</a></li>
+                                        <li><a class="dropdown-item" href="#">Multi level 2</a></li>
+                                    </ul>
+                                </ul>
+                            </li>
+
+                            <li>
+                                <a class="dropdown-item" href="#"> DaemonSets </a>
+                                <ul class="submenu dropdown-menu">
+                                    <li><a class="dropdown-item" href="#">Ingress</a></li>
+                                    <li><a class="dropdown-item" href="#"># of Containers</a></li>
+                                    <li>
+                                        <a class="dropdown-item" href="#">Submenu item 3 &raquo; </a>
+                                        <ul class="submenu dropdown-menu">
+                                            <li class="nav-item">
+                                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                                            </li>
+                                            <li><a class="dropdown-item" href="#">Multi level 1</a></li>
+                                            <li><a class="dropdown-item" href="#">Multi level 2</a></li>
+                                        </ul>
+                                    </li>
+                                    <li><a class="dropdown-item" href="#">Submenu item 4</a></li>
+                                    <li><a class="dropdown-item" href="#">Submenu item 5</a></li>
+                                    <ul class="submenu dropdown-menu">
+                                        <li><a class="dropdown-item" href="#">Multi level 1</a></li>
+                                        <li><a class="dropdown-item" href="#">Multi level 2</a></li>
+                                    </ul>
+                                </ul>
+                            </li>
+                            
+                            <li>
+                                <a class="dropdown-item" href="#"> STS </a>
+                                <ul class="submenu dropdown-menu">
+                                    <li><a class="dropdown-item" href="#">Ingress</a></li>
+                                    <li><a class="dropdown-item" href="#"># of Containers</a></li>
+                                    <li>
+                                        <a class="dropdown-item" href="#">Submenu item 3 &raquo; </a>
+                                        <ul class="submenu dropdown-menu">
+                                            <li class="nav-item">
+                                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                                            </li>
+                                            <li><a class="dropdown-item" href="#">Multi level 1</a></li>
+                                            <li><a class="dropdown-item" href="#">Multi level 2</a></li>
+                                        </ul>
+                                    </li>
+                                    <li><a class="dropdown-item" href="#">Submenu item 4</a></li>
+                                    <li><a class="dropdown-item" href="#">Submenu item 5</a></li>
+                                    <ul class="submenu dropdown-menu">
+                                        <li><a class="dropdown-item" href="#">Multi level 1</a></li>
+                                        <li><a class="dropdown-item" href="#">Multi level 2</a></li>
+                                    </ul>
+                                </ul>
+                            </li>
+
+                            <li>
+                                <a class="dropdown-item" href="#"> Deployments </a>
+                                <ul class="submenu dropdown-menu">
+                                    <li><a class="dropdown-item" href="#">Ingress</a></li>
+                                    <li><a class="dropdown-item" href="#"># of Containers</a></li>
+                                    <li>
+                                        <a class="dropdown-item" href="#">Submenu item 3 &raquo; </a>
+                                        <ul class="submenu dropdown-menu">
+                                            <li class="nav-item">
+                                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                                            </li>
+                                            <li><a class="dropdown-item" href="#">Multi level 1</a></li>
+                                            <li><a class="dropdown-item" href="#">Multi level 2</a></li>
+                                        </ul>
+                                    </li>
+                                    <li><a class="dropdown-item" href="#">Submenu item 4</a></li>
+                                    <li><a class="dropdown-item" href="#">Submenu item 5</a></li>
+                                    <ul class="submenu dropdown-menu">
+                                        <li><a class="dropdown-item" href="#">Multi level 1</a></li>
+                                        <li><a class="dropdown-item" href="#">Multi level 2</a></li>
+                                    </ul>
+                                </ul>
+                            </li>
+
+                            <li>
+                                <a class="dropdown-item" href="#"> Events </a>
+                                <ul class="submenu dropdown-menu">
+                                    <li><a class="dropdown-item" href="#">Ingress</a></li>
+                                    <li><a class="dropdown-item" href="#"># of Containers</a></li>
+                                    <li>
+                                        <a class="dropdown-item" href="#">Submenu item 3 &raquo; </a>
+                                        <ul class="submenu dropdown-menu">
+                                            <li class="nav-item">
+                                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                                            </li>
+                                            <li><a class="dropdown-item" href="#">Multi level 1</a></li>
+                                            <li><a class="dropdown-item" href="#">Multi level 2</a></li>
+                                        </ul>
+                                    </li>
+                                    <li><a class="dropdown-item" href="#">Submenu item 4</a></li>
+                                    <li><a class="dropdown-item" href="#">Submenu item 5</a></li>
+                                    <ul class="submenu dropdown-menu">
+                                        <li><a class="dropdown-item" href="#">Multi level 1</a></li>
+                                        <li><a class="dropdown-item" href="#">Multi level 2</a></li>
+                                    </ul>
+                                </ul>
+                            </li>
+
+
+                            <li>
+                                <a class="dropdown-item" href="#"> Logs </a>
+                                <ul class="submenu dropdown-menu">
+                                    <li><a class="dropdown-item" href="#">Ingress</a></li>
+                                    <li><a class="dropdown-item" href="#"># of Containers</a></li>
+                                    <li>
+                                        <a class="dropdown-item" href="#">Submenu item 3 &raquo; </a>
+                                        <ul class="submenu dropdown-menu">
+                                            <li class="nav-item">
+                                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                                            </li>
+                                            <li><a class="dropdown-item" href="#">Multi level 1</a></li>
+                                            <li><a class="dropdown-item" href="#">Multi level 2</a></li>
+                                        </ul>
+                                    </li>
+                                    <li><a class="dropdown-item" href="#">Submenu item 4</a></li>
+                                    <li><a class="dropdown-item" href="#">Submenu item 5</a></li>
+                                    <ul class="submenu dropdown-menu">
+                                        <li><a class="dropdown-item" href="#">Multi level 1</a></li>
+                                        <li><a class="dropdown-item" href="#">Multi level 2</a></li>
+                                    </ul>
+                                </ul>
+                            </li>
+
+                            <li>
+                                <a class="dropdown-item" href="#"> PV </a>
+                                <ul class="submenu dropdown-menu">
+                                    <li><a class="dropdown-item" href="#">Ingress</a></li>
+                                    <li><a class="dropdown-item" href="#"># of Containers</a></li>
+                                    <li>
+                                        <a class="dropdown-item" href="#">Submenu item 3 &raquo; </a>
+                                        <ul class="submenu dropdown-menu">
+                                            <li class="nav-item">
+                                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                                            </li>
+                                            <li><a class="dropdown-item" href="#">Multi level 1</a></li>
+                                            <li><a class="dropdown-item" href="#">Multi level 2</a></li>
+                                        </ul>
+                                    </li>
+                                    <li><a class="dropdown-item" href="#">Submenu item 4</a></li>
+                                    <li><a class="dropdown-item" href="#">Submenu item 5</a></li>
+                                    <ul class="submenu dropdown-menu">
+                                        <li><a class="dropdown-item" href="#">Multi level 1</a></li>
+                                        <li><a class="dropdown-item" href="#">Multi level 2</a></li>
+                                    </ul>
+                                </ul>
+                            </li>
+
+
+                            <li><a class="dropdown-item" href="#"> PVC </a>
+                                <ul class="submenu dropdown-menu">
+                                    <li><a class="dropdown-item" href="#">Ingress</a></li>
+                                    <li><a class="dropdown-item" href="#"># of Containers</a></li>
+                                    <li>
+                                        <a class="dropdown-item" href="#">Submenu item 3 &raquo; </a>
+                                        <ul class="submenu dropdown-menu">
+                                            <li class="nav-item">
+                                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                                            </li>
+                                            <li><a class="dropdown-item" href="#">Multi level 1</a></li>
+                                            <li><a class="dropdown-item" href="#">Multi level 2</a></li>
+                                        </ul>
+                                    </li>
+                                    <li><a class="dropdown-item" href="#">Submenu item 4</a></li>
+                                    <li><a class="dropdown-item" href="#">Submenu item 5</a></li>
+                                    <ul class="submenu dropdown-menu">
+                                        <li><a class="dropdown-item" href="#">Multi level 1</a></li>
+                                        <li><a class="dropdown-item" href="#">Multi level 2</a></li>
+                                    </ul>
+                                </ul>
+                            </li>
+
+                            <li>
+                                <a class="dropdown-item" href="#"> Roles </a>
+                                <ul class="submenu dropdown-menu">
+                                    <li><a class="dropdown-item" href="#">Ingress</a></li>
+                                    <li><a class="dropdown-item" href="#"># of Containers</a></li>
+                                    <li>
+                                        <a class="dropdown-item" href="#">Submenu item 3 &raquo; </a>
+                                        <ul class="submenu dropdown-menu">
+                                            <li class="nav-item">
+                                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                                            </li>
+                                            <li><a class="dropdown-item" href="#">Multi level 1</a></li>
+                                            <li><a class="dropdown-item" href="#">Multi level 2</a></li>
+                                        </ul>
+                                    </li>
+                                    <li><a class="dropdown-item" href="#">Submenu item 4</a></li>
+                                    <li><a class="dropdown-item" href="#">Submenu item 5</a></li>
+                                    <ul class="submenu dropdown-menu">
+                                        <li><a class="dropdown-item" href="#">Multi level 1</a></li>
+                                        <li><a class="dropdown-item" href="#">Multi level 2</a></li>
+                                    </ul>
+                                </ul>
+                            </li>
+
+                            <li>
+                                <a class="dropdown-item" href="#"> RoleBindings </a>
+                                <ul class="submenu dropdown-menu">
+                                    <li><a class="dropdown-item" href="#">Ingress</a></li>
+                                    <li><a class="dropdown-item" href="#"># of Containers</a></li>
+                                    <li>
+                                        <a class="dropdown-item" href="#">Submenu item 3 &raquo; </a>
+                                        <ul class="submenu dropdown-menu">
+                                            <li class="nav-item">
+                                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                                            </li>
+                                            <li><a class="dropdown-item" href="#">Multi level 1</a></li>
+                                            <li><a class="dropdown-item" href="#">Multi level 2</a></li>
+                                        </ul>
+                                    </li>
+                                    <li><a class="dropdown-item" href="#">Submenu item 4</a></li>
+                                    <li><a class="dropdown-item" href="#">Submenu item 5</a></li>
+                                    <ul class="submenu dropdown-menu">
+                                        <li><a class="dropdown-item" href="#">Multi level 1</a></li>
+                                        <li><a class="dropdown-item" href="#">Multi level 2</a></li>
+                                    </ul>
+                                </ul>
+                            </li>
+
+                            <li>
+                                <a class="dropdown-item" href="#"> ClusterRoles </a>
+                                <ul class="submenu dropdown-menu">
+                                    <li><a class="dropdown-item" href="#">Ingress</a></li>
+                                    <li><a class="dropdown-item" href="#"># of Containers</a></li>
+                                    <li>
+                                        <a class="dropdown-item" href="#">Submenu item 3 &raquo; </a>
+                                        <ul class="submenu dropdown-menu">
+                                            <li class="nav-item">
+                                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                                            </li>
+                                            <li><a class="dropdown-item" href="#">Multi level 1</a></li>
+                                            <li><a class="dropdown-item" href="#">Multi level 2</a></li>
+                                        </ul>
+                                    </li>
+                                    <li><a class="dropdown-item" href="#">Submenu item 4</a></li>
+                                    <li><a class="dropdown-item" href="#">Submenu item 5</a></li>
+                                    <ul class="submenu dropdown-menu">
+                                        <li><a class="dropdown-item" href="#">Multi level 1</a></li>
+                                        <li><a class="dropdown-item" href="#">Multi level 2</a></li>
+                                    </ul>
+                                </ul>
+                            </li>
+
+                            <li>
+                                <a class="dropdown-item" href="#"> ClusterRoleBindings </a>
+                                <ul class="submenu dropdown-menu">
+                                    <li><a class="dropdown-item" href="#">Ingress</a></li>
+                                    <li><a class="dropdown-item" href="#"># of Containers</a></li>
+                                    <li>
+                                        <a class="dropdown-item" href="#">Submenu item 3 &raquo; </a>
+                                        <ul class="submenu dropdown-menu">
+                                            <li class="nav-item">
+                                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                                            </li>
+                                            <li><a class="dropdown-item" href="#">Multi level 1</a></li>
+                                            <li><a class="dropdown-item" href="#">Multi level 2</a></li>
+                                        </ul>
+                                    </li>
+                                    <li><a class="dropdown-item" href="#">Submenu item 4</a></li>
+                                    <li><a class="dropdown-item" href="#">Submenu item 5</a></li>
+                                    <ul class="submenu dropdown-menu">
+                                        <li><a class="dropdown-item" href="#">Multi level 1</a></li>
+                                        <li><a class="dropdown-item" href="#">Multi level 2</a></li>
+                                    </ul>
+                                </ul>
+                            </li>
+
+                            <li>
+                                <a class="dropdown-item" href="#"> Nodes </a>
+                                <ul class="submenu dropdown-menu">
+                                    <li><a class="dropdown-item" href="#">Ingress</a></li>
+                                    <li><a class="dropdown-item" href="#"># of Containers</a></li>
+                                    <li>
+                                        <a class="dropdown-item" href="#">Submenu item 3 &raquo; </a>
+                                        <ul class="submenu dropdown-menu">
+                                            <li class="nav-item">
+                                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                                            </li>
+                                            <li><a class="dropdown-item" href="#">Multi level 1</a></li>
+                                            <li><a class="dropdown-item" href="#">Multi level 2</a></li>
+                                        </ul>
+                                    </li>
+                                    <li><a class="dropdown-item" href="#">Submenu item 4</a></li>
+                                    <li><a class="dropdown-item" href="#">Submenu item 5</a></li>
+                                    <ul class="submenu dropdown-menu">
+                                        <li><a class="dropdown-item" href="#">Multi level 1</a></li>
+                                        <li><a class="dropdown-item" href="#">Multi level 2</a></li>
+                                    </ul>
+                                </ul>
+                            </li>
+
+                            <li>
+                                <a class="dropdown-item" href="#"> LimitRanges </a>
+                                <ul class="submenu dropdown-menu">
+                                    <li><a class="dropdown-item" href="#">Ingress</a></li>
+                                    <li><a class="dropdown-item" href="#"># of Containers</a></li>
+                                    <li>
+                                        <a class="dropdown-item" href="#">Submenu item 3 &raquo; </a>
+                                        <ul class="submenu dropdown-menu">
+                                            <li class="nav-item">
+                                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                                            </li>
+                                            <li><a class="dropdown-item" href="#">Multi level 1</a></li>
+                                            <li><a class="dropdown-item" href="#">Multi level 2</a></li>
+                                        </ul>
+                                    </li>
+                                    <li><a class="dropdown-item" href="#">Submenu item 4</a></li>
+                                    <li><a class="dropdown-item" href="#">Submenu item 5</a></li>
+                                    <ul class="submenu dropdown-menu">
+                                        <li><a class="dropdown-item" href="#">Multi level 1</a></li>
+                                        <li><a class="dropdown-item" href="#">Multi level 2</a></li>
+                                    </ul>
+                                </ul>
+                            </li>
+
+
+                            <li>
+                                <a class="dropdown-item" href="#"> ResourceQuotas </a>
+                                <ul class="submenu dropdown-menu">
+                                    <li><a class="dropdown-item" href="#">Ingress</a></li>
+                                    <li><a class="dropdown-item" href="#"># of Containers</a></li>
+                                    <li>
+                                        <a class="dropdown-item" href="#">Submenu item 3 &raquo; </a>
+                                        <ul class="submenu dropdown-menu">
+                                            <li class="nav-item">
+                                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                                            </li>
+                                            <li><a class="dropdown-item" href="#">Multi level 1</a></li>
+                                            <li><a class="dropdown-item" href="#">Multi level 2</a></li>
+                                        </ul>
+                                    </li>
+                                    <li><a class="dropdown-item" href="#">Submenu item 4</a></li>
+                                    <li><a class="dropdown-item" href="#">Submenu item 5</a></li>
+                                    <ul class="submenu dropdown-menu">
+                                        <li><a class="dropdown-item" href="#">Multi level 1</a></li>
+                                        <li><a class="dropdown-item" href="#">Multi level 2</a></li>
+                                    </ul>
+                                </ul>
+                            </li>
+
+
+
+
+
+                        </ul>
+                    </li>
+
+                    <li>  <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="ListNamespace">   SQLServer</a> </li>
+
+                    @*<li><a class="dropdown-item" href="#"> Namespaces </a></li>*@
+
+                    <li>  <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="ListNamespace">Mongo</a> </li>
+                    <li>  <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="grid">grid</a> </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
+                    </li>
+                </ul>
+             
+            </div>
+            <partial name="_LoginPartial" />
+        </nav>
+ 
+
+
+<!-- ============= COMPONENT END// ============== -->
+		<div class="container">
+
+			<main role="main" class="pb-3">
+				@RenderBody()
+			</main>
+		</div>
+
+		<footer class="border-top footer text-muted">
+			<div class="container">
+				&copy; 2019 - K8svc Demo - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+			</div>
+		</footer>
+        
+
+        @Html.RenderUnobtrusiveAjaxScript() 
+   
+        <mini-profiler />
+</div><!-- container //  -->
+	@RenderSection("Scripts", required: true)
+</body>
+</html>
+ 
+
+ 
