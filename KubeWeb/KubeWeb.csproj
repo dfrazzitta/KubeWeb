@@ -33,4 +33,8 @@
     <ProjectReference Include="..\KubeClasses\KubeClasses.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Areas\kube\" />
+  </ItemGroup>
+
 </Project>

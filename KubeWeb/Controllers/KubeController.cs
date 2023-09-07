@@ -12,10 +12,20 @@ namespace KubeWeb.Controllers
         {
             return View();
         }
- 
+
         [HttpGet]
-        public string Nodes(string udata)
+        public ActionResult GetNodesX(string udata)
         {
+            return View();
+        }
+
+
+
+            [HttpGet]
+        public ActionResult Nodes(string udata)
+        {
+
+            /*
             #region d1
                         string json = @"{
                         ""apiVersion"": ""v1"",
@@ -6567,8 +6577,9 @@ namespace KubeWeb.Controllers
                     ""resourceVersion"": """"
                 }
             }";
-
+       
             #endregion
+            */
             Thread.Sleep(50000);
             return View();
         }
