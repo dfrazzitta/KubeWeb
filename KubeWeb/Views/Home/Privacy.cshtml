@@ -2,6 +2,8 @@
 @{
     ViewData["Title"] = "Privacy Policy";
 }
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <h1>@ViewData["Title"]</h1>
 
 <p>Use this page to detail your site's privacy policy.</p>
@@ -10,33 +12,58 @@
 <h1>@ViewData["data"]</h1>
 *@
 
+<style>
+    .center {
+        display: flex;
+        justify-content: center;
+        color: green;
+    }
+</style>
 
 <button onclick="myFunction()">Click me</button>
 
+<button onclick="hidespin()">Click meh</button>
+<button onclick="showspin()">Click mes</button>
+
 <button onclick="GetPodnameSpaceGet()">GetPodnamespace</button>
 
+<br />
+<div id="krap" class="spinner-border center mx-auto" style="visibility:hidden"  role="status">
+    <span class="center mx-auto">Loading...</span>
+</div>
 
+
+ 
+
+
+<br />
+<br />
+<br />
 <div id="jsoneditor"></div>
 
 @section Scripts {
     
     <script>
-        $(document).ready(function () {
 
-            /*
-            $('.navbar-nav').on('click', 'a', function (e) {
-
-                // 'this' is the clicked anchor
-
-                var text = this.text;
-                var href = this.href;
-
-                alert(text);
-
-                // here add to local storage;
-
+            $(document).ajaxStart(function () {
+                // show loader on start
+                $("#krap").css("display", "block");
+            }).ajaxSuccess(function () {
+                // hide loader on success
+                $("#krap").css("display", "none");
             });
-            */
+         
+             function hidespin() {
+                $('#krap').css('visibility', 'hidden')
+                 //alert('hide');
+             }
+        
+             function showspin() {
+                $('#krap').css('visibility', 'visible')
+                 //alert('show');
+             }
+
+
 
             function GetPodnameSpaceGet() {
                 var student = [];
@@ -59,11 +86,17 @@
                     type: "GET",
                     url: '@Url.Action("GetPodnameSpaceGet")', // GetPodnameSpaceGet",
                     data: plop, //pets, //JSON.stringify(dataobject), //UserData, //{ name: hh, location: "Boston" },  //JSON.stringify(UserData), //JSON.stringify(obj), //{ id : 'test'}, //hh },
+                    cache: false,
+                    beforeSend: function () {
+                        // setting a timeout
+                         showspin();
+                         
+                        },
                     contentType: "application/json;charset=utf-8",
                     //contentType: "application/x-www-form-urlencoded; charset=utf-8",
                     dataType: "json",
                     success: function (response) {
-                        //alert(response);
+                        alert(response);
                         const container = document.getElementById('jsoneditor')
 
                         const options = {
@@ -73,9 +106,22 @@
                     },
                     error: function (response) {
                         alert(response.responseText);
-                    }
+                    },
+                    complete: function () {
+
+                          hidespin();
+
+                        }
                 });
             }
+
+
+
+        $(document).ready(function () {
+
+ 
+
+ 
             // end of function
 
 

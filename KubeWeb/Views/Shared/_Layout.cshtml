@@ -34,14 +34,8 @@
     
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
 
-    
-
-
-
-
-
-
     <style type="text/css">
+ 
         .dropdown-submenu {
             position: relative;
         }
@@ -107,6 +101,9 @@
                 e.stopPropagation();
             });
         });
+
+ 
+            
     </script>
     <script type="text/javascript">
         function codeAddress() {
@@ -172,7 +169,7 @@
                     <li class="nav-item dropdown">
                         <a class="nav-link text-dark dropdown-toggle" href="#" data-bs-toggle="dropdown">  Kube  </a>
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="#">  Nodes  </a></li>
+                            <li><a class="dropdown-item" asp-area="" asp-controller="kube" asp-action="Nodes">  Nodes  </a></li>
                             <li>
                                 <a class="dropdown-item" href="#"> Component Services &raquo; </a>
                                 <ul class="submenu dropdown-menu">
@@ -625,10 +622,6 @@
                                 </ul>
                             </li>
 
-
-
-
-
                         </ul>
                     </li>
 
@@ -643,18 +636,20 @@
                         <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
                     </li>
                 </ul>
-             
+ 
             </div>
             <partial name="_LoginPartial" />
         </nav>
- 
 
+
+         
 
 <!-- ============= COMPONENT END// ============== -->
 		<div class="container">
 
 			<main role="main" class="pb-3">
 				@RenderBody()
+                 
 			</main>
 		</div>
 
@@ -670,6 +665,8 @@
         <mini-profiler />
 </div><!-- container //  -->
 	@RenderSection("Scripts", required: true)
+
+    
 </body>
 </html>
  

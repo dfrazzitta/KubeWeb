@@ -28,3 +28,25 @@ body {
 .color-namespace_set {
     color: black
 }
+
+
+html, body, .containerx {
+    height: 100%;
+}
+
+.containerx {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.a {
+    position: relative;
+}
+
+.b {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%,-50%);
+} 

@@ -395,3 +395,282 @@ public Genre Post(Genre value)
  </div> <!-- container-fluid.// -->
 </nav>
 *@
+
+
+
+
+
+
+
+
+
+
+
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+index document ready
+ 
+
+                    $('.dropdown-item').click(function (e) {
+                        console.log($(this).text());
+                        //alert($(this).text());
+                       // debugger;
+                        var namespace = $('#NameSpaceMenuXX').text();
+                        if (namespace === "No NameSpace")
+                        {
+                            $('#krap').show();
+                            ChangeNameSpace();
+                            //bootbox.alert('Hello world!');
+                            $('#krap').hide();
+                            return;
+                        }
+
+                        var menuChoice = $(this).text();
+
+
+                        var nodes = "Nodes";
+                        var areEqual = nodes.toUpperCase() === $(this).text().trim().toUpperCase();
+                        //alert(menuSelect);
+                        //alert(!areEqual);
+                        //debugger;
+                        var choice = $(this).text().trim().toUpperCase();
+
+                        if (choice == "Deployments".toUpperCase())
+                            choice = "deploy";
+                        if (choice === "Stateful Sets".toUpperCase())
+                            choice = "sts";
+                        if (choice == "Pods".toUpperCase())
+                            choice = "Pods";
+                /*
+                //|| choice === "Logs".toUpperCase() ||
+                    choice == "Events".toUpperCase() || choice === "Replica Set".toUpperCase() ||
+                    choice == "Replication Controller".toUpperCase() || choice === "Roles".toUpperCase() ||
+
+                    choice == "Cluster Roles".toUpperCase() || choice === "Protected Volumes".toUpperCase() ||
+                    choice == "Protected Volume Claims".toUpperCase() || choice === "Metrics".toUpperCase() )
+                    {
+                        alert("choisen");
+                        return;
+                    }
+                    else
+                        return;
+                 */
+                         
+                        //if (nodes.toUpperCase() === $(this).text().trim().toUpperCase() ){
+                            //alert('NodesXXXXX');
+                            var data1 = [];
+                           
+                            $.ajax({
+                                type: "GET",
+                                url: '@Url.Action("GetNodeList")',
+                                data: { jsonInput: JSON.stringify("default") }, //pets, //JSON.stringify(dataobject),
+                                contentType: "application/json;charset=utf-8",
+                                //contentType: "application/x-www-form-urlencoded; charset=utf-8",
+                                dataType: "json",
+                                success: function (response) {
+                                    //alert(response);
+                                    var tt = response.items;
+                                    var listNames = response.items;
+                                     
+                                    $.each(listNames, function (key, value) {
+                                        //debugger;
+                                        //alert(key + ": " + value);
+                                        // alert(key);
+                                        //alert(value.metadata.name);
+                                        data1.push({
+                                            text: value.metadata.name, Name: value.metadata.name, finalizer: value.metadata.finalizers, RV: value.metadata.resourceversion,
+                                            MgtFields: value.metadata.managedfields, Labels: value.metadata.labels,
+                                            Annotations: value.metadata.annotations 
+                                        });
+
+                                    });
+
+                                    /*
+                            , finalizer: value.metadata.finalizers, RV: value.metadata.resourceversion,
+                        MgtFields: value.metadata.managedfields, , Labels: value.metadata.labels,
+                                Annotations: value.metadata.annotations
+                    
+                                    bootbox.prompt({
+                                        title: 'Choose a Namespace from inputs',
+                                        message: '<p>Please select an option below:</p>',
+                                        inputType: 'radio',
+                                        inputOptions: data1,
+                                        callback: function (result) {
+                                            if (result != null)
+                                            {
+                                                $('#NameSpaceMenuXX').text(result);
+                                                $('#NameSpaceMenuXX').css("color", "black")
+                                            }
+                                        }
+                                    });
+
+                      */
+                                    const container = document.getElementById('jsoneditor')
+                                    var js = data1;
+                                    var modes = { mode: 'tree', modes: ['form', 'text', 'tree'] }; // OPTIONAL
+                                    var okcallback = function (jsonobj) { alert(JSON.stringify(tt)); }; // OPTIONAL
+                                    var cancelcallback = function () { }; // OPTIONAL
+                                    var errorcallback = function (e) { alert(e); }; // OPTIO
+                                    jsonDialog1(tt, modes, 'GetAllResources', okcallback, cancelcallback, errorcallback);
+                                 
+
+
+                                 //   const container = document.getElementById('jsoneditor')
+
+                                 //   const options = {
+                                 //       mode: 'view'
+                                 //   }
+                                 //   editor = new JSONEditor(container, options, tt)
+
+
+                                },
+                                error: function (response) {
+                                    alert(response.responseText);
+                                }
+                            });
+                       // }
+                       // else{
+                       //     alert("after else");
+                       // }
+
+
+                    });
+ 
+            });
+
+        var dataNamespace = [];
+        function ChangeNameSpace()
+        {
+             
+            jQuery.ajaxSetup({ async: false });
+            $.ajax({
+                type: "GET",
+                url: '@Url.Action("GetNode")',
+                data: { jsonInput: JSON.stringify("default") }, //pets, //JSON.stringify(dataobject),
+                contentType: "application/json;charset=utf-8",
+                //contentType: "application/x-www-form-urlencoded; charset=utf-8",
+                dataType: "json",
+                success: function (response) {
+                    //alert(response);
+                    var tt = response.items;
+                    var listNames = response.items;
+                    //debugger;
+                    $.each(listNames, function (key, value) {
+                        dataNamespace.push({
+                            text: value.metadata.name, value: value.metadata.name
+                        });
+                    //debugger;
+                    });
+                    //debugger;
+                    
+                },
+                error: function (response) {
+                    alert(response.responseText);
+                }
+            });
+            
+            bootbox.prompt({
+                title: 'Choose a Namespace from inputs',
+                message: '<p>Please select NameSpace an option below:</p>',
+                inputType: 'radio',
+                inputOptions: dataNamespace,
+                callback: function (result) {
+                    //debugger;
+                    if (result != null) {
+                        $('#NameSpaceMenuXX').text(result);
+                        $('#NameSpaceMenuXX').css("color", "black")
+                    }
+                }
+            });
+            dataNamespace.length = 0;
+        }
+
+ 
+        function jsonDialog1(jsonobj, modes, titleDialog, okcallback, cancelcallback, errorcallback) {
+            if (jsonobj === undefined || jsonobj === null) {
+                if (errorcallback !== undefined)
+                    errorcallback("JSON Object is not valid");
+                return false;
+            }
+
+            var jsoncontent = document.createElement('div');
+            jsoncontent.id = 'divjson';
+            jsoncontent.style.display = "none";
+
+            $('#divjson').css('z-index', '100000');
+            document.body.appendChild(jsoncontent);
+
+            var jsoneditor = document.createElement('div');
+            jsoneditor.style.width = '598px';
+            jsoneditor.style.height = '484px';
+
+            jsoncontent.appendChild(jsoneditor);
+
+            if (modes === undefined || modes === null)
+                modes = { mode: 'tree', modes: ['form', 'text', 'tree', 'view'] };
+
+            var editor = new JSONEditor(jsoneditor, modes);
+            editor.set(jsonobj);
+
+            var destroy = function () {
+                editor.destroy();
+                jsoneditor.remove();
+                $(jsoncontent).dialog('close');
+                jsoncontent.remove();
+                $('.ui-dialog').remove();
+            };
+            //https://api.jqueryui.com/position/
+            //https://jqueryui.com/position/
+            $(jsoncontent).dialog({
+                height: 610, //560,
+                width: 600,
+                resizable: true,
+                modal: true,
+                //visibility: inherit,
+                // dialogClass: "alert101",
+                draggable: true,
+                closeOnEscape: false,
+
+                title: "Resource: " + titleDialog,
+                position: {
+                    my: "center",
+                    at: "top",
+                    of: window
+                },
+                buttons: [{
+                    text: "OK",
+                    style: "margin-right:40px; color:#3883fa;",
+                    click: function () {
+                        var result = editor.get();
+                        destroy();
+                        if (okcallback !== undefined)
+                            okcallback(result);
+                        // hideBusyIndicator();
+                    }
+                }, {
+                    text: "Cancel",
+                    style: "color:#EE422E;",
+                    click: function () {
+                        destroy();
+                        if (cancelcallback !== undefined)
+                            cancelcallback();
+                        // hideBusyIndicator();
+                    }
+                }]
+            }).append('<img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRLqBq0ilAid0OE2A0Qx94ujF_M9DugbAGVyg&usqp=CAU" width = "100" height = "60"/>  ');
+            $(".ui-dialog-titlebar-close").css('visibility', 'hidden');
+            $("ui-dialog-titlebar").css('background', 'color: blue');
+            $(".ui-dialog").css('border-style', 'none');
+            $(".ui-dialog").css('z-index', '505');
+            $(".ui-dialog-titlebar").css('visibility', 'hidden');
+            $(".ui-dialog-titlebar").css('background', 'color: red');
+            $(".ui-dialog").css('modal', 'true');
+            $(".ui-dialog").css('text-align', 'center');
+            $(".ui-button").css('width', '100px');
+            $(".ui-button").css('margin-top', '10px');
+            $(".ui-button").css('margin-bottom', '10px');
+
+
+            return true;
+        }
+    </script>

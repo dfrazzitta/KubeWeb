@@ -1,15 +1,22 @@
 using AspNetCore.Unobtrusive.Ajax;
+using KubeWeb.classes;
 using KubeWeb.Data;
 using KubeWeb.prometheus;
 using Microsoft.AspNetCore.HttpLogging;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Razor;
 using Microsoft.CodeAnalysis.Scripting;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
-
+/*
+builder.Services.Configure<RazorViewEngineOptions>(options =>
+{
+    var expander = new CustomViewLocationExpander();
+    options.ViewLocationExpanders.Add(expander);
+});*/
 
 builder.Services.AddHttpLogging(logging =>
 {

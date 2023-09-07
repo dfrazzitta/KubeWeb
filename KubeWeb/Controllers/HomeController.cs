@@ -1,7 +1,7 @@
 ﻿using AspNetCore.Unobtrusive.Ajax;
 using Humanizer.Localisation;
 using k8s.Models;
- 
+using KubeClasses;
 using KubeWeb.classes;
 using KubeWeb.Models;
 using Microsoft.AspNetCore.Mvc;
@@ -14,14 +14,6 @@ using System.Text;
 
 namespace KubeWeb.Controllers
 {
-
-    public class kubeParams
-    {
-        public string? kubeaction { get; set; }
-        public string? kubenamespace { get; set; }
-
-    }
- 
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
@@ -51,6 +43,32 @@ namespace KubeWeb.Controllers
             }
 
             return View();
+        }
+
+
+        public async Task<string> GetNode(string jsonInput)
+        {
+            var str = jsonInput;
+            kubeParams lp = new kubeParams();
+            lp.kubenamespace = "default";
+            lp.kubeaction = "GetNodesList";
+
+            using (var client = new HttpClient())
+            {
+                string json = JsonConvert.SerializeObject(lp, Formatting.Indented);
+                var httpContent1 = new StringContent(json, Encoding.UTF8, "application/json");
+                var response1 = await client.PostAsync("http://KubeApi/api/kube/GetNodes", httpContent1);
+                // var httpContent1 = new StringContent(json, Encoding.UTF8, "application/json");
+                // var response1 = await client.PostAsync("http://KubeApi/kube/PostListNamespaceList/", httpContent1);
+                //var httpContent = new StringContent(jsonInput, Encoding.UTF8, "application/json");
+                //var response = await client.PostAsync("http://KubeApi/api/values/", httpContent);
+                //  Assert.True(response.IsSuccessStatusCode);
+                response1.EnsureSuccessStatusCode();
+                var jk = await response1.Content.ReadAsStringAsync().ConfigureAwait(false);
+                //ViewData["data"] = jk; // await response.Content.ReadAsStringAsync();
+                return jk;
+            }
+
         }
 
         public async Task<string>  GetNodeList(string jsonInput)
@@ -6673,6 +6691,13 @@ namespace KubeWeb.Controllers
 }";
 
             #endregion
+            Thread.Sleep(50000);
+            return View();
+        }
+
+
+        public IActionResult Nodes()
+        {
             return View();
         }
 

@@ -1,19 +1,14 @@
 ﻿using k8s.Models;
 using k8s;
 using Microsoft.AspNetCore.Mvc;
- 
+using KubeClasses;
+
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace KubeApi.Controllers
 {
 
-    public class kubeParams
-    {
-        public string? kubeaction { get; set; }
-        public string? kubenamespace { get; set; }
-
-    }
 
 
     [Route("api/[controller]")]
@@ -80,6 +75,24 @@ namespace KubeApi.Controllers
 
             return list;
         }
+
+
+        //[Route("ListNodesList")]
+        //[HttpGet] // There are HttpGet, HttpPost, HttpPut, HttpDelete.
+        [HttpPost("[action]")]
+        public V1NamespaceList GetNodes([FromBody] kubeParams value)
+        {
+            var k8SClientConfig = KubernetesClientConfiguration.BuildConfigFromConfigFile("/app/config");
+            IKubernetes client = new Kubernetes(k8SClientConfig);
+            var list = client.CoreV1.ListNamespace();
+            return list;
+        }
+
+
+
+
+
+
 
         //[Route("ListNodesList")]
         //[HttpGet] // There are HttpGet, HttpPost, HttpPut, HttpDelete.
