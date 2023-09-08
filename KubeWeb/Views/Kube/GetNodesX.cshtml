@@ -5,9 +5,28 @@
 
 <h1>GetNodesX</h1>
 
- 
+<style>
+    .centervv {
+        border: 5px solid;
+        position: absolute;
+        top: 50%;
+        transform: translate(0, -50%);
+        padding: 10px;
+        width: 50%;
+         
+    }
+</style>
 
- 
+<div class="centervv">
+    <p>This div takes up the width specified in CSS and the remaining 
+        space is split equally between the two margins.</p>
+</div>
+
+<br />
+<br />
+<br />
+
+
 <div class="text-center">
     <h1 class="display-4">Welcome</h1>
     <p>Controller Code for this page <a href="https://github.com/dfrazzitta/KubeWeb/blob/master/KubeWeb/Controllers/KubeController.cs">da code</a>.</p>
@@ -15,6 +34,15 @@
 </div>
 
 <div id="jsoneditor"></div>
+
+<br />
+<br />
+
+<div style="text-align:right">
+    This text will be centered.
+    <p>So will this paragraph.</p>
+</div>
+
 
 
 <br />
@@ -28,10 +56,9 @@
     </div>
     <div class="card-body">
         <h5 class="card-title">This demo uses Kind Cluster</h5>
-        <p class="card-text">Includes Ingress/Metallb/ArgoCD/Istio</p>
-        <a href="https://kind.sigs.k8s.io/" class="btn btn-primary">Kind</a>
-        <a id="myButton" onclick="myButton()" class="btn btn-primary">Json</a>
-        <a href="https://kind.sigs.k8s.io/" class="btn btn-primary">Kind</a>
+        <p class="card-text">Get Namespaces</p>
+        <a class="dropdown-item" asp-area="" asp-controller="kube" asp-action="GetNodesX" class="btn btn-primary">Kind</a>
+         
 
     </div>
     <div class="card-footer text-muted">
