@@ -11,7 +11,7 @@ namespace KubeApi.Controllers
 
 
 
-    [Route("api/[controller]")]
+    [Route("[controller]")]
     [ApiController]
     
     public class KubeController : ControllerBase
@@ -32,7 +32,7 @@ namespace KubeApi.Controllers
 
 
         [HttpPost("[action]")]  // There are HttpGet, HttpPost, HttpPut, HttpDelete.
-        public V1NamespaceList PostListNamespaceList([FromBody] string value) //string jsonInput)
+        public V1NamespaceList PostListNamespaceList([FromBody] kubeParams value) //string jsonInput)
         {
 
             var k8SClientConfig = KubernetesClientConfiguration.BuildConfigFromConfigFile("/app/config");

@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using KubeClasses;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using System.Text;
@@ -14,14 +15,40 @@ namespace KubeWeb.Controllers
         }
 
         [HttpGet]
-        public ActionResult GetNodesX(string udata)
+        public ActionResult GetNamespace(string udata)
         {
             return View();
         }
 
+        [HttpGet]
+        //[ValidateAntiForgeryToken]
+        public async Task<string> GetNamespaceList(string jsonInput)
+        {
+            var str = jsonInput;
+            kubeParams lp = new kubeParams();
+            lp.kubenamespace = "default";
+            lp.kubeaction = "PostNodesList";
 
+            using (var client = new HttpClient())
+            {
+                // KubeLibrary.Account ac = new Account();
+                //  ac.Email = "james@example.com";
+                string json = JsonConvert.SerializeObject(lp, Formatting.Indented);
+                var httpContent1 = new StringContent(json, Encoding.UTF8, "application/json");
+                var response1 = await client.PostAsync("http://KubeApi/kube/PostListNamespaceList", httpContent1);
+                // var httpContent1 = new StringContent(json, Encoding.UTF8, "application/json");
+                // var response1 = await client.PostAsync("http://KubeApi/kube/PostListNamespaceList/", httpContent1);
+                //var httpContent = new StringContent(jsonInput, Encoding.UTF8, "application/json");
+                //var response = await client.PostAsync("http://KubeApi/api/values/", httpContent);
+                //  Assert.True(response.IsSuccessStatusCode);
+                response1.EnsureSuccessStatusCode();
+                var jk = await response1.Content.ReadAsStringAsync().ConfigureAwait(false);
+                //ViewData["data"] = jk; // await response.Content.ReadAsStringAsync();
+                return jk;
+            }
+         }
 
-            [HttpGet]
+        [HttpGet]
         public ActionResult Nodes(string udata)
         {
 

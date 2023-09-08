@@ -162,14 +162,16 @@
                     <li class="nav-item">
                         <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Grid">Grid</a>
                     </li>
-                    *@
+                    
                     <li class="nav-item">
                         <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Global">Choose NS</a>
                     </li>
+                    *@
                     <li class="nav-item dropdown">
                         <a class="nav-link text-dark dropdown-toggle" href="#" data-bs-toggle="dropdown">  Kube  </a>
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" asp-area="" asp-controller="kube" asp-action="GetNodesX">  Nodes  </a></li>
+                            <li><a class="dropdown-item" asp-area="" asp-controller="kube" asp-action="GetNamespace"> Choose NameSpace </a></li>
+                            <li><a class="dropdown-item" asp-area="" asp-controller="kube" asp-action="GetNode">  Nodes  </a></li>
                             <li>
                                 <a class="dropdown-item" href="#"> Component Services &raquo; </a>
                                 <ul class="submenu dropdown-menu">
@@ -201,7 +203,7 @@
                             <li><a class="dropdown-item" href="#"> Protected Volumes </a></li>
                             <li><a class="dropdown-item" href="#"> Protcted Volume Claims </a></li>
                             <li><a class="dropdown-item" href="#"> Metrics </a></li>
-                            <li><a class="dropdown-item" href="#"> Choose NameSpace </a></li>
+ 
                         </ul>
                     </li>
                     <li class="nav-item dropdown">

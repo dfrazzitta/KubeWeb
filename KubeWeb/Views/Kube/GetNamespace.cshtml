@@ -1,9 +1,13 @@
 ﻿
 @{
-    ViewData["Title"] = "GetNodesX";
+    ViewData["Title"] = "GetNamespace";
+
+     
+    
+    
 }
 
-<h1>GetNodesX</h1>
+<h1>GetNamespace</h1>
 
 <style>
     .centervv {
@@ -13,7 +17,6 @@
         transform: translate(0, -50%);
         padding: 10px;
         width: 50%;
-         
     }
 
     .spinner {
@@ -29,22 +32,22 @@
 @*
 onclick="showspin()"
 onclick="hidespin()"
-*@ 
- 
+*@
+
 <button id="showb" type="button" onclick="showspin()" class="btn btn-primary">Show</button>
 <button id="hideb" type="button" onclick="hidespin()" class="btn btn-primary">Hide</button>
 
 @*
 <div class="centervv">
-    <p>This div takes up the width specified in CSS and the remaining 
+    <p>This div takes up the width specified in CSS and the remaining
         space is split equally between the two margins.</p>
 </div>
- 
+
 <br />
 <br />
 <br />
 
- 
+
 <div class="text-center">
     <h1 class="display-4">Welcome</h1>
     <p>Controller Code for this page <a href="https://github.com/dfrazzitta/KubeWeb/blob/master/KubeWeb/Controllers/KubeController.cs">da code</a>.</p>
@@ -63,18 +66,18 @@ onclick="hidespin()"
 
 *@
 
-
+ 
 <div id="jsoneditor"></div>
 
- 
+
 
 <div id="spinnerx" class="spinner spinner-grow spinner-grow-md" style="visibility:hidden;">
     <i class="fa fa-spinner fa-spin"></i>
 </div>
 
 <br />
- 
- 
+
+
 
 <div class="card text-center">
     <div class="card-header">
@@ -92,7 +95,7 @@ onclick="hidespin()"
     </div>
 </div>
 
- 
+
 
 
 <div id="loader" class="center"></div>
@@ -114,7 +117,7 @@ onclick="hidespin()"
 </div>
 
 @*
- 
+
 *@
 
 
@@ -132,10 +135,14 @@ onclick="hidespin()"
         var dataNamespace = [];
 
         function Namespaces() {
+            //var myData = document.getElementById("my-data").value;
+            //console.log(myData);
+            //debugger;
+            showspin();
             jQuery.ajaxSetup({ async: false });
             $.ajax({
                 type: "GET",
-                url: '@Url.Action("GetNode")',
+                url: '@Url.Action("GetNodeList")',
                 data: { jsonInput: JSON.stringify("default") }, //pets, //JSON.stringify(dataobject),
                 contentType: "application/json;charset=utf-8",
                 //contentType: "application/x-www-form-urlencoded; charset=utf-8",
@@ -149,6 +156,7 @@ onclick="hidespin()"
                         dataNamespace.push({
                             text: value.metadata.name, value: value.metadata.name
                         });
+
                         //debugger;
                     });
                     //debugger;
@@ -158,7 +166,7 @@ onclick="hidespin()"
                     alert(response.responseText);
                 }
             });
-
+            hidespin();
             bootbox.prompt({
                 title: 'Choose a Namespace from inputs',
                 message: '<p>Please select NameSpace an option below:</p>',
@@ -267,7 +275,7 @@ onclick="hidespin()"
 
         $(document).ready(function () {
 
-             
+
         });
     </script>
 }
