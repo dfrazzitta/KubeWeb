@@ -1,9 +1,11 @@
 ﻿
 @{
-    ViewData["Title"] = "GetNamespace";
+    ViewData["Title"] = "GetPods";
 }
 
-<h1>GetNamespace</h1>
+<h1>GetPods</h1>
+
+
 
 <style>
     .centervv {
@@ -26,43 +28,43 @@
 
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
 @*
-onclick="showspin()"
-onclick="hidespin()"
+    onclick="showspin()"
+    onclick="hidespin()"
 *@
 
 <button id="showb" type="button" onclick="showspin()" class="btn btn-primary">Show</button>
 <button id="hideb" type="button" onclick="hidespin()" class="btn btn-primary">Hide</button>
 
 @*
-<div class="centervv">
-    <p>This div takes up the width specified in CSS and the remaining
-        space is split equally between the two margins.</p>
-</div>
+    <div class="centervv">
+        <p>This div takes up the width specified in CSS and the remaining
+            space is split equally between the two margins.</p>
+    </div>
 
-<br />
-<br />
-<br />
+    <br />
+    <br />
+    <br />
 
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Controller Code for this page <a href="https://github.com/dfrazzitta/KubeWeb/blob/master/KubeWeb/Controllers/KubeController.cs">da code</a>.</p>
-    <p>View Code for this page <a href="https://github.com/dfrazzitta/KubeWeb/blob/master/KubeWeb/Views/Kube/GetNodeX.cshtml">da view</a>.</p>
-    <button id="hideb" type="button" onclick="Namespaces()" class="btn btn-primary">Get Namespaces</button>
-</div>
+    <div class="text-center">
+        <h1 class="display-4">Welcome</h1>
+        <p>Controller Code for this page <a href="https://github.com/dfrazzitta/KubeWeb/blob/master/KubeWeb/Controllers/KubeController.cs">da code</a>.</p>
+        <p>View Code for this page <a href="https://github.com/dfrazzitta/KubeWeb/blob/master/KubeWeb/Views/Kube/GetNodeX.cshtml">da view</a>.</p>
+        <button id="hideb" type="button" onclick="Namespaces()" class="btn btn-primary">Get Namespaces</button>
+    </div>
 
-<br />
-<br />
+    <br />
+    <br />
 
-<div style="text-align:right">
-    This text will be centered.
-    <p>So will this paragraph.</p>
-</div>
+    <div style="text-align:right">
+        This text will be centered.
+        <p>So will this paragraph.</p>
+    </div>
 
 
 *@
 
- 
+
 <div id="jsoneditor"></div>
 
 
