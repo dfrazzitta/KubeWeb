@@ -165,7 +165,7 @@
                     
                     <li class="nav-item">
                         <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Global">Choose NS</a>
-                    </li>
+                    </li>  GetPods
                     *@
                     <li class="nav-item dropdown">
                         <a class="nav-link text-dark dropdown-toggle" href="#" data-bs-toggle="dropdown">  Kube  </a>
@@ -191,7 +191,7 @@
                             <li><a class="dropdown-item" href="#"> Deployments </a></li>
                             <li><a class="dropdown-item" href="#"> Stateful Sets </a>
                             <li><a class="dropdown-item" href="#"> Daemon Set </a></li>
-                            <li><a class="dropdown-item" href="#"> Pods </a></li>
+                            <li><a class="dropdown-item" asp-area="" asp-controller="kube" asp-action="GetPodsX">  PodsX  </a></li>
                             <li><a class="dropdown-item" href="#"> Events </a></li>
                             <li><a class="dropdown-item" href="#"> Roles </a></li>
                             <li><a class="dropdown-item" href="#"> Cluster Roles </a>

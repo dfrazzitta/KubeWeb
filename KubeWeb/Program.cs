@@ -89,7 +89,7 @@ builder.Services.AddHealthChecks();
 var app = builder.Build();
 
 
-app.UseHttpLogging();
+//app.UseHttpLogging();
 
 
 

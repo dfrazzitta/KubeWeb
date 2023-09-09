@@ -152,33 +152,35 @@ onclick="hidespin()"
                         dataNamespace.push({
                             text: value.metadata.name, value: value.metadata.name
                         });
+                           
 
                         //debugger;
                     });
-                    //debugger;
+                    hidespin();
+                    bootbox.prompt({
+                        title: 'Choose a Namespace from inputs',
+                        message: '<p>Please select NameSpace an option below:</p>',
+                        inputType: 'radio',
+                        inputOptions: dataNamespace,
+                        callback: function (result) {
+                            //debugger;
+                            if (result != null) {
+                                $('#NameSpaceMenuXX').text(result);
+                                $('#NameSpaceMenuXX').css("color", "black")
+                            }
+                        }
+                    });
+                    dataNamespace.length = 0;
+                    jQuery.ajaxSetup({ async: true });
 
                 },
                 error: function (response) {
                     alert("error");
                     alert(response.responseText);
+                    jQuery.ajaxSetup({ async: true });
                 }
             });
-            hidespin();
-            bootbox.prompt({
-                title: 'Choose a Namespace from inputs',
-                message: '<p>Please select NameSpace an option below:</p>',
-                inputType: 'radio',
-                inputOptions: dataNamespace,
-                callback: function (result) {
-                    //debugger;
-                    if (result != null) {
-                        $('#NameSpaceMenuXX').text(result);
-                        $('#NameSpaceMenuXX').css("color", "black")
-                    }
-                }
-            });
-            dataNamespace.length = 0;
-
+            
         }
 
 

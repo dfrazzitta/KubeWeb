@@ -1,0 +1,222 @@
+﻿
+@{
+    ViewData["Title"] = "GetPodsX";
+}
+
+<h1>GetPodsX</h1>
+
+
+<style>
+    .centervv {
+        border: 1px solid;
+        position: absolute;
+        top: 50%;
+        transform: translate(0, -50%);
+        padding: 10px;
+        width: 50%;
+    }
+
+    .spinner {
+        position: fixed;
+        z-index: 1031;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+</style>
+
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+
+
+<button id="showb" type="button" onclick="showspin()" class="btn btn-primary">Show</button>
+<button id="hideb" type="button" onclick="hidespin()" class="btn btn-primary">Hide</button>
+
+<div id="jsoneditor"></div>
+
+<div id="spinnerx" class="spinner spinner-grow spinner-grow-md" style="visibility:hidden;">
+    <i class="fa fa-spinner fa-spin"></i>
+</div>
+
+<br />
+<div class="card text-center">
+    <div class="card-header">
+        About this Demo
+    </div>
+    <div class="card-body">
+        <h5 class="card-title">This demo uses Kind Cluster</h5>
+        <p class="card-text">Get Namespaces</p>
+
+        <a id="myButtonn" onclick="Pods()" class="btn btn-primary">Pods</a>
+
+    </div>
+    <div class="card-footer text-muted">
+        2 days ago
+    </div>
+</div>
+
+<div id="loader" class="center"></div>
+<div class="card text-center">
+    <div class="card-header">
+        About this Demo11
+    </div>
+    <div class="card-body">
+        <h5 class="card-title">This demo uses Kind Cluster</h5>
+        <p class="card-text">Includes Ingress/Metallb/ArgoCD/Istio</p>
+        <a href="https://kind.sigs.k8s.io/" class="btn btn-primary">Kind</a>
+        <a id="myButton" onclick="myButton1()" class="btn btn-primary">Button1</a>
+        <a href="https://kind.sigs.k8s.io/" class="btn btn-primary">Kind</a>
+
+    </div>
+    <div class="card-footer text-muted">
+        2 days ago
+    </div>
+</div>
+
+
+<script>
+
+
+    function showspin() {
+        $('#spinnerx').css('visibility', 'visible');
+    }
+
+    function hidespin() {
+        $('#spinnerx').css('visibility', 'hidden');
+    }
+
+    var dataNamespace = [];
+
+    function Pods() {
+        //var myData = document.getElementById("my-data").value;
+        //console.log(myData);
+        //debugger;
+        var ns = $('#NameSpaceMenuXX').text();
+        var areEqual = ns.toUpperCase() === 'No NameSpace'.toUpperCase();
+        if (!areEqual)
+        {
+            alert('Please choose a Namespace');
+            return;
+        }
+        //debugger;
+        showspin();
+        jQuery.ajaxSetup({ async: false });
+        $.ajax({
+            type: "GET",
+            url: '@Url.Action("GetPodsList")',
+            data: { jsonInput: JSON.stringify("default") },
+            contentType: "application/json;charset=utf-8",
+            //contentType: "application/x-www-form-urlencoded; charset=utf-8",
+            dataType: "json",
+            success: function (response) {
+                //alert(response);
+                var tt = response.items;
+                var listNames = response.items;
+                hidespin();
+                const container = document.getElementById('jsoneditor')
+                 
+                var modes = { mode: 'tree', modes: ['form', 'text', 'tree'] }; // OPTIONAL
+                var okcallback = function (jsonobj) { alert(JSON.stringify(tt)); }; // OPTIONAL
+                var cancelcallback = function () { }; // OPTIONAL
+                var errorcallback = function (e) { alert(e); }; // OPTIO
+                jsonDialog12(tt, modes, 'GetAllResources', okcallback, cancelcallback, errorcallback);
+            },
+            error: function (response) {
+                alert("error");
+                alert(response.responseText);
+            }
+        });
+    }
+
+    function jsonDialog12(jsonobj, modes, titleDialog, okcallback, cancelcallback, errorcallback) {
+        if (jsonobj === undefined || jsonobj === null) {
+            if (errorcallback !== undefined)
+                errorcallback("JSON Object is not valid");
+            return false;
+        }
+
+        var jsoncontent = document.createElement('div');
+        jsoncontent.id = 'divjson';
+        jsoncontent.style.display = "none";
+
+        $('#divjson').css('z-index', '100000');
+        document.body.appendChild(jsoncontent);
+
+        var jsoneditor = document.createElement('div');
+        jsoneditor.style.width = '598px';
+        jsoneditor.style.height = '484px';
+
+        jsoncontent.appendChild(jsoneditor);
+
+        if (modes === undefined || modes === null)
+            modes = { mode: 'tree', modes: ['form', 'text', 'tree', 'view'] };
+
+        var editor = new JSONEditor(jsoneditor, modes);
+        editor.set(jsonobj);
+
+        var destroy = function () {
+            editor.destroy();
+            jsoneditor.remove();
+            $(jsoncontent).dialog('close');
+            jsoncontent.remove();
+            $('.ui-dialog').remove();
+        };
+        //https://api.jqueryui.com/position/
+        //https://jqueryui.com/position/
+        $(jsoncontent).dialog({
+            height: 610, //560,
+            width: 600,
+            resizable: true,
+            modal: true,
+            //visibility: inherit,
+            // dialogClass: "alert101",
+            draggable: true,
+            closeOnEscape: false,
+
+            title: "Resource: " + titleDialog,
+            position: {
+                my: "center",
+                at: "top",
+                of: window
+            },
+            buttons: [{
+                text: "OK",
+                style: "margin-right:40px; color:#3883fa;",
+                click: function () {
+                    var result = editor.get();
+                    destroy();
+                    if (okcallback !== undefined)
+                        okcallback(result);
+                    // hideBusyIndicator();
+                }
+            }, {
+                text: "Cancel",
+                style: "color:#EE422E;",
+                click: function () {
+                    destroy();
+                    if (cancelcallback !== undefined)
+                        cancelcallback();
+                    // hideBusyIndicator();
+                }
+            }]
+        }).append('<img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRLqBq0ilAid0OE2A0Qx94ujF_M9DugbAGVyg&usqp=CAU" width = "100" height = "60"/>  ');
+        $(".ui-dialog-titlebar-close").css('visibility', 'hidden');
+        $("ui-dialog-titlebar").css('background', 'color: blue');
+        $(".ui-dialog").css('border-style', 'none');
+        $(".ui-dialog").css('z-index', '505');
+        $(".ui-dialog-titlebar").css('visibility', 'hidden');
+        $(".ui-dialog-titlebar").css('background', 'color: red');
+        $(".ui-dialog").css('modal', 'true');
+        $(".ui-dialog").css('text-align', 'center');
+        $(".ui-button").css('width', '100px');
+        $(".ui-button").css('margin-top', '10px');
+        $(".ui-button").css('margin-bottom', '10px');
+        return true;
+    }
+</script>
+
+
+@section scripts {
+    <script>
+    </script>
+
+};

@@ -84,14 +84,9 @@ namespace KubeWeb.Controllers
               //  ac.Email = "james@example.com";
 
                string json = JsonConvert.SerializeObject(lp, Formatting.Indented);
-
-
                 var httpContent1 = new StringContent(json, Encoding.UTF8, "application/json");
-              
+             
                 var response1 = await client.PostAsync("http://KubeApi/api/kube/PostNodesList", httpContent1);
-           
-
-
 
                 // var httpContent1 = new StringContent(json, Encoding.UTF8, "application/json");
                 // var response1 = await client.PostAsync("http://KubeApi/kube/PostListNamespaceList/", httpContent1);

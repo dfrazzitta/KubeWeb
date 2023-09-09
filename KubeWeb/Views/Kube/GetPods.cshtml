@@ -27,75 +27,34 @@
 </style>
 
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
-@*
-    onclick="showspin()"
-    onclick="hidespin()"
-*@
+ 
 
 <button id="showb" type="button" onclick="showspin()" class="btn btn-primary">Show</button>
 <button id="hideb" type="button" onclick="hidespin()" class="btn btn-primary">Hide</button>
-
-@*
-    <div class="centervv">
-        <p>This div takes up the width specified in CSS and the remaining
-            space is split equally between the two margins.</p>
-    </div>
-
-    <br />
-    <br />
-    <br />
-
-
-    <div class="text-center">
-        <h1 class="display-4">Welcome</h1>
-        <p>Controller Code for this page <a href="https://github.com/dfrazzitta/KubeWeb/blob/master/KubeWeb/Controllers/KubeController.cs">da code</a>.</p>
-        <p>View Code for this page <a href="https://github.com/dfrazzitta/KubeWeb/blob/master/KubeWeb/Views/Kube/GetNodeX.cshtml">da view</a>.</p>
-        <button id="hideb" type="button" onclick="Namespaces()" class="btn btn-primary">Get Namespaces</button>
-    </div>
-
-    <br />
-    <br />
-
-    <div style="text-align:right">
-        This text will be centered.
-        <p>So will this paragraph.</p>
-    </div>
-
-
-*@
-
-
+ 
 <div id="jsoneditor"></div>
-
-
-
+ 
 <div id="spinnerx" class="spinner spinner-grow spinner-grow-md" style="visibility:hidden;">
     <i class="fa fa-spinner fa-spin"></i>
 </div>
 
 <br />
-
-
-
-<div class="card text-center">
+ <div class="card text-center">
     <div class="card-header">
         About this Demo
     </div>
     <div class="card-body">
         <h5 class="card-title">This demo uses Kind Cluster</h5>
         <p class="card-text">Get Namespaces</p>
-        <a class="dropdown-item" asp-area="" asp-controller="kube" asp-action="GetNodesX" class="btn btn-primary">Kind</a>
-        <a id="myButtonn" onclick="Namespaces()" class="btn btn-primary">Namespaces</a>
+         
+        <a id="myButtonn" onclick="Pods()" class="btn btn-primary">Pods</a>
 
     </div>
     <div class="card-footer text-muted">
         2 days ago
     </div>
 </div>
-
-
-
-
+ 
 <div id="loader" class="center"></div>
 <div class="card text-center">
     <div class="card-header">
@@ -113,78 +72,66 @@
         2 days ago
     </div>
 </div>
+ 
 
-@*
+<script>
+     
 
-*@
+    function showspin() {
+        $('#spinnerx').css('visibility', 'visible');
+    }
+
+    function hidespin() {
+        $('#spinnerx').css('visibility', 'hidden');
+    }
+
+    var dataNamespace = [];
+
+    function Pods() {
+        //var myData = document.getElementById("my-data").value;
+        //console.log(myData);
+        //debugger;
+        var ns = $('#NameSpaceMenuXX').text();
+        var areEqual = ns.toUpperCase() === 'No NameSpace'.toUpperCase();
+        debugger;
+        showspin();
+        jQuery.ajaxSetup({ async: false });
+        $.ajax({
+            type: "GET",
+            url: '@Url.Action("GetPodsList")',
+            data: { jsonInput: JSON.stringify("default") },
+            contentType: "application/json;charset=utf-8",
+            //contentType: "application/x-www-form-urlencoded; charset=utf-8",
+            dataType: "json",
+            success: function (response) {
+                //alert(response);
+                var tt = response.items;
+                var listNames = response.items;
+                hidespin();
+                const container = document.getElementById('jsoneditor')
+                var js = data1;
+                var modes = { mode: 'tree', modes: ['form', 'text', 'tree'] }; // OPTIONAL
+                var okcallback = function (jsonobj) { alert(JSON.stringify(tt)); }; // OPTIONAL
+                var cancelcallback = function () { }; // OPTIONAL
+                var errorcallback = function (e) { alert(e); }; // OPTIO
+               // jsonDialog1(tt, modes, 'GetAllResources', okcallback, cancelcallback, errorcallback);
+            },
+            error: function (response) {
+                alert("error");
+                alert(response.responseText);
+            }
+        });
+    }
+</script>
+
+
 
 
 @section scripts {
     <script>
-
-        function showspin() {
-            $('#spinnerx').css('visibility', 'visible');
-        }
-
-        function hidespin() {
-            $('#spinnerx').css('visibility', 'hidden');
-        }
-
-        var dataNamespace = [];
-
-        function Namespaces() {
-            //var myData = document.getElementById("my-data").value;
-            //console.log(myData);
-            //debugger;
-            showspin();
-            jQuery.ajaxSetup({ async: false });
-            $.ajax({
-                type: "GET",
-                url: '@Url.Action("GetNamespaceList")',
-                data: { jsonInput: JSON.stringify("default") }, //pets, //JSON.stringify(dataobject),
-                contentType: "application/json;charset=utf-8",
-                //contentType: "application/x-www-form-urlencoded; charset=utf-8",
-                dataType: "json",
-                success: function (response) {
-                    //alert(response);
-                    var tt = response.items;
-                    var listNames = response.items;
-                    //debugger;
-                    $.each(listNames, function (key, value) {
-                        dataNamespace.push({
-                            text: value.metadata.name, value: value.metadata.name
-                        });
-
-                        //debugger;
-                    });
-                    //debugger;
-
-                },
-                error: function (response) {
-                    alert("error");
-                    alert(response.responseText);
-                }
-            });
-            hidespin();
-            bootbox.prompt({
-                title: 'Choose a Namespace from inputs',
-                message: '<p>Please select NameSpace an option below:</p>',
-                inputType: 'radio',
-                inputOptions: dataNamespace,
-                callback: function (result) {
-                    //debugger;
-                    if (result != null) {
-                        $('#NameSpaceMenuXX').text(result);
-                        $('#NameSpaceMenuXX').css("color", "black")
-                    }
-                }
-            });
-            dataNamespace.length = 0;
-
-        }
-
-
-
+    </script>
+             
+};
 
 
 
