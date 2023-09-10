@@ -94,21 +94,14 @@ namespace KubeWeb.Controllers
         #endregion Pods
 
         #region Nodes
-
-        [HttpGet]
-        public ActionResult GetNodes(string udata)
-        {
-            return View();
-        }
-
-
+  
         [HttpGet]
         //[ValidateAntiForgeryToken]
-        public async Task<string> GetNodesList(string jsonInput)
+        public async Task<string> GetNodesListX(string jsonInput)
         {
             var str = jsonInput;
             kubeParams lp = new kubeParams();
-            lp.kubenamespace = "default";
+            lp.kubenamespace = jsonInput;
             lp.kubeaction = "PostNodesList";
 
             using (var client = new HttpClient())
@@ -117,7 +110,7 @@ namespace KubeWeb.Controllers
                 //  ac.Email = "james@example.com";
                 string json = JsonConvert.SerializeObject(lp, Formatting.Indented);
                 var httpContent1 = new StringContent(json, Encoding.UTF8, "application/json");
-                var response1 = await client.PostAsync("http://KubeApi/kube/PostListNamespaceList", httpContent1);
+                var response1 = await client.PostAsync("http://KubeApi/kube/PostListNodeList", httpContent1);
                 // var httpContent1 = new StringContent(json, Encoding.UTF8, "application/json");
                 // var response1 = await client.PostAsync("http://KubeApi/kube/PostListNamespaceList/", httpContent1);
                 //var httpContent = new StringContent(jsonInput, Encoding.UTF8, "application/json");

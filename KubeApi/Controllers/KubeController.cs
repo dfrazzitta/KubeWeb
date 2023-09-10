@@ -56,6 +56,18 @@ namespace KubeApi.Controllers
         }
 
 
+        [HttpPost("[action]")]  // There are HttpGet, HttpPost, HttpPut, HttpDelete.
+        public V1NodeList PostListNodeList([FromBody] kubeParams value) //string jsonInput)
+        {
+
+            var k8SClientConfig = KubernetesClientConfiguration.BuildConfigFromConfigFile("/app/config");
+            IKubernetes client = new Kubernetes(k8SClientConfig);
+
+            var list = client.CoreV1.ListNode(); //.ListNamespace();
+
+            return list;
+        }
+
         /*
         // [Route("ListNamespaceList")]
 
