@@ -22,6 +22,19 @@
         left: 50%;
         transform: translate(-50%, -50%);
     }
+
+    .spinnerx {
+        position: fixed;
+        z-index: 99; /* make higher than whatever is on the page */
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        margin: auto;
+        background: red;
+        width: 100px;
+        height: 100px;
+    }
 </style>
 
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
@@ -83,8 +96,14 @@ onclick="hidespin()"
         <h5 class="card-title">This demo uses Kind Cluster</h5>
         <p class="card-text">Get Namespaces</p>
         <a class="dropdown-item" asp-area="" asp-controller="kube" asp-action="GetNodesX" class="btn btn-primary">Kind</a>
-        <a id="myButtonn" onclick="Namespaces()" class="btn btn-primary">Namespaces</a>
-
+        <a id="myButtonn" onclick="ComponentServices()" class="btn btn-primary">ComponentServices</a>
+        <a id="myButtonns" onclick="Nodes()" class="btn btn-primary">Nodes</a>
+        <a id="myButtonn" onclick="Deployments()" class="btn btn-primary">Deployments</a>
+        <a id="myButtonns" onclick="STS()" class="btn btn-primary">STS</a>
+        <a id="myButtonn" onclick="DaemonSets()" class="btn btn-primary">DaemonSets</a>
+        <a id="myButtonns" onclick="Ingress()" class="btn btn-primary">Ingress</a>
+        <a id="myButtonn" onclick="Pods()" class="btn btn-primary">Pods</a>
+        <a id="myButtonns" onclick="Service()" class="btn btn-primary">Service</a>
     </div>
     <div class="card-footer text-muted">
         2 days ago
@@ -130,10 +149,145 @@ onclick="hidespin()"
 
         var dataNamespace = [];
 
-        function Namespaces() {
-            //var myData = document.getElementById("my-data").value;
-            //console.log(myData);
-            //debugger;
+
+        function CallPodList(namespace)
+        {
+            jQuery.ajaxSetup({ async: false });
+            $.ajax({
+                type: "GET",
+                url: '@Url.Action("GetPodsList")',
+                data: { jsonInput: namespace },
+                contentType: "application/json;charset=utf-8",
+                //contentType: "application/x-www-form-urlencoded; charset=utf-8",
+                dataType: "json",
+                success: function (response) {
+                    //alert(response);
+                    var tt = response.items;
+                    if (tt.length == 0) {
+                        alert("No Items returned !!!!")
+                        hidespin();
+                        jQuery.ajaxSetup({ async: true });
+                        return false;
+                    }
+                    var listNames = response.items;
+
+                    const container = document.getElementById('jsoneditor')
+
+                    var modes = { mode: 'tree', modes: ['form', 'text', 'tree'] }; // OPTIONAL
+                    var okcallback = function (jsonobj) { alert(JSON.stringify(tt)); }; // OPTIONAL
+                    var cancelcallback = function () { }; // OPTIONAL
+                    var errorcallback = function (e) { alert(e); }; // OPTIO
+                    hidespin();
+                    jsonDialog12(tt, modes, 'GetAllResources', okcallback, cancelcallback, errorcallback);
+                },
+                error: function (response) {
+                    alert("error");
+                    alert(response.responseText);
+                }
+            });
+            jQuery.ajaxSetup({ async: true });
+        }
+
+        function CallSvcList(namespace) {
+            jQuery.ajaxSetup({ async: false });
+            $.ajax({
+                type: "GET",
+                url: '@Url.Action("GetSvcList")',
+                data: { jsonInput: namespace },
+                contentType: "application/json;charset=utf-8",
+                //contentType: "application/x-www-form-urlencoded; charset=utf-8",
+                dataType: "json",
+                success: function (response) {
+                    //alert(response);
+                    var tt = response.items;
+                    if (tt.length == 0) {
+                        alert("No Items returned !!!!")
+                        hidespin();
+                        jQuery.ajaxSetup({ async: true });
+                        return false;
+                    }
+                    var listNames = response.items;
+
+                    const container = document.getElementById('jsoneditor')
+
+                    var modes = { mode: 'tree', modes: ['form', 'text', 'tree'] }; // OPTIONAL
+                    var okcallback = function (jsonobj) { alert(JSON.stringify(tt)); }; // OPTIONAL
+                    var cancelcallback = function () { }; // OPTIONAL
+                    var errorcallback = function (e) { alert(e); }; // OPTIO
+                    hidespin();
+                    jsonDialog12(tt, modes, 'GetAllResources', okcallback, cancelcallback, errorcallback);
+                },
+                error: function (response) {
+                    alert("error");
+                    alert(response.responseText);
+                }
+            });
+            jQuery.ajaxSetup({ async: true });
+        }
+
+
+ //#region POD
+        function Pods() {
+
+            showspin();
+            showspin();
+            jQuery.ajaxSetup({ async: false });
+            $.ajax({
+                type: "GET",
+                url: '@Url.Action("GetNamespaceList")',
+                data: { jsonInput: JSON.stringify("default") }, //pets, //JSON.stringify(dataobject),
+                contentType: "application/json;charset=utf-8",
+                //contentType: "application/x-www-form-urlencoded; charset=utf-8",
+                dataType: "json",
+                success: function (response) {
+                    //alert(response);
+                    var tt = response.items;
+                    var listNames = response.items;
+                    if (tt.length == 0) {
+                        alert("Operation Cancelled !!!!")
+                        hidespin();
+                        jQuery.ajaxSetup({ async: true });
+                        return false;
+                    }
+                    //debugger;
+                    $.each(listNames, function (key, value) {
+                        dataNamespace.push({
+                            text: value.metadata.name, value: value.metadata.name
+                        });
+                        //debugger;
+                    });
+                    hidespin();
+                    bootbox.prompt({
+                        title: 'Choose a Namespace from inputs',
+                        message: '<p>Please select NameSpace an option below:</p>',
+                        inputType: 'radio',
+                        inputOptions: dataNamespace,
+                        callback: function (result) {
+                            if (result === null)
+                            {
+                                hidespin();
+                                return;
+                            }
+                            // put the call here
+                            showspin();
+                            CallPodList(result);
+                         }
+                    });
+                    dataNamespace.length = 0;
+                    jQuery.ajaxSetup({ async: true });
+
+                },
+                error: function (response) {
+                    alert("error");
+                    alert(response.responseText);
+                    jQuery.ajaxSetup({ async: true });
+                }
+             });
+        }
+//#endregion POD
+
+//#region SVC
+        function Service() {
             showspin();
             jQuery.ajaxSetup({ async: false });
             $.ajax({
@@ -148,12 +302,16 @@ onclick="hidespin()"
                     var tt = response.items;
                     var listNames = response.items;
                     //debugger;
+                    if (tt.length == 0) {
+                        alert("Opration Cancelled !!!!")
+                        hidespin();
+                        jQuery.ajaxSetup({ async: true });
+                        return false;
+                    }
                     $.each(listNames, function (key, value) {
                         dataNamespace.push({
                             text: value.metadata.name, value: value.metadata.name
                         });
-                           
-
                         //debugger;
                     });
                     hidespin();
@@ -163,11 +321,14 @@ onclick="hidespin()"
                         inputType: 'radio',
                         inputOptions: dataNamespace,
                         callback: function (result) {
-                            //debugger;
-                            if (result != null) {
-                                $('#NameSpaceMenuXX').text(result);
-                                $('#NameSpaceMenuXX').css("color", "black")
+                            if (result === null)
+                            {
+                                hidespin();
+                                return;
                             }
+                            // put the call here
+                            showspin();
+                            CallSvcList(result);
                         }
                     });
                     dataNamespace.length = 0;
@@ -180,9 +341,189 @@ onclick="hidespin()"
                     jQuery.ajaxSetup({ async: true });
                 }
             });
+        }
+  
+//#endregion SVC
+
+//#region DIALOG
+
+/*
+        function jsonDialog12(jsonobj, modes, titleDialog, okcallback, cancelcallback, errorcallback) {
+                if (jsonobj === undefined || jsonobj === null) {
+                    if (errorcallback !== undefined)
+                        errorcallback("JSON Object is not valid");
+                    return false;
+                }
+
+                var jsoncontent = document.createElement('div');
+                jsoncontent.id = 'divjson';
+                jsoncontent.style.display = "none";
+
+                $('#divjson').css('z-index', '100000');
+                document.body.appendChild(jsoncontent);
+
+                var jsoneditor = document.createElement('div');
+                jsoneditor.style.width = '598px';
+                jsoneditor.style.height = '484px';
+
+                jsoncontent.appendChild(jsoneditor);
+
+                if (modes === undefined || modes === null)
+                    modes = { mode: 'tree', modes: ['form', 'text', 'tree', 'view'] };
+
+                var editor = new JSONEditor(jsoneditor, modes);
+                editor.set(jsonobj);
+
+                var destroy = function () {
+                    editor.destroy();
+                    jsoneditor.remove();
+                    $(jsoncontent).dialog('close');
+                    jsoncontent.remove();
+                    $('.ui-dialog').remove();
+                };
+                //https://api.jqueryui.com/position/
+                //https://jqueryui.com/position/
+                $(jsoncontent).dialog({
+                    height: 610, //560,
+                    width: 600,
+                    resizable: true,
+                    modal: true,
+                    //visibility: inherit,
+                    // dialogClass: "alert101",
+                    draggable: true,
+                    closeOnEscape: false,
+
+                    title: "Resource: " + titleDialog,
+                    position: {
+                        my: "center",
+                        at: "top",
+                        of: window
+                    },
+                    buttons: [{
+                        text: "OK",
+                        style: "margin-right:40px; color:#3883fa;",
+                        click: function () {
+                            var result = editor.get();
+                            destroy();
+                            if (okcallback !== undefined)
+                                okcallback(result);
+                            // hideBusyIndicator();
+                        }
+                    }, {
+                        text: "Cancel",
+                        style: "color:#EE422E;",
+                        click: function () {
+                            destroy();
+                            if (cancelcallback !== undefined)
+                                cancelcallback();
+                            // hideBusyIndicator();
+                        }
+                    }]
+                }).append('<img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRLqBq0ilAid0OE2A0Qx94ujF_M9DugbAGVyg&usqp=CAU" width = "100" height = "60"/>  ');
+                $(".ui-dialog-titlebar-close").css('visibility', 'hidden');
+                $("ui-dialog-titlebar").css('background', 'color: blue');
+                $(".ui-dialog").css('border-style', 'none');
+                $(".ui-dialog").css('z-index', '505');
+                $(".ui-dialog-titlebar").css('visibility', 'hidden');
+                $(".ui-dialog-titlebar").css('background', 'color: red');
+                $(".ui-dialog").css('modal', 'true');
+                $(".ui-dialog").css('text-align', 'center');
+                $(".ui-button").css('width', '100px');
+                $(".ui-button").css('margin-top', '10px');
+                $(".ui-button").css('margin-bottom', '10px');
+                return true;
+            }
             
         }
+        */
 
+        function jsonDialog12(jsonobj, modes, titleDialog, okcallback, cancelcallback, errorcallback) {
+            if (jsonobj === undefined || jsonobj === null) {
+                if (errorcallback !== undefined)
+                    errorcallback("JSON Object is not valid");
+                return false;
+            }
+
+            var jsoncontent = document.createElement('div');
+            jsoncontent.id = 'divjson';
+            jsoncontent.style.display = "none";
+
+            $('#divjson').css('z-index', '100000');
+            document.body.appendChild(jsoncontent);
+
+            var jsoneditor = document.createElement('div');
+            jsoneditor.style.width = '598px';
+            jsoneditor.style.height = '484px';
+
+            jsoncontent.appendChild(jsoneditor);
+
+            if (modes === undefined || modes === null)
+                modes = { mode: 'tree', modes: ['form', 'text', 'tree', 'view'] };
+
+            var editor = new JSONEditor(jsoneditor, modes);
+            editor.set(jsonobj);
+
+            var destroy = function () {
+                editor.destroy();
+                jsoneditor.remove();
+                $(jsoncontent).dialog('close');
+                jsoncontent.remove();
+                $('.ui-dialog').remove();
+            };
+            //https://api.jqueryui.com/position/
+            //https://jqueryui.com/position/
+            $(jsoncontent).dialog({
+                height: 610, //560,
+                width: 600,
+                resizable: true,
+                modal: true,
+                //visibility: inherit,
+                // dialogClass: "alert101",
+                draggable: true,
+                closeOnEscape: false,
+
+                title: "Resource: " + titleDialog,
+                position: {
+                    my: "center",
+                    at: "top",
+                    of: window
+                },
+                buttons: [{
+                    text: "OK",
+                    style: "margin-right:40px; color:#3883fa;",
+                    click: function () {
+                        var result = editor.get();
+                        destroy();
+                        if (okcallback !== undefined)
+                            okcallback(result);
+                        // hideBusyIndicator();
+                    }
+                }, {
+                    text: "Cancel",
+                    style: "color:#EE422E;",
+                    click: function () {
+                        destroy();
+                        if (cancelcallback !== undefined)
+                            cancelcallback();
+                        // hideBusyIndicator();
+                    }
+                }]
+            }).append('<img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRLqBq0ilAid0OE2A0Qx94ujF_M9DugbAGVyg&usqp=CAU" width = "100" height = "60"/>  ');
+            $(".ui-dialog-titlebar-close").css('visibility', 'hidden');
+            $("ui-dialog-titlebar").css('background', 'color: blue');
+            $(".ui-dialog").css('border-style', 'none');
+            $(".ui-dialog").css('z-index', '505');
+            $(".ui-dialog-titlebar").css('visibility', 'hidden');
+            $(".ui-dialog-titlebar").css('background', 'color: red');
+            $(".ui-dialog").css('modal', 'true');
+            $(".ui-dialog").css('text-align', 'center');
+            $(".ui-button").css('width', '100px');
+            $(".ui-button").css('margin-top', '10px');
+            $(".ui-button").css('margin-bottom', '10px');
+            return true;
+
+        }
+//#endregion DIALOG
 
 
 

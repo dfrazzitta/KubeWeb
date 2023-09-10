@@ -38,12 +38,22 @@ namespace KubeApi.Controllers
             var k8SClientConfig = KubernetesClientConfiguration.BuildConfigFromConfigFile("/app/config");
             IKubernetes client = new Kubernetes(k8SClientConfig);
 
-            var list = client.CoreV1.ListNamespacedPod("kube-system"); //.ListNamespace();
+            var list = client.CoreV1.ListNamespacedPod(value.kubenamespace); //.ListNamespace();
 
             return list;
         }
 
+        [HttpPost("[action]")]  // There are HttpGet, HttpPost, HttpPut, HttpDelete.
+        public V1ServiceList PostSvcList([FromBody] kubeParams value) //string jsonInput)
+        {
 
+            var k8SClientConfig = KubernetesClientConfiguration.BuildConfigFromConfigFile("/app/config");
+            IKubernetes client = new Kubernetes(k8SClientConfig);
+
+            var list = client.CoreV1.ListNamespacedService(value.kubenamespace); //.ListNamespace();
+
+            return list;
+        }
 
 
         /*
